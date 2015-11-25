@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Transit VanData Entry</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vandata/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="vandata/css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://shikib.ca">Shikib Mehri</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('vandata/img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Transit Quality as an Indicator of Business Types and Size</h1>
+                        <h2 class="subheading">Arabelle Hou and Shikib Mehri</h2>
+                        <span class="meta">Posted by <a href="http://shikib.ca">Shikib Mehri</a> on October 24, 2015</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>Public transit is annoying. I'm sure that at some point, we've all thought those words. Well to be fair, public transporation is a great idea; it's a cheap, easily accessible, quick and more environmentally friendly alternative to driving. </p>
+	
+		    <p>But after you're half an hour late for work because you <i> just </i> missed the one bus that goes to your destination, you can't help but think those words. And when you're stuck waiting 29 minutes (for a bus that comes every 30 minutes) five days a week, you really start to wonder... </p>
+
+                    <p>Nobody can deny that the quality of public transit isn't evenly distributed accross Vancouver. On a good day, I can get from Rupert Station to UBC in about 45 minutes via the 99 B-Line, which is only 10-15 minutes slower than driving between the two locations.</p>
+ 
+                    <p>On the other hand, to travel by transit between Rupert Station and my current Co-op (located near the southmost tip of Burnaby) takes <b>FIVE TIMES LONGER</b> than it would take to drive.</p>
+
+                    <p>It also seems to happens that when I'm stuck waiting half an hour in the freezing cold for a bus, there's never a Tim Hortons or a pizza place nearby -- I always seem to be surrounded by offices or houses. </p>
+
+                    <p>Yet when I'm getting on the SkyTrain or boarding a bus that comes every two minutes, there seems to be a plethora of places to choose from if I felt inclined to buy a coffee or grab a bite to eat.</p>
+
+                    <p>These observations are part of what motivated the topic of our data analysis. We found proof to support our pre-existing beliefs and a few things that we hadn't though of. </p>
+
+                    <h2 class="section-heading">Transit Quality</h2>
+
+                    <p>Sure I can convince most people that public transit is much worse in some locations than others with some time and a few Google Maps queries -- but it sure would be useful if I had some data to quantify my claims...</p>
+
+                    <p>Unfortunately there was no existing dataset that conviently gave us an idea of transit quality -- but that didn't stop us. Instead we generated our own data using a creative approach and a few Google Maps queries (*cough* 20,000 *cough*).</p>
+
+                    <p>We first chose 100 major intersections around Greater Vancouver that were fairly evenly spread and had approximately the same coverage as the Business Licenses dataset.</p>
+
+                    <p>Our goal was to find the <i>transit score</i> for each of these intersections -- where transit score at a particular intersection, is defined as the average over the <i>transit ratio</i> between the intersection and every other intersection j.</p>
+
+                    <p>And transit ratio is defined to be the time it takes to travel between two locations by driving divided by the the time it takes to travel between the same two locations via transit.</p> 
+
+                    <p>As most people have probably already figured out, this O(n^2) algorithm requires us to make about 10,000 queries. However, the Google Maps Distance Matrix API returns the distance and the duration for every trip query, meaning it ended up being 20,000 queries.
+
+                    <p>Unfortunately for us, the Distance Matrix API has a usage limit of 2500 queries a day. Meaning we went through more than a couple API keys...</p>
+ 
+                    <br>
+
+                    <a href="#">
+                        <img class="img-responsive" src="vandata/img/api_keys.png" alt="">
+                    </a>
+                    <span class="caption text-muted">The progression of project names as I was creating my last few API keys.</span>
+
+                    <p>Once we eventually had the transit scores for a number of intersection, we made a weighted heatmap to gain a general idea of transit quality accross Greater Vancouver.</p>
+
+                    <br>
+
+                    <a href="#">
+                        <img class="img-responsive" src="vandata/img/heat_map.jpg" alt="">
+                    </a>
+                    <span class="caption text-muted">Heat map of transit quality. Metrotown and Downtown have the strongest transit scores, quite unsurprinsgly.</span>
+
+		    <p>Now that we have some data to support our claims about the quality of public transit in different areas of Greater Vancouver, we can start analyzing the Business Licenses dataset to determine what the transit quality at a location says about the businesses that exist there.</p>
+
+                    <h2 class="section-heading">Business Types and Transit Quality</h2>
+
+                    <p>We were curious about whether the quality of the transit at a particular location gave any indication about the type of business that was exist there.</p>
+
+                    <p>So what we did was identify the nearest intersection for every single business and setting the transit score of the business to be the score at the nearest intersection.</p>
+
+                    <p>Now, we have a mapping between businesses and transit scores. After cleaning this data a bit (because there seemed to be a huge number of duplicate licenses for a few businesses), we had the data that we used for the rest of our analysis.</p>
+
+                    <p>The first thing we did was create a graph of the transit score ranges that different types of businesses tend to exist at.</p>
+
+                    <a href="#">
+                        <img class="img-responsive" src="vandata/img/transit_types.png" alt="">
+                    </a>
+                    <span class="caption text-muted">Stacked bar graph visualization of the transit score ranges different types of businesses tend to exist at.</span>
+
+                    <p>Businesses with a transit score above 600 are exceptionally easy to travel to by transit. On the other hand the very few businesses below 400 are somewhat more difficult to travel to.</p>
+
+                    <p>From the stacked bar graph we can see that almost 60% of restaurants have transit scores above 425, while around 75%-80% of Janitorial/Contracting businesss tend to have transit scores less than 425.</p>                    
+
+                    <p>This graph supports our pre-existing belief that consumer-oriented businesses tend to exist at high transit locations.</p>
+
+                    <p>Restaurants, retail businesses and even health services tend to rely on customers being able to visit them in person -- meaning that they tend to exist at high transit locations. On the other hand, janitorial services and contracting businesses are more likely to book appointments over the phone and tend to rely a lot less on people happening to walk by their location.</p>
+
+                    <h2 class="section-heading">Employees and Transit Quality</h2>
+
+                    <p>It was around this point in our analysis that I became curious of the transit score of the place I currently work (low 400s) and I started wondering how many other people were in a similar situation as me.</p>
+   
+                    <p>Below is a pie chart indicating the number of employees at varying transit score ranges in Vancouver.</p>
+
+                    <a href="#">
+                        <img class="img-responsive" style="margin: auto;" src="vandata/img/employees_transit.png" alt="">
+                    </a>
+                    <span class="caption text-muted">Pie chart indicating the number of employees at varying transit score ranges.</span>
+
+                                       
+                    <p>It really does look like most people are in a better transit situation than I am, but it'd be easier to tell if we adjusted the ranges a bit.</p>
+
+                    <a href="#">
+                        <img class="img-responsive" style="margin: auto;" src="vandata/img/employees_transit_revised.png" alt="">
+                    </a>
+                    <span class="caption text-muted">Pie chart indicating the number of employees at revised transit score ranges.</span>
+
+                    <p>It really does look like most people work in the 450 - 500 range, though as the transit score increases the number of employees seems to decrease. To give an idea of what the 450 - 500 range entails, most of Downtown is above 550, while places like Brentwood Town Centre fall in the 475 - 500 range.</p>
+
+                    <p>This made us wonder about what the size of a business said about its transit score, which is what motivated our next analysis.</p>
+
+                    <h2 class="section-heading">Business Size and Transit Quality</h2>
+
+                    <p>This question is probably the one with the most interesting answers out of our entire analysis. We wanted to gain an understanding of how the number of employees correlates with the transit score of a business.</p>
+
+                    <p>What we did was place every business into one of two categories: either it has a below average number of employees for its business type or it has an above average number of employees.</p>
+
+                    <p>After splitting the set of businesses for every type into these categories -- we redrew the stacked bar graph that we drew earlier. And observed some interesting results.</p>
+
+                    <a href="#">
+                        <img class="img-responsive" style="margin: auto;" src="vandata/img/size_transit.png" alt="">
+                    </a>
+                    <span class="caption text-muted">Size and type as an indicator of the transit score of a business.</span>
+
+                    <p>I find this to be an extremely interesting graph, just because of how many different explanations there are for the results. This graph really caused us to think about what size and transit score said about a business and how the two attributes might be related.</p>
+
+                    <p>Property costs tend to be higher at locations that are more accessible by transit -- meaning that businesses that open up at high transit score locations are going to have less room  and thus less employees.</p>
+
+                    <p> This is our explanation for why food retail places (ie. grocery stores) and health services place appear to have high transit score locations correlate with a lower number of employees.</p>
+
+                    <p>Furthermore, businesses that are more established will have a larger number of employees while still being outside of areas easily accessible by transit. This seems to be particularly true for businesses in the financial sector.</p>
+
+                    <p>Once a business grows enough to have a certain number of employees, it's likely to move into a larger office which is more likely to be in an area with less expensive property costs.And areas with less expensive property costs tend to be in low transit score areas.</p>
+
+                    <p>On the other hand, a lot of the consumer based businesses have high numbers of employees associated with large transit scores. This could be because businesses at high transit areas are more likely to grow -- thereby leading to an increased number of employees.</p>
+
+                    <p>In addition to growth, businesses in high transit areas are more likely to be open for longer to satisfy people passing by at all times of the day, thus needing employees for multiple shifts.</p>
+
+                    <p>With so many people passing by, businesses in high transit locations are more likely to be extremely busy at peak hours which would lead to having to hire a larger number of employees.</p>
+
+                    <p>It's really interesting to guess at possible explanations for the effect of transit availability on the size of businesses -- but the only way to know for sure, would be with more data.</p>
+
+ 
+                    <h2 class="section-heading">Potential Further Investigations</h2>
+                    
+                    <p>There's a lot more analysis left to do with regards to the effect of transit on businesses. I've listed a few things that we might be investigating in the near future.</p>
+		
+		    <p>It'd be interesting to investigate established businesses seperately from small businesses. Are smaller businesses more likely to exist at high transit locations? Or do big chain stores the only ones that can afford the higher property costs?</p>
+
+		    <p>If we had a suitable amount of data on the earnings of businesses, it'd be interesting to identify how much businesses at high transit locations benefit from having a greater number of by-passers. We could even identify the optimal places in Vancouver to open a small business, by optimizing the location based on the net gain of every business minus the property cost.</p>
+
+                    <p>If we analyzed the bus arrival times provided by TransLink, we could identify where people were waiting for busses more often. This data might have a stronger correlation with business success than simply computing transit scores as someone would be more likely to buy a slice of pizza from a place accross a bus stop if they knew they'd be waiting for twenty minutes. </p>
+
+                     
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://linkedin.com/in/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:mehrishikib@gmail.com">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vandata/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vandata/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="vandata/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

@@ -126,6 +126,24 @@
 
 		    <p>Now that we have some data to support our claims about the quality of public transit in different areas of Greater Vancouver, we can start analyzing the Business Licenses dataset to determine what the transit quality at a location says about the businesses that exist there.</p>
 
+
+                    <p>Below is a rough unoptimized, pseudo-coded version of how transit score is calculated -- incase my written explanation is confusing.</p>
+
+                    <pre><code>
+def transit_ratio(from, to):
+   return time_by_bus(from, to)/time_by_car(from, to)
+
+def transit_score(intersection, all_intersections):
+  scores = [transit_ratio(i, intersection) for i in all_intersections]
+  return sum(scores)/len(scores)
+
+def get_traffic_scores(all_intersections)
+  scores = {}
+  for i in all_intersections:
+    scores[i] = traffic_score(i, all_intersections)
+  return scores
+                    </code></pre>
+
                     <h2 class="section-heading">Business Types and Transit Quality</h2>
 
                     <p>We were curious about whether the quality of the transit at a particular location gave any indication about the type of business that was exist there.</p>
@@ -134,7 +152,17 @@
 
                     <p>Now, we have a mapping between businesses and transit scores. After cleaning this data a bit (because there seemed to be a huge number of duplicate licenses for a few businesses), we had the data that we used for the rest of our analysis.</p>
 
-                    <p>The first thing we did was create a graph of the transit score ranges that different types of businesses tend to exist at.</p>
+                    <p>The largest transit score was 693.8885. The lowest transit score was 317.1743. The median transit score was 496.2396. </p>
+
+                    <p>The first quartile was at 469.7478, which shows that most of the businesses between the first quartile and median have similar transit scores. The third quartile is 532.9249.</p>
+
+                    <p>The average transit score is 504.2753. The standard deviations of transit scores for businesses is 53.0564.</p>
+
+                    <p>Notice that the <b>mean</b> the <b>median</b>, which tells us the the distribution is skewed to the right. This means that the transit scores are bunched up towards the left with a tail that stretches far into the right.</p>
+
+                    <p>The skew suggests that there are a lot of businesses that are at a decent transit score but significantly fewer at higher transit scores.</p>
+
+                    <p>We created a graph of the transit score ranges that different types of businesses tend to exist at.</p>
 
                     <a href="#">
                         <img class="img-responsive" src="vandata/img/transit_types.png" alt="">
@@ -193,7 +221,7 @@
 
                     <p>Furthermore, businesses that are more established will have a larger number of employees while still being outside of areas easily accessible by transit. This seems to be particularly true for businesses in the financial sector.</p>
 
-                    <p>Once a business grows enough to have a certain number of employees, it's likely to move into a larger office which is more likely to be in an area with less expensive property costs.And areas with less expensive property costs tend to be in low transit score areas.</p>
+                    <p>Once a business grows enough to have a certain number of employees, it's likely to move into a larger office which is more likely to be in an area with less expensive property costs. And areas with less expensive property costs tend to be in low transit score areas.</p>
 
                     <p>On the other hand, a lot of the consumer based businesses have high numbers of employees associated with large transit scores. This could be because businesses at high transit areas are more likely to grow -- thereby leading to an increased number of employees.</p>
 

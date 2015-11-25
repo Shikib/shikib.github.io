@@ -131,7 +131,7 @@
 
                     <pre><code>
 def transit_ratio(from, to):
-   return time_by_bus(from, to)/time_by_car(from, to)
+   return time_by_car(from, to)/time_by_bus(from, to)
 
 def transit_score(intersection, all_intersections):
   scores = [transit_ratio(i, intersection) for i in all_intersections]

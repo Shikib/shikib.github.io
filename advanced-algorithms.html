@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CPSC 420+500 Advanced Algorithm Design and Analysis Detailed Review</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vandata/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="vandata/css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://shikib.ca">Shikib Mehri</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('vandata/img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>CPSC 420+500 : Advanced Algorithm Design and Analysis Detailed Review</h1>
+                        <h2 class="subheading">Shikib Mehri</h2>
+                        <span class="meta">Posted by <a href="http://shikib.ca">Shikib Mehri</a> on April 16, 2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+                  <p>In order to sufficiently prepare for my CPSC 420 final, I've decided to write a detailed review of the material covered in this course. Hopefully by attempting to explain the material, I'll cement my understanding of it. And who knows... at some point someone might decide to put up with my incohesive writing and read this entire post (and hopefully they'll learn something from it).</p>
+
+                  <p>Roughly 12 topics were covered in this iteration of the course (2015W2, Professor: Will Evans). I say roughly, because it's not quite clear where one topic ends and another begins since each topic leads into the next one fairly well.</p>
+
+                  <p>Nonetheless, the following 12 topics are how I'll split up this post: </p>
+
+                  <ul>
+                    <li>Geometry (Convex Hulls, Graham's Scan, Jarvis' March, Chan's Algorithm)</li>
+                    <li>Linear Programming (Network Flow, Duality, Zero-Sum Games)</li>
+                    <li>Dynamic Programming (Bellman-Ford, Floyd-Warshall, Johnson's reweighting algorithm, Landmarks for Shortest Path Queries)</li>
+                    <li>NP, NP-Complete, NP-Hard (k-Clique, Vertex Cover)</li>
+                    <li>NP Approximation Algorithms (Approx Vertex Cover, Approx Graham's Scheduling, Christofides Algorithm)</li>
+                    <li>Hardness of Approximation (Proof that TSP cannot be approximated)</li>
+                    <li>Competitive Analysis of Online Algorithms</li>
+                    <li>Universal Hash Function</li>
+                    <li>Cuckoo Hashing</li>
+                    <li>Fast Fourier Transform</li>
+                    <li>Quantum Computing (Quantum Factoring with FFT)</li>
+                    <li>Zero-Knowledge Proofs</li>
+                  </ul>
+
+                  <p>A lot more time was spent on certain topics than others, so it should be expected that certain topics will be reviewed in greater detail than others.</p>
+
+                  <p>Without further ado, let's start reviewing!</p>
+
+                  <h2>Geometry</h2>
+
+                  <p>We begun the course by introducing the notion of convex combinations. For the sake of example, say you have two jars: <strong>jar A</strong> and <strong>jar B</strong>. Jar A contains a solution that is 15% oil and 36% vinegar, while jar B contains a solution that is 9% oil and 21% vinegar. However, for our purposes we require a solution that is 13% oil and 31% vinegar.</p>
+
+                  <p>The question is whether we would be able to combine varying quantities of the solutions in jar A and B to obtain our desired mixture. To answer this question algebraically, we could solve the following system of equations.</p>
+
+                  <img src="http://mathurl.com/h6oj6lw.png" style="width: 200px" />
+
+                  <p>If both a and b are between 0 and 1 and a+b is 1, then we know that we can combine the two solutions to obtain our desired solution (of the same volume). In this case, a would signify the amount of solution A we want to add to our mixture and b would signify the amount of solution B we want to add to our mixture.</p>
+                  
+                  <p>If there is a way to combine two mixtures, we can say that desired mixture is a <strong>convex combination</strong> of the initial set of mixtures</p>
+
+                  <p>Another way to think about this is to envision solution A and solution B as points in 2D-space. The solutions that we would be able to form by combining the initial two solutions are those that lie on the line segment that connets the two points.</p>
+
+                  <img src="https://docs.google.com/drawings/d/1U5UNY-gxc8dBWuOBd59hcAlq-Yqknkm5u0YrpNtGURU/pub?w=418&h=271" />
+
+                  <p>This is straightforward for the situation where we have two mixtures. But what if we have <strong>n</strong> solutions? How do we then determine if there is a convex combination of the mixtures that forms our desired mixture?</p>
+
+                  <p>We can say that a set, T, is a <strong>convex set</strong> of those points, iff for every pair of points (a,b) in T, T will contain every point that lies on the line segment between point a and b.</p>
+
+                  <p>This introduces the idea of a <strong>convex hull</strong>. The convex hull of an input set of points P is the smallest convex set that contains every point in P. </p>
+
+                  <p>The convex hull can be thought of as a convex shape (meaning that a line segment between any two points in the hull will also be contained in the hull) in 2D-space that contain all of the input points.</p>
+
+                  <p>The vertices of the convex hull will always be a subset of the input set of points. The reason why a point in the input set of points might not be a vertex of the convex hull is if it is a convex combination of some of the other points in the input set. <p>
+
+                  <p>For example, if our input set of points was {(0,0), (0.5, 0), (1, 0)}, our convex hull would have two vertices: (0,0) and (1,0) since (0.5, 0) can be formed as a combination of the other two. </p>
+
+                  <p>Identifying the set of convex hull vertices (in a counter-clockwise ordering) for a set of points is sufficient to describe the convex hull itself. This raises the question of how to efficiently identify the set of convex hull vertices (and the convex hull itself) for a given a set, P, of n points.</p>
+
+                  <p>Since any algorithm that identifies the convex hull for n points must first examine each of those n points, any algorithm that we come up with must be in <span lang="latex">\Omega(n)</span>.</p>
+
+                  <p>The first algorithm that I want to describe is <strong>Graham's scan.</strong>. The way Graham's scan works is by sorting the input set of points counter-clockwise by their angle around the lowest point in the set (smallest y-value) and then iterating over them in this order and ensuring that every iteration we are making a left turn.</p>
+                  
+                  <p>The reason why we need to ensure that we always make left turns is because if we add a point to our convex hull that makes a right turn, it means that our convex hull will have an internal angle of greater than 180 degrees and we would thus be able to draw a line segment from two of the vertices on our hull that goes outside of the convex hull (thus not satisfying the property of convexity).</p>
+
+                  <p>Identifying whether three points form a left turn is fairly straightforward. We can simply determine the z-coordinate of the cross product of the two points. If it is a positive number, then we can say that the three points form a left turn (or a counter-clockwise orientation).</p>
+
+                  <p>A Python implementation of such a method is given below.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+      def cross_product_z(p, q, r):
+        '''
+        Input: p, q, r
+        Output: the z-coordinate of the cross product of p->q and q->r
+        '''
+
+        return (q[0] - p[0])*(r[1] - p[1]) - (q[1] - p[1])*(r[0] - p[0])
+
+      def left_turn(p, q, r):
+        ''' 
+        Input: p,q,r : tuples in the form of (x-coordinate, y-coordinate)
+        Output: true if p -> q -> r forms a left turn, false otherwise
+        '''
+
+        return cross_product_z(p, q, r) > 0
+                  </code>
+                  </pre>
+
+                  <p>So as I mentioned above, Graham's scan begins by identifying the lowest point (smallest y-value, ties broken by smallest x-value). Once it does this, it sorts the rest of the points in a counter-clockwise order around the lowest point. Note that it is guaranteed that the lowest point will be on the convex hull, as there is nothing lower than it and thus it cannot be the convex combination of a subset of other points.</p>
+
+                  <p>Python code to produce the sorted order around the lowest point is given below.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def sort_points(points):
+      ''' 
+      Input: points : an array of points, where each point is a tuple of the form
+                      (x-coordinate, y-coordinate)
+      Output: a reordering of the points, such that the first point is the one with
+              the lowest y-coordinate, and the rest of the points are in sorted
+              order counter-clockwise by angle around the lowest point. also ensure
+              that in the situation of colinear points, we filter out any of the middle
+              ones.
+      '''
+
+      min_point = points[0]
+      for point in points[1:];
+        # if the y-coordinate is smaller, it is the lowest point
+        # or if the y-coordinate is equal and the x-coordinate is smaller
+        # it is the lowest point
+        if point[1] < min_point[1] or \
+           (point[1] == min_point[1] and point[0] < min_point[0]):
+          min_point = point
+
+      # now that we have the lowest point we can sort the rest of the points
+      # around this one by angle
+      sorted_points = [ min_point ]
+
+      # get a list of points that are remaining
+      remaining_points = [point for point in points if points != min_point]
+
+      # sort the remaining point by angle around the min_point. we don't actually have
+      # to compute the angle. we can define a comparator function. 
+
+      # if going from the lowest point to p and then to q is a left turn, it means that
+      # p has a smaller angle with the lowest point than q does. this won't work in general 
+      # with any arbitrary point, but it wrks here because the angles will always be in 
+      # the range [0, 180)
+      smaller_angle = lambda p, q: cross_product_z(min_point, p, q)
+
+      # use Pythons built in sorting function to sort with the afore-defined comparator
+      sorted_remaining_points = sorted(remaining_points, cmp=smaller_angle)
+
+      # iterate over the list of points and remove any middle colinear points.
+      ordered_points = []
+      last_point = sorted_remaining_points[0]
+      for point in sorted_remaining_points[1:]:
+        # check if this point is colinear with the one before it
+        if cross_product_z(min_point, last_point, point) == 0:
+          # if it is, set last_point to be the point that is further
+          # away from the min_point
+          if (point[0] - min_point[0])**2 + (point[1] - min_point[1])**2 >
+             (last_point[0] - min_point[0])**2 + (last_point[1] - min_point[1])**2:
+             last_point = point
+          else:
+            ordered_points.append(last_point)
+            last_point = point
+
+      # need to add the very last last_point
+      ordered_point.append(last_point)
+
+      # add the remaining points to the list of sorted points
+      sorted_points += sorted_remaining_points
+
+      # return the list of properly orderdered points
+      return sorted_points
+                  </code>
+                  </pre>
+
+
+                  <p>After we order the points using the aforementioned strategy, we then construct a stack, S, and iterate over the points -- building up our stack as we iterate.</p>
+
+                  <p>Since an implementation will describe this beter than words ever can, below is Python implementation of Graham's scan, which uses the functions we defined above</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def grahams_scan(points):
+      ''' 
+      Input: points : an array of points, where each point is a tuple of the form
+                      (x-coordinate, y-coordinate)
+      Output: a list of points corresponding to the vertices on the convex hull of the
+              input points, ordered in counter-clockwise order
+      '''
+
+      # retrieve the sorted order of points
+      points = sort_points(points)
+
+      # initialize the convex hull for the first three points. since we've filtered out
+      # all colinear points, we know that this is the convex hull for the first 3 points.
+      convex_hull = [ points[0], points[1], points[2] ]
+
+      # now we iterate over the points
+      for point in points[3:]:
+        # as long as this point forms a right turn (or colinear), we must have an incorrect 
+        # point in our convex hull, so we need to remove it
+        while not left_turn(convex_hull[-2], convex_hull[-1], point):
+          del convex_hull[-1]
+
+        # at this point we know that adding this point is safe. it now forms a left turn
+        # with the top two points of the convex hull.
+        convex_hull.append(point)
+
+      return convex_hull
+                  </code>
+                  </pre>
+
+                  <p>Sorting the points takes <span lang="latex">O(nlog(n))</span>. The for loop in the grahams_scan function will iterate <span lang="latex">O(n)</span> times.</p>
+                  
+                  <p>It might seem like the while loop will iterate <span lang="latex">O(n)</span> times every iteration of the for loop, which would lead to a total runtime of <span lang="latex">O(n^2)</span>. However, a point is only added to the convex_hull once (point i is added on iteration i-3 of the for loop) thus when it is deleted in the while loop, it will never be deleted again.</p>
+                  
+                  <p>This means that there are <span lang="latex">O(n)</span> iterations of the while loop throughout the full execution of the function.</p>
+
+                  <p>The total runtime of Graham's scan is dominated by the sorting and is therefore equal to <span lang="latex">O(nlogn)</span>.
+
+                  <p>We can give a proof of the correctness of Graham's scan using induction.</p>
+
+                  <p>For our <strong>base case</strong> we know that since we filtered out all the points colinear with the lowest points in the sorting step, the first three points form a convex hull.</p>
+                  
+                  <p>The reason filtering out the colinear points is important in this case is to ensure that we don't have a straight line which would mean that the middle point (which lies on the line segment formed by the other two) should not be on the hull.</p>
+
+                  <p>For our <strong>inductive hypothsis</strong> let us assume that we have a correct convex hull at the (i-1)-th iteration of the loop.</p>
+
+
+                  <p>Now in our <strong>inductive step</strong>, we will show that we will also have a correct convex hull at the end of the i-th iteration of the loop.</p>
+
+                  <p>Say that the last point on our convex hull is <em>a</em>, the second last is <em>b</em> and the point we are currently considering is <em>c</em>.</p>
+
+                  <p>If <em>c</em> forms a left turn with <em>a</em> and <em>b</em>, then it means that <em>c</em> that <em>c</em> is not covered by the current convex hull. This is because there is a closing edge between <em>a</em> and the lowest point on the hull -- however, because we're considering the points in sorted angular order, we know that <em>c</em> must lie on the right side of the line between the lowest point and <em>a</em>.</p>
+
+                  <p>Below is a visualization of such a situation.<p>
+
+                  <img src="https://docs.google.com/drawings/d/1CSkYD1my_UKD1nwzXR-HQO_MYZ6ijUdQwGCbibizOc4/pub?w=607&h=467" />
+
+                  <p>Currently the dashed line represents the existing edge in the convex hull, we know that <em>c</em> is outside of the hull, therefore we must add it in. Our resulting hull at the end of the i-th iteration is therefore equal to the below image.</p>
+
+                  <img src="https://docs.google.com/drawings/d/12dZ42yy75B4kD6owYYqYFWOIqf4GWONGooW-N_apGxU/pub?w=641&h=525" />
+
+                  <p>The other situation is where <em>c</em> forms a non-left turn with <em>a</em> and <em>b</em>. In this situation we know that <em>a</em> is contained in the convex set formed by the lowest point, <em>b</em> and <em>a</em>.</p>
+
+                  <p>Consider the image below for an example of such a situation. </p>
+
+                  <img src="https://docs.google.com/drawings/d/1ifFhq1Lr9wWkKZ8kpOn-xPCttSkXUtCkJt_ee0RRDZY/pub?w=632&h=514" />
+
+                  <p>We know that <em>a</em> is on the left side of the line segment from <em>b</em> to <em>c</em>, otherwise this would be considered the first situation (i.e., there is a left turn and we just add in <em>c</em>).</p>
+
+                  <p>We also know that since we're scanning the points in sorted order around angle from the lowest point that <em>a</em> is to the left of the line segment from the lowest point to <em>b</em> and to the right of the line segment from the lowest point to <em>c</em>.</p>
+
+                  <p>Combining these three facts, we can say that <em>a</em> is contained within the triangle formed by the lowest point, <em>b</em> and <em>c</em>.</p>
+
+                  <p>Therefore it will also be contained in the resulting convex hull and it is fine to remove it and add in <em>c</em>.</p>
+
+                  <p>We repeat this process for the same reasoning until we have a left turn and can safely add in <em>c</em>.<p>
+
+                  <p>Therefore this situation results in a valid convex hull on the i-th iteration.</p>
+
+                  <p>By induction, we can say that at the end of the execution of Graham's scan we have a valid convex hull for the set of input points.</p>
+
+                  <p>Another algorithm that allows us to identify the convex hull of a given set of points is <strong>Jarvis March</strong>. This is a less efficient approach in the general case, but might do well in certain situations. </p>
+
+                  <p>The way it works is by identifying the first point on the convex hull as being the lowest point (similar to Graham's scan in this regard), however from there what we do is repeatedly find the next point on the convex hull until we end up making a full cycle back to the the lowest point.</p>
+
+                  <p>The image below gives an example of how it works.</p>
+
+                  <img src="cpsc420/img/jarvis.png" />
+
+                  <p>Let's implement Jarvis march using a top down approach (unlike a bottom up approach like we did for Graham's scan). Below is an implementation of the main Jarvis march function.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def jarvis_march(points):
+      ''' 
+      Input: points : an array of points, where each point is a tuple of the form
+                      (x-coordinate, y-coordinate)
+      Output: a list of points corresponding to the vertices on the convex hull of the
+              input points, ordered in counter-clockwise order
+      '''
+
+      # identify the lowest point
+      lowest_point = points[0]
+      for point in points[1:]:
+        if point[1] < lowest_point[1] or \
+          (point[1] == lowest_point[1] and point[0] < lowest_point[0]):
+          lowest_point = point
+
+      # initially the convex hull only contains the lowest_point
+      convex_hull = [ lowest_point ]
+
+      # until we cycle back around to the lowest_point, continue finding
+      # the next point on the convex hull
+      while True:
+        next_point = next_CH_point(convex_hull[-1], points)
+
+        if next_point == lowest_point:
+          break
+        
+        convex_hull.append(next_point)
+
+      return convex_hull
+                  </code>
+                  </pre>
+                
+                  <p>In Jarvis march, we repeatedly look for the next point on the convex hull. We do this by repeatedly identifying the point that forms the largest angle. By repeteadly taking the most extreme point in this manner, we will have a valid convex hull.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def next_CH_point(last, points):
+      ''' 
+      Input: last : a single point representing the last point added to the convex hull
+             points : a list of all of the points
+      Output: a single point corresponding to the next convex hull vertex
+      '''
+
+      # set the current candidate convex hull point to be the input point last
+      candidate = last
+
+      for point in points:
+        # if this is the first iteration or if there is a right turn from
+        # last to candidate to point, meaning that point is more extreme than 
+        # candidate, change the candidate convex hull vertex to be point
+        if candidate == last or cross_product_z(last, candidate, point) < 0:
+          candidate = point
+
+        return candidate
+                  </code>
+                  </pre>
+                  
+                  <p>The implementation of Jarvis march is fairly straightforward. We can think of it as sort of being like gift wrapping. We start a string at the lowest point and wrap it around in a clockwise fashion until we hook on the first point, which is then added to our convex hull.</p>
+
+                  <p>The runtime of this may initially seem like it is <span lang="latex">O(n^2)</span> simply because of the fact that next_CH_point will take <span lang="latex">O(n)</span> and the number of points in our convex hull is <span lang="latex">O(n)</span>.</p>
+
+                  <p>The runtime of next_CH_point is definitely <span lang="latex">O(n)</span>, however Jarvis march is an output sensitive algorithm. Its runtime depends on the number of points in its output. If we denote the number of points returned by Jarvis march as <em>h</em>, we can say that the runtime of the algorithm is <span lang="latex">O(nh)</span>.</p>
+
+                  <p>This is because every time next_CH_point is called, we add a single point to our convex hull, therefore it will be called a maximum of <em>h</em> times.</p>
+
+                  <p>The only situation in which we would use Jarvis march over Graham's scan is if we know that for some reason our convex hull is smaller than <em>log(n)</em>, or <span lang="latex">h \in O(logn)</span>.</p>
+
+                  <p>Another output sensitive algorithm is Chan's algorithm. It's a very interesting algorithm with an improved runtime compared to Graham's scan, although it is more difficult to implement, hence why I'm going to describe it English rather than Python.</p>
+
+                  <p>The idea behind Chan's algorithm is to split up the set of points into <span lang="latex">\bigg \lceil \frac{n}{h} \bigg \rceil</span> distinct partitions. This means that every one of the partiton will have a size of at most <em>h</em>.</p>
+
+                  <p>We then run Graham's scan on each of the partitions to obtain the convex hulls of the distinct partitions. Given that each execution of Graham's scan will take <span lang="latex">O(hlog(h))</span> time and that we're making <span lang="latex">\bigg \lceil \frac{n}{h} \bigg \rceil</span> calls to Graham's scan, this step of the algorithm will take <span lang="latex">O(nlog(h))</span> time. </p>
+
+                  <p>We then have a for loop repeating <em>h</em> times. On each iteration our goal is to identify the next convex hull vertex.</p>
+
+                  <p>Within each iteration we iterate over the distinct partitions and use binary search to identify the point on the convex hull that will give us the largest angle (similar to Jarvis march).</p>
+                  <p>We repeat this iteration for every one of the <span lang="latex">\bigg \lceil \frac{n}{h} \bigg \rceil</span> partitions and it takes <span lang="latex">O(log(h))</span> per partition, meaning that a single iteration of the loop will take <span lang="latex">O(\bigg \lceil \frac{n}{h} \bigg \rceil log(h))</span> time. </p>
+
+                  <p>Since we repeat this a total of <em>h</em> times, the total runtime of this and of the algorithm will be <span lang="latex">O(nlog(h))</span>. This is better than Graham's scan, since <em>h</em> is always less than or equal to <em>n</em>.
+
+                  <p>The problem with Chan's algorithm is identifying the value for <em>h</em>. However what we can do is run this algorithm progressively and double <em>h</em> until it returns a valid solution. If we provide it an <em>h</em> that is lower than the number of points on the convex hull, it won't cycle back around to the initial point as we repeatedly attempt to find the next convex hull point -- which tells us that our <em>h</em> is too low.</p>
+
+                  <p>This concludes my review of geometry as presented in this course. The main thing to understand, in my opinion at least, is the intution behind Graham's scan. The algorithm is not completly intuitive and I feel like I learned a lot from going through the proof.</p>
+                     
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://linkedin.com/in/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:mehrishikib@gmail.com">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vandata/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vandata/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="vandata/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

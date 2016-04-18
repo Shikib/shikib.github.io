@@ -420,7 +420,473 @@
                   <p>The problem with Chan's algorithm is identifying the value for <em>h</em>. However what we can do is run this algorithm progressively and double <em>h</em> until it returns a valid solution. If we provide it an <em>h</em> that is lower than the number of points on the convex hull, it won't cycle back around to the initial point as we repeatedly attempt to find the next convex hull point -- which tells us that our <em>h</em> is too low.</p>
 
                   <p>This concludes my review of geometry as presented in this course. The main thing to understand, in my opinion at least, is the intution behind Graham's scan. The algorithm is not completly intuitive and I feel like I learned a lot from going through the proof.</p>
-                     
+
+                  <h2>Linear Programming and Network Flow</h2>
+
+                  <p>The concept of linear programming was introduced in this course with a basic example. Say, you're in charge of a factory that makes chocolates. This factory has a <strong>basic box</strong> and a <strong>fancy box</strong>. </p>
+
+                  <p>Each basic box results in a profit of $1. The demand for basic boxes in a day is at most 200 boxes.</p>
+
+                  <p>Each fancy box results in a profit of $6. The demand for fancy boxes in a day is at most 300 boxes.</p>
+
+                  <p>The factory, limited by resources and time, can only produce a maximum of 400 boxes in a day.</p>
+
+                  <p>Given these constraints, how should the factory dedicate their resources to maximize their profit?</p>
+
+                  <p>This problem can be expressed as a linear program. Let <em>b</em> be the number of basic boxes sold and let <em>f</em> be the number of fancy boxes sold.</p>
+
+                  <img src="http://mathurl.com/jyl9cwv.png"  />
+                  <br>
+                  <img src="http://mathurl.com/jduxn62.png" />
+                  <br>
+                  <img src="http://mathurl.com/h8ze7hc.png" />
+                  <br>
+                  <img src="http://mathurl.com/hmxdagf.png" />
+
+                  <p>Using a linear program solver, like the Simplex algorithm, would allow us to maximize the objective function subject to those constraints. Since this is a fairly basic problem, it's quite evident that the solution is just to make 300 fancy boxes and 100 basic boxes.</p>
+
+                  <p>The Simplex algorithms works by considering the feasible region -- a convex space that is created by the amalgamation of the constraints. Consider the image below for a visualization of this.</p>
+
+                  <img src="cpsc420/img/lp.png" />
+
+                  <p>The Simplex algorithm takes a greedy approach. It considers the neighbouring vertices at any point. If one of the neighbours has a higher cost for the objective function, it will move to that neighbour. By repeating this process it will find a local maximum, which (since the feasible region is convex) must also be a global maximum.</p>
+
+                  <p>We primarily focused on a specific type of linear programs, known as <strong>network flow</strong>. We did discuss the concept of duality and zero sum games, but network flow was a much bigger point of discussion.</p>
+
+                  <p>A flow network is a directed graph, <span lang="latex">G = (V,E)</span>, in which every edge <span lang="latex">(u,v) \in E</span> has a capacity greater than zero and every non-edge has a capacity of zero. Every flow network must also contain a source and a sink vertex.</p>
+
+                  <p>A flow is an assignment, <em>f</em>, of real numbers to edges of <em>G</em> such that the flow on an edge, <span lang="latex">f(u,v)</span> is greater than zero and less than the capacity of that edge, <span lang="latex">c(u,v)</span>.</p>
+
+                  <p>Furthermore the flow must be assigned in such a way, that the total flow incoming into a vertex is equivalent to the flow outgoing from the vertex. This rule is described by the equation below.</p>
+
+                  <img src="http://mathurl.com/zjkvx6v.png" style="width: 300px" />
+
+                  <p>The value of the flow is the amount of flow that passes from the source vertex (capable of generating infinite flow) and the sink vertex (capable of accepting infinite flow).</p>
+
+                  <p>Because of our flow conservation constraint (i.e., flow incoming must equal flow outgoing) we can determine the value of the flow by adding the flow outgoing from the source vertex, denoted as <em>s</em>, or by adding up the flow incoming to the sink vertex, commonly denoted as <em>t</em>.</p>
+
+                  <p>Network flow is a very useful tool to solve a variety of different problems. A number of problems are solveable with network flow, and I will go through a number of such reductions.</p>
+                  <p>Before I do that, however, I should discuss how we would go about solving a network flow problem?</p>
+
+                  <p>A common method for solving network flow problems is known as the <strong>Ford-Fulkerson method</strong>. It's referred to as a method, rather than an algorithm, because it doesn't specify the intricacies of the implementation but instead gives a high level approach to solving network flow problems.</p>
+
+                  <p>The idea behind Ford-Fulkerson is to find an augmenting path on an input graph, and increase the flow through this path as much as possible. An augmenting apath is defined as a path that starts from the source vertex and goes to the sink vertex with every intermediate edge having a larger than zero capacity.</p>
+
+                  <p>We can use a breadth first search to identify such a path for a given graph. The Python code below implements a breadth first search that does this.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def breadth_first_search(graph, edges, s):
+      ''' 
+      Input: graph : an adjacency matrix with graph[i][j] denoting the capacity of
+                     edges (i,j) 
+             edges : an adjacency list with edges[i] containing a list of the edges
+                     outgoing from vertex i
+             s     : an integer denoting the vertex number for the source vertex
+      Output: a path through the graph from the source to the sink. if no such path
+              exists the caller will be able to identify that by looking at the path.
+      '''
+
+      # path will be a list, where path[i] denotes the parent of vertex i in the path
+      # a value of -1 denotes that that vertex has no parent (and therefore is not in 
+      # the path -- unless it is the source vertex).
+      path = [-1]*len(graph)
+
+      visited = [false]*len(graph)
+
+      todo = Queue.Queue()
+      todo.put(s)
+      visited[s] = True
+      
+      while not todo.empty():
+        u = todo.get()
+
+        # iterate over the outgoing edges from u
+        for v in edges[u]:
+          # as long as v isn't visited and the capacity is greater than 0
+          # add it to our todo list
+          if not visited[v] and graph[u][v] > 0:
+            todo.put(v)
+            parent[v] = u
+            visited[v] = True
+  
+        # if path[t] = -1, where t is the sink vertex, it means that we were unable to
+        # find a path from the source to the sink
+        return path
+                  </code>
+                  </pre>
+
+                  <p>Upon finding such a path and the maximum flow through the path, we then create a residual graph, by setting the new capacity of every edge to be the old capacity minus the flow through the edge. We also allow a flow to be reversed by adding a capacity of <span lang="latex">f(u,v)</span> to every edge <span lang="latex">(v,u) \in E</span>.</p>
+
+                  <p>Since this is most likely much better understood in code, a Python implementation of Ford-Fulkersons is provided below.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def ford_fulkerson(graph, edges, s, t):
+      ''' 
+      Input: graph : an adjacency matrix with graph[i][j] denoting the capacity of
+                     edges (i,j) 
+             edges : an adjacency list with edges[i] containing a list of the edges
+                     outgoing from vertex i. assume that if u is in edges[v], v will
+                     be in edges[u]
+             s     : an integer denoting the vertex number for the source vertex
+             t     : an integer denoting the vertex number for the sink vertex
+      Output: a number corresponding to the flow value for this graph
+      '''
+
+      max_flow = 0
+      while True:
+        augmenting_path = bfs(graph, edges, s)
+        
+        # if the path didn't manage to reach the sink, break out of the loop
+        if augmenting_path[t] == -1:
+          break
+
+        # identify the bottleneck along this path
+        path_flow = float('inf')
+        v = t
+        while v != s:
+          u = parent[v]
+          path_flow = min(path_flow, graph[u][v])
+          v = u
+
+        # otherwise back-propagate over the path and update the edge capacities
+        # for our graph.
+        v = t
+        while v != s:
+          u = augmenting_path[v]
+
+          # edge (u,v) has had flow added to it, so subtract that flow from its
+          # residual capacity
+          graph[u][v] -= path_flow
+
+          # however, we need to allow a flow to be undone, so add the path_flow
+          # to the reverse of the edge (u,v) which is (v,u)
+          graph[v][u] += path_flow
+
+          # set v to be its parent, u
+          v = u
+
+        # once we have updated the residual graph, add the path flow to the max flow
+        max_flow += path_flow
+
+      return max_flow
+                  </code>
+                  </pre>
+
+                  <p>The runtime of the BFS is <span lang="latex">O(|E|)</span>. On each iteration of the while loop, we identify a new augmenting path. Every augmenting path that is found will increase the flow by at least 1.</p>
+
+                  <p>This means that if we denote the resulting flow value as <em>f</em>, we know that the while loop will iterate at most <em>f</em> times. On each iteration we call the BFS method to identify an augmenting path.</p>
+
+                  <p>This means that the total runtime of this algorithm is <span lang="latex">O(|E|f)</span>.</p>
+
+                  <p>There is another algorithm known as Orlin's maximal flow algorithm, that I won't go into, that solves newtwork flows in <span lang="latex">O(|E||V|)</span> time. It might be preferable to use this when you know that the flow is going to be larger than the number of vertices.</p>
+
+                  <p>Now that we have an algorithm (well, two) that will, fairly efficiently, let's take a look at a few problems that can be solved with network flows.</p>
+
+                  <p>The first problem, and a rather simple one, that I want to discuss is <strong>maximum bipartite matching</strong>.</p>
+
+                  <p>Say you're given a bipartite graph, <span lang="latex">G = (U \cup V, E)</span>, and you want to identify the maximum matching in this graph. How would you solve this problem using network flows?</p>
+
+                  <p>The maximum matching is the largest subset of the graph's edges such that every vertex has at most one of its edges in the matching.</p>
+
+                  <p>Consider the bipartite graph below. Let's try to identify a maximum matching for this graph using network flow.</p>
+            
+                  <img src="https://docs.google.com/drawings/d/1x0zH--YWBpQ2STG5LTaVrW9f-4AefuOBAIxHRCL-uO8/pub?w=759&h=599" />
+
+                  <p>First, we must create a source and a sink vertex. We connect the source vertex to one set of the vertices (such that no pair of vertices in that set have edges to each other), denoted by <em>U</em>. We then connect each of the remaining vertices, <em>V</em> to the sink.</p>
+
+                  <p>We direct all of the edges between <em>U</em> and <em>V</em> (i.e., all of the edges, by definition of bipartiteness) to point from the vertex in <em>U</em> to the vertex in <em>V</em>. Every edge in our graph should have a capacity of 1.</p>
+
+                  <p>The resulting flow network looks like the image below.</p>
+
+                  <img src="https://docs.google.com/drawings/d/123I-NGApLRgvr_ZN-etjf4Hbonc-KxFE2J2TJGCtU6k/pub?w=958&h=574" />
+
+                  <p>Since the edges from the source and the edges from the sink limit the flow incoming/outgoing from a vertex to be 1, what Ford-Fulkersons will do for this flow network is identify the largest number of edges between the two set of vertices that we can select, while still ensuring that no vertex has more than one of its edges in the matching.</p>
+
+                  <p>Because our flow is at most <span lang="latex">min(|U|,|V|)</span>, the runtime of this approach will be <span lang="latex">O(|U||E| + |V||E|)</span>.</p>
+
+                  <p>Another problem that can be solved nicely with network flow is the <strong>Pennant Race problem</strong>.</p>
+
+                  <p>In baseball, the team with the highest number of wins in a season gets a pennant at the end of the season. The pennant race is the process of the teams struggling to win the most games in order to claim the pennant.</p>
+
+                  <p>A fan that follows a particular team might be curious about whether their team still has a chance at winning the pennant. Fortunately, we can solve this problem using network flow.</p>
+
+                  <p>Really the question that we're asking is whether there is a possible victor for every game that is left so far that will ensure that no team will have more wins than the maximum possible wins for our team.</p>
+
+                  <p>As input into this problem we get: </p>
+                  
+                  <ol>
+                    <li>
+                    <span lang="latex">T = T_1, T_2, ... , T_n, A</span>, a list of all of the teams (including <em>A</em>, the team we want to check victory potential for), 
+                    </li>
+                    <li>
+                    <span lang="latex">W = w_1, w_2, ..., w_n, w_a</span>, a list of all of the win counts up to this point (including <span lang="latex">w_a</span>, the win count for team <em>A</em>),
+                    </li>
+                    <li>
+                    <span lang="latex">G = (T_a, T_b), (T_c, T_d) ...</span>, a list of games still left to play,
+                    </li>
+                  </ol>
+
+                  <p>The first thing that we do is count the number of games that team <em>A</em> still has left to play. We remove all games from the set <em>G</em> and add this number to <span lang="latex">w_a</span> to give us <em>w</em>, the largest potential win count (at the end of the season) for team <em>A</em>.</p>
+
+                  <p>If any of the teams has a win count larger than <em>w</em> at this point in the season, it means that team <em>A</em> has no hope and we don't need to run network flow. If no team does has a win count larger than <em>w</em>, we can continue.</p>
+
+                  <p>Every game must be played and for every game, a victory must go to one of the teams playing in that game. What we need to do is determine if there is a way that these victories can be assigned such that no team has more than <em>w</em> victories by the end of the season.</p>
+
+                  <p>The way we can do this is by creating a vertex for every game (excluding the ones that <em>A</em> is playing in, since those victories go to <em>A</em>) between two teams, <em>P</em> and <em>Q</em>. We draw an edge from the source to every one of these games with a capacity of 1, representing the fact that every game must have exactly one victor.</p>
+
+                  <p>We then create a vertex for every team, except <em>A</em>. We then draw an edge with capacity 1 from every game that a team, <em>T</em> plays in, to its vertex. The amount of flow incoming into vertex <em>T</em> should correspond to the number of victories for that team at the end of the season. </p>
+
+                  <p>Now to ensure that no team has more victories than <em>w</em>, we create an edge from its vertex to the sink with a capacity of <span lang="latex">w - w_i</span>, where <span lang="latex">w_i</span> is the number of wins that team has won so far.</p>
+
+                  <p>The capacity of the edge to the sink represents the total allowable wins for that team. Running Ford-Fulkerson on this flow network will tell us the number of games that we can satisfy with our conditions, namely: (1) every game must have a victor, (2) no team must have more victories than <em>w</em>.</p>
+
+                  <p>As long as the resulting flow is equal to the number of games in our input (excluding those that <em>A</em> plays in), it means our team can win the pennant. On the other hand, if the flow value is less than the number of games, it means that at least one of the games will not satisfy our contraints and will therefore lead to another team having more wins than <em>A</em> can possible have.</p>
+
+                  <p>Consider the flow network below for a visualization of this.</p>
+
+                  <img src="cpsc420/img/pennant.png" />
+
+                  <p>Since we have <span lang="latex">O(|G| + |T|)</span> edges and a maximum flow value of <span lang="latex">O(|G|)</span>, the runtime of this solution will be <span lang="latex">O(|G|^2 + |T||G|)</span>.</p>
+
+                  <p>Another problem, this time a rather difficult one, that is solveable by network flow is known as the <strong>Open-Pit Mining problem.</strong></p>
+
+                  <p>Our input is a directed acyclic graph, with each vertex having a weight associated with it. In this problem, vertices resemble cubes of some sort. What we want to do is mine and get asmuch money as possible. The weight on the vertex represents the profit from mining that cube.</p>
+                  
+                  <p>The precense of an edge from <em>u</em> to <em>v</em> means we have to mine cube <em>u</em> before we mine cube <em>v</em>.</p>
+
+                  <p>Our goal is to find an <em>initial set</em>, which means a set of vertices that doesn't have any edges from outside of the set incoming into it. However, we need to find the initial set with the maximum possible profit.</p>
+
+                  <p>If the set of vertices we choose to mine is not an initial set, then it means we violated the constraint of needing to mine <em>u</em> before <em>v</em> in the case of an edge <em>(u, v)</em>.</p>
+
+                  <p>The way we should think about this problem isn't really in terms of a maximum flow, but moreso in terms of a minimum cut. Maximum flow and minimum cut are two ways of thinking about the same problem, as a minimum cut can be thought of as the bottleneck along all of the paths and it is ultimately going to be that bottleneck that acts as the constraint for the maxmium flow. </p>
+
+                  <p>A good way to visualize the equiavalency between maximum flow and minimum cut is to image the flow network as beads and strings. The beads represent vertices and strings between them (scaled up based on the weight of the edge) represent edges. To identify the maximum flow (and the minimum cut) you would just pull the source and the sink beads apart. Once you can pull no further, the tightest strings form the maximum flow.</p>
+
+                  <p>What we want to do is find a minimum cut <span lang="latex">(S, T)</span> such that <span lang="latx">T - {t}</span> is our maximum value initial set.</p>
+
+                  <p>We start off by putting infinite capacities on the edges of the input graph. This ensures that when we compute our cut, there will be no edges going between the source and the sink that exist in the original graph (in other words, there will be no edges incoming into the sink that isn't from the source).</p>
+
+                  <p>We then create a source and a sink vertex and for every vertex, <span lang="latex">v \in V</span>, we add either an edge from the source to the vertex or from the vertex to the sink with some finite capacity.</p>
+
+                  <p>This guarantees our approach will produce an initial set. Now we need to determine how exactly to obtain a maximum value initial set.</p>
+
+                  <p>The idea behind creating edges from the source to a vertex and from a vertex to the sink is to penalize negative vertices for being on the sink side (because we lose money if we mine them) and penalize positive vertices for being on the source side (because we lose money if we <em>don't</em> mine them) proportional to their value (because if we have to choose between losing a lesser value or a greater value, it makes sense to lose the lesser value).</p>
+
+                  <p>The way we do this is for every vertex, <em>u</em>, we consider two cases.</p>
+                  
+                  <p>If the value of <em>u</em> is positive, it means we want to mine this cube, and we want to penalize our flow if it is on the source side of the cut. Therefore we draw an edge <span lang="latex">(u,t)</span> with a capacity equivalent to the value of <em>u</em>.</p>
+
+                  <p>On the other hand, if the value of <em>u</em> is negative, it means we don't really want to mine this cube so we penalize our flow if it is on the sink side of the cut. We draw an edge <span lang="latex">(s,u)</span> with a capacity equal to the negative of the value of <em>u</em>.</p>
+
+
+                  <p>This is an interesting example, because it shows us how we can formulate problems as minimum cut while our underlying solution is actually a maximum flow.</p>
+
+                  <p>The reason we can do this is because maximum flow and minimum cut are dual problems, which segways nicely into the next topic I want to discuss of <strong>linear programming duality</strong>.</p>
+
+                  <p>The <strong>Duality Theorem</strong> states that if a linear program has a bounded optimum then its dual must also have a solution. The two solutions must also be identical.</p>
+
+                  <p><strong>TODO: i don't really know how to explain duality. do this later.</strong></p>
+
+                  <h2>Dynamic Programming</h2>
+
+                  <p>The discussion around dynamic programming was around path finding algorithms like <strong>Bellman-Ford</strong>, <strong>Floyd-Warshal</strong> and handling negative weight edges in <strong>Djikstra's</strong> using <strong>Johnson's reweighting algorithm</strong>.</p>
+
+                  <p>My goal is to briefly explain every algorithm, provide an implementation and a rough intuitive explanation of why each algorithm works.</p>
+
+                  <p>Let's start with <strong>Djikstra's algorith</strong>. The problem Djikstra's solves is the single-source shortest path problem. We're given a directed graph, <span lang="latex">G = (V,E)</span> and a source vertex, <em>s</em>, and asked to determine the distance from our source vertex to every other vertex in the graph.</p>
+
+                  <p>The idea behind Djikstra's is that we repeatedly expand our graph by one more edge, so that we find the shortest path to all vertices that use at most <em>i</em> edges on the <em>i</em>-th iteration. After <em>n-1</em> iterations, we should have the shortest path using <em>n-1</em> edges, which means we should find the shortest path from the source to every to other vertex.</p>
+
+                  <p>We can say that after <em>n-1</em> iterations, we have the shortest paths, because as long as there are no cycles we should be able to go from the source vertex to all available vertices with less than <em>n-1</em> edges.</p>
+
+                  <p>The Python implementation for Djikstra's is provided below. There is a much faster way to implemenet Djikstra's using a min-priority queue (implemented by a Fibonacci heap), but I feel that this implementation is better for understanding the reasonining behind the algorithm.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def djikstras(graph, s):
+      ''' 
+      Input: graph : an adjacency matrix with graph[i][j] denoting the capacity of
+                     edges (i,j). 0 denotes a lack of an edge between i and j
+             s     : an integer denoting the vertex number for the source vertex
+      Output: an array of n elements, where the i-th element represents the shortest 
+              path from the source to vertex i
+      '''
+
+      # construct a list of vertices
+      todo = list(range(len(graph)))
+
+      # initialize the distances to be infinity, the dsitance to the source is 0
+      dist = [float('inf')]*len(graph)
+      dist[s] = 0
+
+      while not todo.empty():
+        # set u to be the vertex with the smallest distance. we know
+        # that this vertex's distance cannot be improved with an intermediary
+        # vertex, so it's fine to remove it at this point with the knowledge that its
+        # distance is the smallest it could be
+        u = todo[0]
+        for t_u in todo[1:]
+          if dist[t_u] < dist[u]:
+            u = t_u
+        
+        # check the neighbours of u
+        for v,weight in enumerate(graph[u]):
+          # if the edge does not exist, v is not a neighbour of u
+          if not weight:
+            continue
+
+          # if we can improve the distance from s to v, using u as an
+          # intermediary vertex, change the distance of v
+          dist[v] = min(dist[v], dist[u] + weight)
+
+      return dist
+                  </code>
+                  </pre>
+
+                  <p>Djikstra's is fairly straightforward. It has a runtime of <span lang="latex">O(|V|^2)</span>, since the while loop will iterate <span lang="latex">|V|</span> times (once for each vertex) and both of the inner loops will also iterate <span lang="latex">|V|</span> times. </p>
+
+                  <p>Djikstra's is great, using the fib-heap implementation, you can get it down to <span lang="latex">O(|E| + |V|log(|V|))</span>, however it has a problem. Namely, it cannot handle negative vertices</p> 
+
+                  <p>However, <strong>Bellman Ford</strong>, doesn't have either of those problems. It works using the same idea of finding intermediary vertices and repeatedly decreasing the path between two vertices like this.</p>
+
+                  <p>The idea is that we keep increasing the number of intermediary vertices in our shortest paths. We start of by identifying all of the shortest paths with 0 intermediary vertices, and repeatedly increase the number of intermediary vertices.</p>
+
+                  <p>The good thing is that to determine the shortest path using at most <em>i</em> vertices, we can build on the shortest paths using at most <em>i-1</em> vertices, which allows us to do this in a fairly iterative manner.</p>
+
+                  <p>The really interesting thing is that we can use the idea that the minimum path between any two vertices should have at most <em>n-1</em> edges to detect negative weight cycles with Bellman-Ford. A negative weight cycle is (as the name suggests) a cycle, such that the sum of the edges in the cycle will be negative.</p>
+
+                  <p>They say that a little bit of Python is worth 1000 words, so the I'll let the implementation below do the talking for me.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def bellman_ford(graph, s):
+      ''' 
+      Input: graph : an adjacency matrix with graph[i][j] denoting the capacity of
+                     edges (i,j). 0 denotes a lack of an edge between i and j
+             s     : an integer denoting the vertex number for the source vertex
+      Output: an array of n elements, where the i-th element represents the shortest 
+              path from the source to vertex i
+      '''
+
+      # initialize the distances to be infinity, the dsitance to the source is 0
+      dist = [float('inf')]*len(graph)
+      dist[s] = 0
+      
+      # need to do n-1 iterations. on each iteration we consider paths of one more
+      # edge.
+      for i in range(len(graph)-1):
+        # shallow copy of the distances, this is so that when we check the dist array
+        # we're always looking at the shortest distances with (i-1) edges
+        t_dist = [d for d in dist]
+
+        # iterate over the vertices
+        for u in range(len(graph)):
+          # to find the new shortest distance for vertex u, let's consider all 
+          # the possible intermediary vertices
+          for v in range(len(graph)):
+            # if there is no edge between v and u, continue
+            if not graph[v][u]:
+              continue
+
+            # if using v as an intermediary vertex improves our shortest distance
+            # then set our shortest distance accordingly
+            t_dist[u] = min(t_dist[u], dist[v] + graph[v][u])
+
+        # set dist to be the shortest distance with i edges
+        dist = t_dist
+
+      # if we now run this algorithm for one more iteration, and find that we are
+      # in fact able to relax the edges again, it means we have a negative weight
+      # cycle
+      t_dist = [d for d in dist]
+      for u in range(len(graph)):
+        for v in range(len(graph)):
+          if not graph[v][u]:
+            continue
+
+          # if this is true, we have a negative weight cycle that contains u
+          # if we keep track of the parent vertices when we change the shortest
+          # paths, what we cna do is identify the complete cycle
+          if dist[v] + graph[v][u] < t_dist[u]:
+            raise Exception("Graph contains a negative weight cycle")
+
+      return dist
+                  </code>
+                  </pre>
+
+                  <p>Bellman-Ford has a runtime of <span lang="latex">O(|V|^3)</span>, which is fairly straightforward, given that there are three nested loops -- each iterating a total of <span lang="latex">O(|V|)</span> iterations.</p>
+
+                  <p>We could improve Bellman-Ford to run in <span lang="latex">O(|E||V|)</span> time by using an adjacency list for the inner two iterations.</p>
+
+                  <p>We could use Bellman-Ford to identify all pairs shortest path by adding another for loop and iterating with each vertex as the source, but this would give us a runtime of <span lang="latex">O(|V|^4)</span></p>
+
+                  <p>What we could also do is use repeated squaring (with a custom defined matrix multiplication operation) to decrease the runtime of such an algorithm by a bit down to <span lang="latex">O(|V|^3log(|V|))</span>. I'm not going to discuss the specifics behind this (it relies on changing the dot product function to, rather than adding the products of the elements in the same positions, take the minimum of the sums of the elements in the same positions. </p>
+
+                  <p>Another algorithm for finding all-pairs shortest paths is <strong>Floyd-Warshall</strong>. While Bellman-Ford will only try to improve the (i-1)th shortest path with a single edge to identify the i-th shortest path, Floyd-Warshall will try to improve the path from <em>u</em> to <em>v</em> using the path from <em>u</em> to some selected intermediate vertex <em>k</em> and the path <em>k</em> to <em>v</em>.</p>
+
+                  <p>We can detect a negative weight cycle in Floyd-Warshall by checking the values on the diagonal. If dist[i][i] is negative, it means there is a negative weight cycle that includes vertex <em>i</em>.</p>
+
+                  <p>An implementation is given below.</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def floyd_warshall(graph):
+      ''' 
+      Input: graph : an adjacency matrix with graph[i][j] denoting the capacity of
+                     edges (i,j). 0 denotes a lack of an edge between i and j
+      Output: an array of n x n elements, where element [i][j] represents the shortest 
+              path from vertex i to vertex j
+      '''
+
+      # initialize the dsitances. we need to ensure that dist[i][i] is 0.
+      # dist[i][j] should be the weight of edge (i,j), or infinity if no such
+      # edge exists
+
+      # have to use a list comprehension because the * operation does a deep copy
+      # for non-primitives
+      dist = [float('inf')*len(graph) for i in len(graph)]
+
+      # iterate over the intermediate vertices. update the shortest paths with this
+      # vertex added to the middle.
+      for k in range(len(graph)):
+        for u in range(len(graph):
+          for v in range(len(graph)):
+            # if addding in this vertex improves the path, then we should update the
+            # distance between the vertices to reflect that
+            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+
+      # iterate and check the diagonal. if we see a non-zero (will have to be negative) 
+      # value on the diagonal, we know there must be a negative weight cycle
+      for u in range(len(graph)):
+        # if this is true, we have a negative weight cycle that contains u
+        if dist[u][u] < 0:
+          raise Exception("Graph contains a negative weight cycle")
+
+      return dist
+                  </code>
+                  </pre>
+                  
+                  <p>Another way of dealing with negative edge weights is to run <strong>Johnson's reweighting algorithm</strong> to modify the edge weights to all have positive weight. Initially, a lot of people wonder why we can't just identify the smallest edge weight in the graph and add the absolute value of that weight to every edge in the graph.</p>
+
+                  <p>The reason why we can't do that is because we'd be punishing paths with more edges, which isn't necessarily a valid thing to do. Consider the image below for an example of this.</p>
+
+                  <img src="https://docs.google.com/drawings/d/1s7hJxl72kFc_G6nIFmp46GlD48EmlbuXU6eR6bH48Nc/pub?w=898&h=481" />
+
+                  <p>The way Johnson's reweighting algorithms works is by creating a source vertex, <em>s</em>, connecting it to every vertex with an edge weight of 0, and running Bellman-Ford with <em>s</em> as the source vertex.</p>
+
+                  <p>This gives us the shortest path from <em>s</em> to every other vertex, <em>u</em>. This path will be at most 0, and it will be negative if and only if there is a negative edge going into the vertex in question.</p>
+
+                  <p>We then update the value of every edge, <span lang="latex">(u,v)</span>, to be the old value plus the distance from <em>s</em> to <em>u</em> minus the distance from <em>s</em> to <em>v</em>.</p>
+
+                  <p>This is okay to do because when we compute the length of a path with the updated weights, the distance from <em>s</em> are going to cancel out except for the first and last one, like a telescoping series. </p>
+
+                  <p>That means our updated path from <em>i</em> to <em>j</em> is going to be our old path plus the distance from <em>s</em> to <em>i</em> minus the distance from <em>s</em> to <em>j</em>. Since every path that we choose between these two vertices is going to have those two added values, we're not prioritizing any type of path in any particular way and this reweighting is guaranteed to be fair.</p>
+
+                  <p>At this point, I've presented a number of different approaches for identifying the shortest paths. We can find both single-source shortest paths and all-pairs shortests paths. We can deal with negative weight edges both through our algorithm and by reweighting the graph. We can also identify negative weight cycles in a graph.</p>
+
+
                 </div>
             </div>
         </div>

@@ -886,6 +886,73 @@
 
                   <p>At this point, I've presented a number of different approaches for identifying the shortest paths. We can find both single-source shortest paths and all-pairs shortests paths. We can deal with negative weight edges both through our algorithm and by reweighting the graph. We can also identify negative weight cycles in a graph.</p>
 
+                  <p><strong>TODO: write up NP/NP-Complete/NP-Hard, NP approximations, Hardness of Approximations sections</strong>.</p>
+
+                  <h2>Competitive Analysis of Online Algorithms</h2>
+
+                  <p>Analysis of the worst case or the average case doesn't really do well at differentiating between the quality of online algorithms, therefore we have the concept of competitive analysis of online algorithms.</p>
+
+                  <p>In competitive analysis we compare an online algorithm with the optimal offline algorithm.</p>
+
+                  <p>The example of an online algorithm that we mostly used during this section of the course was page replacement (caching algorithm would work too) algorithms. A few such algorithms that we analyzed were <strong>Least Recently Used</strong>, <strong>Least Frequently Used</strong> and <strong>First In First Out</strong>.</p>
+
+                  <p>In case anyone reading this doesn't know what the problem of paging/caching are, I'll prove a few sentence summary of the problem. Essentially, we can store a set of <em>k</em> elements that we can access very fast. Whenever we access an element, we put it in this set of elements. However, this set has space for a finite number of elements, meaning that we might have to remove an existing element in order to add the new one. A good page replacement algorithm would choose which element to evict in a way to minimize misses in the future as best as it can.</p>
+
+                  <p>Now the problem is that online algorithms aren't going to be able to optimize for future read requests, while any offline algorithm would be able to do this.</p>
+
+                  <p>We can show that <strong>LRU</strong> and <strong>FIFO</strong> are <em>k</em>-competitive page replacement algorithms, given that <em>k</em> is the number of elements we can store in our cache.</p>
+
+                  <p>For a given set of page requests, <span lang="latex">p_1,~p_2,...,~p_n</span>. We can partition the sequence of page requests into phases (subsequences), such that our optimal algorithm (<em>OPT</em>) will fault on the first page request of every subsequence and the phase contains exactly <em>k</em> distinct page requests. </p>
+
+                  <p>We know that for every phase, <em>OPT</em> will only fail a single time. We know that it will fail once, because by definition of a phase <em>OPT</em> must fail on the first request of every phase.</p>
+
+                  <p>However, we also know that any online algorithm like LRU or FIFO will fail at most <em>k</em> times during each phase. The reason for this is because for these algorithms, if we have a cache miss and bring in a particular element, we won't remove that particular element until we've had at most <em>k</em> different distinct page requests. However, because in each phase we only have <em>k</em> distinct page requests, whenever we bring in a particular page after a cache miss, we will only have <em>k-1</em> different distinct page requests left.</p>
+
+                  <p>This means that a page can only cause a single miss during the duration of a single phase. Since there are only <em>k</em> distinct page requests in a phase, it follows that we can only have <em>k</em> misses in a phase with algorithms like LRU or FIFO.</p>
+
+                  <p>Since <em>OPT</em> will fail once in every phase and <em>LRU</em> and <em>FIFO</em> will fail <em>k</em> times, we can say that these online algorithms are <em>k</em>-competitive meaning that they are at most <em>k</em> times worse (meaning they cause <em>k</em> times more misses) than the most optimal offline algorithm.</p>
+
+                  <p>Really, this property of being <em>k</em>-competitive can be extended to any marking algorithm. A marking algorithm has to be one that satisfies the pseudo-code given below.</p>
+
+                  <pre>
+                  <code>
+    - Start with all pages in cache unmarked
+    - On page request p:
+      - If p is not in the cache:
+        - Evict unmarked page (unless all pages marked in which case unmark all)
+        - Bring p into the cache
+      - Mark p
+                  </code>
+                  </pre>
+
+                  <p>The idea here is that upon page <em>p</em> being brought into the cache, it won't be evicted until all of the pages are marked. It's this property that allows us to make a claim about there only being <em>k</em> page misses for marking algorithms in a particular phase.</p>
+
+                  <p>If we explore the idea of a <strong>Randomized Online algorithm</strong>, we will see that we can improve the competitive nature of our online algorithm by employing randomization. </p>
+
+                  <p>We can use a mouse hole exaple to explain the idea of a randomized online algorithm. Assume we have a mouse that holds in one of <em>m</em> holes. We have a cat that looks into a hole; if it happens to look in a hole occupied by the mouse -- the mouse must move to a different hole. The cost of our algorithm is the number of times that the mouse must move.</p>
+
+                  <p>The mouse must start at a random spot. Each time a cat probes a spot, mark it. If the cat probes the mouse's location, the mouse moves to a random uniformly choosen unmarked spot. If the mouse is probed at the last unmarked spot, clear all marks then make a random uniform choice about the next position.</p>
+
+                  <p>In our <em>OPT</em> algorithm, the mouse knows the future and will therefore stay in the hole that will be visited last. That means that if we define a phase to be the cat probing every single hole once, the optimal algorithm will cause the mouse to move only once.</p>
+
+                  <p>The more interesting question is how many times the mouse will move with our randomized marking algorithm. On the very first probe, the cat finds the mouse with a probabilty of <span lang="latex">\frac{1}{m}</span>. On the second probe, the probability of being found is now <span lang="latex">\frac{1}{m-1}</span>. </p>
+
+                  <p>Over the entire set of <em>m</em> probes (until the cat probes everything and <em>OPT</em> moves once), we can express the number of times the mouse will be found in our randomized marking algorithm with the summation below.</p>
+
+                  <img src="http://mathurl.com/gspfcp4.png" style="width: 500px" />
+
+                  <p>This means that this randomized algorithm is log(m)-competitive, as <em>OPT</em> fails once during a phase, while this algorithm will fail at most <em>log(m)</em> times. </p>
+
+                  <p>To show that we can't do better than log(m) competitive, let's examine what would happen if the cat randomly chose a hole to probe. We would have the probability of each probe finding the mouse to be <span lang="latex">\frac{1}{m}</span>.</p>
+
+                  <p>Because on each probe the cat randomly chooses a hole, the expected number of probes before every hole is probed is <span lang="latex">\Theta(mlogm)</span> as per the solution to the <strong>Coupon Collector Problem.</strong>
+
+                  <p>This means that since the mouse will move with probablity of <span lang="latex">\frac{1}{m}</span> on each probe and there are <span lang="latex">\Theta(mlogm)</span> probes, we will expect the mouse to move <span lang="latex">log(m)</span> times. </p>
+
+                  <p>On the other hand, <em>OPT</em> will only move once, meaning that even in the absolute best case (the cat makes the worst decisions possible), our randomized marking algorithm will be log(m)-competitive. </p>
+
+
+
 
                 </div>
             </div>

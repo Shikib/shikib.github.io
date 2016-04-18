@@ -1051,6 +1051,35 @@
 
                   <p>This concludes our review of hash functions.</p> 
 
+                  <h2>Fast Fourier Transform</h2>
+
+                  <p>Consider a polynomial function of degree <em>n-1</em>, <span lang="latex">A(x) = a_0 + a_1x + ... + a_{n-1}x^{n-1}</span>. We are used to seeing polynomials in coefficient representation, however we can also represent a polynomial of degree <em>n-1</em> with <em>n</em> different value points.</p>
+
+                  <p>If we're multiplying polynomials, we'd much rather be given a value representation rather than a coefficient representation. Multiplying two polynomials of degree <em>n-1</em> in coefficient representation takes <span lang="latex">O(n^2)</span> while multiplying two polynomials in value representation will take <span lang="latex">O(n)</span>, since we can just say that <span lang="latex">(A \times B)(x_1) = A(x_1) \times B(x_1)</span>.</p>
+
+                  <p>So say we have two polynomial functions, <em>A</em> and <em>B</em>, and we want to multiply them together, but the polynomial functions are represented in coefficient represetnation. If there was an <span lang="latex">o(n^2)</span> transformation between coefficient representation and value representation, we'd be able to do this in better than <span lang="latex">O(n^2)</span> time.</p>
+
+                  <p>Let's break down the process of evaluation our polynomial function for some input value from <span lang="latex">A(x) = a_0 + a_1x + ... a_{n-1}x^{n-1}</span>, to <span lang="latex">A(x) = A_0(x^2) + xA_1(x^2)</span>.</p>
+
+                  <p>Where <span lang="latex">A_0(x) = a_0 + a_2x + a_4x^2 + ... a_{n-2}x^{\frac{n-2}{2}}</span> and <span lang="latex">A_1(x) = a_1 + a_3x + a_5x^2 + ... + a_{n-1}x^{\frac{n}{2} - 1}</span>.</p>
+
+                  <p>However doing this doesn't improve the runtime of the transformation whatsoever -- but it does lay the ground work for it.</p>
+
+                  <p>The thing about our transformation is that we can choose the values for which we evaluate our function at, meaning we can use that for optimization.</p>
+
+                  <p>For example is we choose a set of values like [1, -1, 2, -2, 3, -3, 4, -4, ...], when we decide to compute <em>A(-1)</em>, we would already have <span lang="latex">A_0((-1)^2)</span> and <span lang="latex">A_1((-1)^2)</span> since we computed those values for <em>A(1)</em>.</p>
+
+                  <p>However, this doesn't improve the runtime asymptotically, it just makes it <span lang="latex">O((\frac{n}{2})^2)</span>. But fortunately, there is a way to choose our set of inputs to give us better runtime asymptotically.</p>
+
+                  <p>The <em>n</em>-th roots of unity are the complex numbers which solve the equation: <span lang="latex">x^n = 1</span>. The 2-th roots of unit are (obviously), 1 and -1. The 4-th roots of unity are <em>i</em>, <em>-i</em>, <em>1</em> and <em>-1</em>.</p>
+
+                  <p>The really good things about roots of unity is that squaring the n-th roots of unity will give you the <span lang="latex">\frac{n}{2}</span>-th roots of unity. For example squaring the 4-th roots of unity gives you: <span lang="latex">i^2 = -1</span>, <span lang="latex">(-i)^2 = -1</span>, <span lang="latex">(-1)^2 = 1</span> and <span lang="latex">1^2 = 1</span>.</p>
+
+                  <p>This means that if we have the <em>n</em>-th roots of unity as our <em>n</em> values, we can express the runtime of our divide and conquer transformation algorithm as being <span lang="latex">T(n) = 2T(\frac{n}{2}) + n</span>.</p>
+
+                  <p>The reason why we have a <span lang="latex">\frac{n}{2}</span> is because by squaring the <em>n</em>-th roots of unity we get the <span lang="latex">\frac{n}{2}</span>-th roots of unity. The reason why we have the <em>+n</em> is because we need to multiply one of the return values (the one from <span lang="latex">A_1</span> by our value.</p>
+
+                  <p>Performing this transformation, which runs in <span lang="latex">O(nlogn)</span> as we can tell by the recurrence relation, will give us the polynomial in value representation. This allows us to perform the polynomial multiplication and convert back (using the inverse o this approach). This means that we now have an algorithm for multiplying poynomials that runs in <span lang="latex">O(nlogn)</span> time. </p>
 
 
                 </div>

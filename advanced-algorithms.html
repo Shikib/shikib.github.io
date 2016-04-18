@@ -952,6 +952,105 @@
                   <p>On the other hand, <em>OPT</em> will only move once, meaning that even in the absolute best case (the cat makes the worst decisions possible), our randomized marking algorithm will be log(m)-competitive. </p>
 
 
+                  <h2>Universal Hash Function</h2>
+
+                  <p>A universal hash function is a set of hash functions, <span lang="latex">\mathscr{H}</span>, that hash to values from 0 to <em>m-1</em>. A universal hash function is universal because for all distinct keys <span lang="latex">k \neq l</span>, the number of hash functions <span lang="latex">h \in \mathscr{H}</span> where <span lang="latex">h(k) = h(l)</span> is at most <span lang="latex">\frac{|H|}{m}</span>.</p>
+
+                  <p>The consequence of a set of hash functions being universal is that if choose <em>h</em> uniformly at random from <span lang="latex">\mathscr{H}</span>, the probablity that <span lang="latex">h(k) = h(l)</span> is <span lang="latex">\frac{1}{m}</span>.</p>
+
+                  <p>One example of a universal hash function is <span lang="latex">H = h_{a,b}(k) = ((ak + b)~mod~p))~mod~m,</span> <span lang="latex">a \in {1,2,...,p-1},~b \in {0,1,...,p-1}</span>, where <em>p</em> is a prime number larger than any key.</p>
+
+                  <p>Because <em>a</em> can take on <em>p-1</em> different values and <em>b</em> can take on <em>p</em> different values, the number of hash functions in our universal hash functionis <em>p(p-1)</em>.</p>
+
+                  <p>Let's prove that this set of hash functions is in fact universal. Let's assume that we have two keys that hash to the same value, <em>k</em> and <em>l</em>. This means that <span lang="latex">((ak + b) ~mod~p) ~mod~m \equiv ((al + b) ~mod~p) ~mod~m</span>.</p>
+
+                  <p>Let's drop the <em>~mod~m</em> and consider the situation where <span lang="latex">(ak + b) ~mod~p \equiv (al + b) ~mod~p</span>. With some modular arithmetic we can get to <span lang="latex">(ak - al) ~mod~p \equiv 0 ~mod~p</span>, and eventually to <span lang="latex">l \equiv k</span>. This means that we can only have <span lang="latex">(ak + b) ~mod~p \equiv (al + b) ~mod~p</span> iff <em>k</em> and <em>l</em> are the same key.</p>
+
+                  <p>An intuitive way to understand why this is the case is to rewrite the equality as <span lang="latex">(ak + b) ~mod~p \equiv (a(k+i) + b) ~mod~b,~i > 0</span>. We can get get rid of the <em>mod p</em> by adding something to both sides of the equation: <span lang="latex">ak + b + pq \equiv a(k + i) + b + pr</span>.</p>
+
+                  <p>At this point we're wondering whether it's possible to obtain some value of <em>i</em>, that satisfies the equality. If we are successful in doing this it shows that we're able to find two different values <em>k</em> and <em>h = k + i</em> that will have the same value for the function <em>(ak + b) mod p</em>.</p>
+
+                  <p>We restructure the equivalency to get <span lang="latex">ai \equiv p(q - r)</span>. By virtue of <em>p</em> being a prime this equation is impossible to satisfy. To see why rewrite it as: <span lang="latex">p \times \frac{q-r}{i} \equiv a</span>.</p>
+
+                  <p>Since we're working with integers here, if that equation was satisfied, it would mean that we can multiply our prime <em>p</em> by some fraction and obtain an integer value <em>a</em> such that <em>a</em> is less than <em>p</em>.</p>
+
+
+                  <p>Therefore all hash collisions must occur at the <em>mod m</em> level, meaning there is a <span lang="latex">\frac{1}{m}</span> probability that two keys will hash to the same value if they're not equal.</p>
+
+                  <p>Dealing with hash collisions is fairly straightforward when we use the universal hash function. We can either use chaining or something like linear or quadratic probing. This would lead the number of expected operations that we'd need to do when searching our hash table to be <span lang="latex">\frac{n}{m}</span> where <em>n</em> is the number of elements we have hashed so far.</p>
+
+                  <h2>Cuckoo Hashing</h2>
+
+                  <p>Cuckoo hashing gets us <span lang="latex">O(1)</span> find and delete time, and an expeccted <span lang="latex">O(1)</span> amortized time.</p>
+
+                  <p>The idea behind Cuckoo hashing is to use two different hash functions, <span lang="latex">h_1</span> and <span lang="latex">h_2</span>. This means that for a given key <em>k</em>, it wwill either be in slot <span lang="latex">h_1(k)</span> or <span lang="latex">h_2(k)</span>. Cuckoo hashing also doesn't have chaining, which means that every bucket has at most one element in it.</p>
+
+                  <p>When we insert a key into our hashtable, if <span lang="latex">h_1(k)</span> is empty, then we simply insert our key into that position and we're done the insertion.</p>
+
+                  <p>However, if there is a collision, what we do is kick out the element that is currently in that position and try to place it in the other position it could go in. If the other position is being used, kick the element in there out and repeat. We know that if we have to kick out <em>n</em> elements, it's not possible to reorganize the elements within this hash table and we need to perform a rehash</p>
+                  
+                  <p>The Python code below should explain this fairly well (assume h1 and h2 are existing hash functions and rehash is an implemented method).</p>
+
+                  <pre class="prettyprint">
+                  <code>
+    def cuckoo_hash_insert(hashtable, key, n):
+      ''' 
+      Input: hashtable : an array representing our hash table
+             key       : a key that we're supposed to hash into the hash table
+             n         : the number of elements that will be in the cache after 
+                         adding key
+      Output: insert the key into the hashtable and return the hashtable
+      '''
+
+      # the slot where we want to place key
+      pos = h1(key)
+
+      # repeat n times. if we need to rehash something we've already hashed, it 
+      # means we can't reorganize the elements within this hashtable
+      for i in range(n):
+        b = hashtable[pos]
+
+        # check if b is valid or whether the slot was empty
+        if b is None:
+          hashtable[pos] = key
+          return hashtable
+
+        # otherwise we have to rehash b
+        if pos == h1(b):
+          key = b
+          pos = h2(b)
+        else:
+          key = b
+          pos = h1(b)
+
+      # if we get here, it means that we need to rehash
+      rehash(hashtable)
+      return insert(hashtable, key, n)
+                  </code>
+                  </pre>
+
+                  <p>It's difficult to see the reasoning behind the cuckoo strategy. We need to introduce the concept of a cuckoo graph, which has <em>m</em> vertices (one for every slot in a table of size <em>m</em>) and <em>n</em> edges (one for each of the keys currently hashed). There exists an edge in our cuckoo graph from <em>i</em> to <em>j</em> iff there is a key in our hashtable that has <em>i</em> and <em>j</em> as its two possible slots.</p>
+
+                  <p>This means that upon inserting a key into our hashtable, we would add an edge into our cuckoo graph. If this edge leads to a cycle being formed, it means that our insert operation will not be successful and we will have to rehash.</p>
+
+                  <p>We can prove that the probablity for <span lang="latex">c > 1</span> and <span lang="latex">m \geq 2cn</span>, the probablity of a cuckoo graph containing a path of length <span lang="latex">l \geq 1 </span> from vertex <em>i</em> to vertex <em>j</em> is less than <span lang="latex">\frac{1}{mc^2}</span>.</p>
+
+                  <p>We can prove this by induction on <em>l</em>. For our base case consider paths of length 1.</p>
+
+                  <p>Since there are <em>m</em> vertices, there are <span lang="latex">m^2</span> possible edges. If we divide the number of actual vertices by the number of possible edges we get that the probablity of there being an edge from <em>i</em> to <em>j</em> is <span lang="latex">\frac{n}{m^2} = \frac{n}{2cnm} \leq \frac{1}{mc}</span>, which satisfies our theorem.</p>
+
+                  <p>Let's assume by induction that our theorem holds for length <em>l-1</em> and prove that it therefore must also hold for a path of length <em>l</em>.</p>
+
+                  <p>The probablity that there exists a path from vertex <em>i</em> to vertex <em>p</em> of length <em>>l-1</em> must be <span lang="latex">\frac{1}{mc^l}</span>. The probablity that there exists a path from vertex <em>p</em> to vertex <em>j</em> is <span lang="latex">\frac{1}{mc}</span>.</p>
+
+                  <p>Since these two events are independent the probablity of them occuring together is <span lang="latex">\frac{1}{m^2c^l}</span>. However what we're interested in the probablity of an edge existing from vertex <em>i</em> to vertex <em>j</em> of length <em>l</em>. So we need to multiply this probablity by the number of possible intermediary vertices, which gives us: <span lang="latex">m \times \frac{1}{m^2c^l} = \frac{1}{mc^l}</span>.</p>
+
+                  <p>This means that the number of iterations of our for loop in our insert function is most likely going to be very small, since the probablity of an <em>i</em>-th iteration of the loop is <span lang="latex">\frac{n}{mc^i}</span> because there are <em>n</em> possible paths of length <em>i</em> that our original slot can have with other vertices.</p>
+
+                  <p>This means that the amortized cost of a single insert operation is <span lang="latex">O(\frac{n}{m})</span> which is in <span lang="latex">O(1)</span>, since <span lang="latex">m \geq 2cn</span>.</p>
+
+                  <p>This concludes our review of hash functions.</p> 
+
 
 
                 </div>

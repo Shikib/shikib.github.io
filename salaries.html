@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Predicting Salary</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vandata/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="vandata/css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://shikib.ca">Shikib Mehri</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('vandata/img/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Predicting Salary</h1>
+                        <h2 class="subheading">Shikib Mehri</h2>
+                        <span class="meta">Posted by <a href="http://shikib.ca">Shikib Mehri</a> on Novemenber 27, 2016</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p>Salary is incredibly important to all of us. In the most basic sense, the majority of people would not do their job if they were not paid for it.</p>
+                    
+                    <p>But it's importance goes deeper than that. We often seek to make decisions that best optimize our future salary -- whether it be the cities we choose to live in or the majors we choose to study.</p>
+
+                    <p>The first step to predicting salary is to do some preliminary exploration of our dataset. </p>
+                    
+                    <p>It's interesting to note that the data seems to be a very specific slice of the population.</p>
+
+                    <p>Every person in the dataset has at least a Bachelor's degree, with roughly 40% having a higher degree.</p>
+
+                    <p>It's interesting to note the locations of people in the dataset. The plot below shows that the distribution is very much skewed to the major cities -- which questions whether analysis of this dataset is applicable outside the major cities.</p>
+
+                    <div>
+                        <a href="https://plot.ly/~shikibm2/12/" target="_blank" title="Below 60k vs Above 60k" style="display: block; text-align: center;"><img src="https://plot.ly/~shikibm2/12.png" alt="Below 60k vs Above 60k" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                        <script data-plotly="shikibm2:12"  src="https://plot.ly/embed.js" async></script>
+                    </div>
+
+                    <p>The plot below shows the distribution of ages. We see that it seems to be the case that as one ages -- there is a larger likelihood of making more than 60k.</p>
+
+
+                    <div>
+                        <a href="https://plot.ly/~shikibm2/14/" target="_blank" title="Below 60k vs Above 60k" style="display: block; text-align: center;"><img src="https://plot.ly/~shikibm2/14.png" alt="Below 60k vs Above 60k" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                        <script data-plotly="shikibm2:14"  src="https://plot.ly/embed.js" async></script>
+                    </div>
+
+
+                    <p>It's also interesting to consider how the features interact with each other -- as well as with the class label (below/above 60k). The feature correlation matrix below answers that question. <em>Note that you can click on the image to see it in an interactive view</em></p>
+
+                    <div>
+                        <a href="https://plot.ly/~shikibm2/10/" target="_blank" title="" style="display: block; text-align: center;"><img src="https://plot.ly/~shikibm2/10.png" alt="" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                        <script data-plotly="shikibm2:10"  src="https://plot.ly/embed.js" async></script>
+                    </div>
+
+                    <p>There are some obvious correlations in the feature matrix (like between the different types of job labels and major labels) but there are some interesting ones as well.</p>
+
+                    <p>It seems that there is a high correlation between the province and the location that a person studied -- which means that it's typical for people to work in the same province as they study.</p>
+
+                    <p>Given some of the feature correlations, my intuition told me that some manual feature selection might help improve my model's accuracy -- however it did not seem to help.</p>
+                    
+                    <p>I also attempted to add an additional feature which attempted to guess whether someone was working in their field of study -- however no change was observed in my model's accuracy.</p>
+
+                    <p>I attempted numerous machine learning strategies -- such as model averaging, stacking and blending. The most succesful approach was to train a single Gradient Boosted Tree Classifier -- with parameters fine-tund with cross-validation. </p>
+
+                    <p>I used One Hot Encoding for the categorical data, in order to remove any notion of ordinality, and automatic feature selection that removed all features lower than the median feature importance.</p>
+
+                    <p>With 10-fold cross-validation, my model had an accuracy of 0.76570 (+/- 0.00243) and an Area Under Curve (using prediction probability) of 0.83931.</p>
+
+                    <p>The resulting feature importances are shown below. The values represent how much a feature contributes to the resulting classification.</p>
+
+                    <div>
+                        <a href="https://plot.ly/~shikibm2/16/" target="_blank" title="" style="display: block; text-align: center;"><img src="https://plot.ly/~shikibm2/16.png" alt="" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                        <script data-plotly="shikibm2:16"  src="https://plot.ly/embed.js" async></script>
+                    </div>
+
+                    <p>The most important feature is the number of hours worked in a week -- a fairly obvious feature choice. The second most important feature is the type of job one works in.</p>
+
+                    <p>While one's job on it's own is definitely not enough to inform of us of their salary, it might be interesting to see the effect that it has.</p>
+
+                    <p>Here, I select some random partition of the data. I keep all of the features constant except for the feature corresponding to the job one works in. I then observe how many people would be making above $60k out of the group of people for every single type of job.</p>
+
+                    <div>
+                        <a href="https://plot.ly/~shikibm2/18/" target="_blank" title="" style="display: block; text-align: center;"><img src="https://plot.ly/~shikibm2/18.png" alt="" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+                        <script data-plotly="shikibm2:18"  src="https://plot.ly/embed.js" async></script>
+                    </div>
+
+                    <p>It's interesting to note that a lot of the results are fairly uniform. This suggests that while one's job is an important factor -- it's not enough to change it without changing anything else (such as major or age).</p>
+
+                    <p>Nonetheless we see some interesting information. If any random person moved to a technical field -- they'd have about a 40% larger chance of making above $60k. Public adminstration and the financial sector also tend to lead to higher salaries.</p>
+
+                    <p>On the flipside, education tends to have significantly lower salaries.</p>
+
+                    <p>This dataset is definitely not well distributed or large enough to draw any large general conclusions. However it seems to be the case that if you work long hours, are in a good field (hopefully a Technical field) -- you will most likely make a decent amount of money. </p>
+                    
+                    <p>But hey, if you don't do any of these things, no need to worry -- my model only has 77% accuracy after all.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://linkedin.com/in/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:mehrishikib@gmail.com">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/shikib">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vandata/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vandata/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="vandata/js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

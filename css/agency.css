@@ -36,6 +36,7 @@ a.active {
 
 a {
     color: #fed136;
+    text-align: center;
 }
 
 a:hover,
@@ -54,6 +55,12 @@ h6 {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
+}
+
+a img {
+  display: block;
+  margin: 0 auto;
+  border: none;
 }
 
 .img-centered {

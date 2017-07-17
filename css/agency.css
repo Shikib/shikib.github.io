@@ -31,11 +31,11 @@ a:hover,
 a:focus,
 a:active,
 a.active {
+    font-weight: bold;
     outline: 0;
 }
 
 a {
-    color: #fed136;
     text-align: center;
 }
 

@@ -1,0 +1,49 @@
+<html>
+<body>
+<form>
+  <span>Wait/Repeat Setting</span> 
+  <select id="wr_setting">
+    <option value="write">Give writing time</option>
+    <option value="confirm">Confirm understanding</option>
+    <option value="ask_before" selected>Ask before steps</option>
+    <option value="ask_every">Ask every step</option>
+  </select><br><br>
+  <span>Departure first?</span> 
+  <select id="departure_first">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select><br><br>
+  <span>Ask how may I help?</span> 
+  <select id="ask_howmayihelp">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select><br><br>
+  <span>Confirm type (for slot filling)</span> 
+  <select id="confirm">
+    <option value="true">Explicit confirm</option>
+    <option value="false">Implicit confirm</option>
+  </select>
+  <br><br><button onclick="return f()">Submit</button>
+</form>
+
+<script>
+function f() {
+  var wr = document.getElementById("wr_setting").value;
+  var d = document.getElementById("departure_first").value;
+  var ask_help  = document.getElementById("ask_howmayihelp").value;
+  var c = document.getElementById("confirm").value;
+
+  fetch("https://8cc2f461.ngrok.io/options", {
+    method: "POST",
+    mode: 'no-cors',
+    body: JSON.stringify([wr,d,ask_help,c]),
+  })
+
+  return false;
+}
+
+</script>
+
+
+</body>
+</html>

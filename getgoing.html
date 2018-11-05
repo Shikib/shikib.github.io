@@ -1,6 +1,7 @@
 <html>
 <body>
 <form>
+<!--
   <span>Wait/Repeat Setting</span> 
   <select id="wr_setting">
     <option value="write">Give writing time</option>
@@ -23,20 +24,27 @@
     <option value="true">Explicit confirm</option>
     <option value="false">Implicit confirm</option>
   </select>
+-->
+  <select id="senior">
+    <option value="true">Senior-Friendly Behaviour</option>
+    <option value="false">Default Behaviour</option>
+  </select>
   <br><br><button onclick="return f()">Submit</button>
 </form>
 
 <script>
 function f() {
-  var wr = document.getElementById("wr_setting").value;
-  var d = document.getElementById("departure_first").value;
-  var ask_help  = document.getElementById("ask_howmayihelp").value;
-  var c = document.getElementById("confirm").value;
+  //var wr = document.getElementById("wr_setting").value;
+  //var d = document.getElementById("departure_first").value;
+  //var ask_help  = document.getElementById("ask_howmayihelp").value;
+  //var c = document.getElementById("confirm").value;
+  var s = document.getElementById("senior").value;
+  
 
   fetch("https://db610286.ngrok.io/options", {
     method: "POST",
     mode: 'no-cors',
-    body: JSON.stringify([wr,d,ask_help,c]),
+    body: JSON.stringify([s]),
   })
 
   return false;

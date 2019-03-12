@@ -153,19 +153,33 @@ let buildings = [];
 let building_descriptors = ["big; brick; beige;", "green; bakery;", "grocery; chinese;", "glass; black; starbucks;", "blue; walmart; glass;", "grey; red; mcdonalds;", "tall; brick; church;", "tall; glass; skyscraper;", "red; brick; school;", "brick; glass; apartment;"]
 
 
+let randoms = [0.6705181742681332,0.5278510801976162,0.19029058338651295,0.8254421226586901,0.8138009550529923,0.34699384673508615,0.09667057555446679,0.40461506321852814,0.9692629012463378,0.6955341313651997,0.3691465950966677,0.7327654767287906,0.5125923632582705,0.649417355161739,0.576820816298792,0.671506359266443,0.012897399720615654,0.9761516234424314,0.11462031677286033,0.9189745262034077,0.7107857781818323,0.19943838460619068,0.4690990443031553,0.5001021377360013,0.26586994342528114,0.9366275276116527,0.8738477772039208,0.7751836730182713,0.389797744370008,0.3493074163993706,0.8815100021006683,0.952920471878901,0.1872136880211761,0.1567466204273913,0.8562730387657336,0.56973903011781,0.4173898846873556,0.23167833700292273,0.3787992230745756,0.2801551949520735,0.0044179141426043955,0.5524658914501732,0.4169384124467119,0.7619564704909427,0.0424533651339527,0.9240273411210727,0.07800900455028126,0.43910557735248545,0.12793436800919,0.5356088698408032,0.05029948299828879,0.6724683241252785,0.415957306851757,0.058647368731153726,0.6685123212446564,0.9737718540296962,0.9625865984830382,0.34744207180664644,0.7205603229432893,0.10835873858427969,0.21037120654627772,0.45809177827698955,0.6191046083747582,0.11614226853118725,0.4447983644509095,0.3978524195533346,0.22575714336718633,0.302078135905159,0.19691458668787232,0.13890664125822738,0.24965789078487832,0.5051480071699208,0.33784257283778474,0.9702716094005495,0.846538002911077,0.40215447831455986,0.7527782316090255,0.7153228602160144,0.20294514501706584,0.6134513737055505,0.9077695936954442,0.8374491497154071,0.5246820116028028,0.07518819116602438,0.5882723349919363,0.9907153212576141,0.08992129378681346,0.5305097612246754,0.7004612850056313,0.7341430855135931,0.32343272605404794,0.567067917479291,0.5284774623233737,0.0429437293774364,0.2575882432376768,0.07531050978417753,0.9333443326637438,0.16917989724432325,0.02536723197941293,0.8887288340820672,0.9905790204268847,0.8471448155093602];
+let ri = 0;
+function random() {
+  if(ri < randoms.length) {
+    return randoms[ri++];
+  } else {
+    num = Math.random();
+    randoms.push(num);
+    ri++;
+    return num;
+  }
+}
+
+
 for(let i = 0; i < street_x.length; i++) {
   for(let j = 0; j < street_y.length; j++) {
     var x = street_x[i] + street_space + padding;
     var y = street_y[j] + street_space + padding;
     for(let k = 0; k < num_horizontal; k++) {
       for(let l = 0; l < num_vertical; l++) {
-        var random = Math.floor(Math.random() * (10 - 1)) + 1;
+        var randnum = Math.floor(random() * (10 - 1)) + 1;
         buildings.push({
           x: x + k*(padding + build_width),
           y: y + l*(padding + build_height),
           width: build_width-6,
           height: build_height-6,
-          i: random,
+          i: randnum,
         });
       }
     }
@@ -181,40 +195,40 @@ function drawBorder(xPos, yPos, width, height, thickness = 2)
 }
 
 let start = {x:0, y:0};
-if(Math.random() < 0.5) {
+if(random() < 0.5) {
   // horizontal street 
-  start.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
-  start.x = Math.random() * canvas.width;
+  start.y = street_y[Math.floor(random() * street_y.length)] + 0.5*street_space;
+  start.x = random() * canvas.width;
   start.on = 'h';
 } else {
   // vertical street
-  start.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
-  start.y = Math.random() * canvas.height;
+  start.x = street_x[Math.floor(random() * street_x.length)] + 0.5*street_space;
+  start.y = random() * canvas.height;
   start.on = 'v';
 }
 
 let end = {x:0, y:0};
-if(Math.random() < 0.5) {
+if(random() < 0.5) {
   // horizontal street 
-  end.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
-  end.x = Math.random() * canvas.width;
+  end.y = street_y[Math.floor(random() * street_y.length)] + 0.5*street_space;
+  end.x = random() * canvas.width;
   end.on = 'h';
 } else {
   // vertical street
-  end.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
-  end.y = Math.random() * canvas.height;
+  end.x = street_x[Math.floor(random() * street_x.length)] + 0.5*street_space;
+  end.y = random() * canvas.height;
   end.on = 'v';
 }
 while(Math.abs(end.x-start.x) < 0.2*canvas.width && Math.abs(end.y-start.y) < 0.2*canvas.height) {
-  if(Math.random() < 0.5) {
+  if(random() < 0.5) {
     // horizontal street 
-    end.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
-    end.x = Math.random() * canvas.width;
+    end.y = street_y[Math.floor(random() * street_y.length)] + 0.5*street_space;
+    end.x = random() * canvas.width;
     end.on = 'h';
   } else {
     // vertical street
-    end.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
-    end.y = Math.random() * canvas.height;
+    end.x = street_x[Math.floor(random() * street_x.length)] + 0.5*street_space;
+    end.y = random() * canvas.height;
     end.on = 'v';
   }
 }
@@ -252,7 +266,7 @@ let count = 0;
 while(cur_x != end_x || cur_y != end_y) {
   console.log("CUR X: " + cur_x)
   console.log("CUR Y: " + cur_x)
-  if(count++ > 10) {
+  if(count++ > 15) {
     console.log(path);
     break;
   }
@@ -295,7 +309,9 @@ while(cur_x != end_x || cur_y != end_y) {
       height: street_space,
     });
     cur_x = street_x[i];
-    cur_on = 'v';
+    if(count > 1 ) {
+      cur_on = 'v';
+    }
   } else {
     let i = -1;
     if(cur_y < end_y) {
@@ -316,7 +332,9 @@ while(cur_x != end_x || cur_y != end_y) {
       height: Math.abs(street_y[i] - cur_y) + (cur_y < street_y[i] ? street_space : 0),
     });
     cur_y = street_y[i];
-    cur_on = 'h';
+    if(count > 1) {
+      cur_on = 'h';
+    }
   }
 }
 

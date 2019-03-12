@@ -1,0 +1,455 @@
+<html>
+<head>
+<style>
+html, body {
+    overflow: hidden;
+}
+
+img {
+    display: none;
+}
+
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 350px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #fff; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+#canvas-container {
+ width: 100%;
+ text-align:right;
+}
+
+canvas {
+ display: inline;
+}
+
+#canvas 
+</style>
+</head>
+<body>
+<div class="sidenav" style = "font-family:georgia,garamond,serif;font-size:18px;">
+<h2>You are the GUIDE!</h2>
+
+<p>
+Your task is to interact with a <strong>TOURIST</strong> and guide them to their destination. You should interact with the tourist in a conversational manner, and ensure they arrive at their location in a timely manner.
+</p>
+
+<p>
+On your right, you should see a 2-dimensional map. The tourist's initial location is shown in <em style="color:green;">GREEN</em> and their target location is shown in <em style="color:red;">RED</em>. The desired path between these two locations is shown in <em style="color:blue;">BLUE</em>. Please follow this path, even if there are more optimal paths available.
+</p>
+
+<p>
+The tourist may not be oriented in the same direction as your map, and therefore you should avoid using directions such as <em>up</em>, <em>right</em>, <em>east</em>, etc. Instead, you should give directions in terms of the surrounding buildings. If you hover over one of the light blue buildings, you will see descriptive attributes and an image. Please rely on these when providing directions.</p>
+</div>
+
+<img id="img1" width="30" height="30" src="https://www.itemlive.com/wp-content/uploads/2018/07/RS161356_Lynn073018-Owen-store_fronts02-lpr-1300x650.jpg">
+<img id="img2" width="30" height="30" src="https://assets.vogue.com/photos/5b91a21f4ff1b37e5e5ec3db/master/pass/03-james-and-karla-murray-new-york-city-vintage-storefronts.jpg">
+<img id="img3" width="30" height="30" src="http://www.nychinatown.org/storefronts/storefront01.jpg">
+<img id="img4" width="30" height="30" src="https://creativityclasses.com/wp-content/uploads/2017/06/starbucks.jpg">
+<img id="img5" width="30" height="30" src="http://lougheedtowncentre.com/wp-content/uploads/2016/06/Lougheed-Storefronts-107-768x512.jpg">
+<img id="img6" width="30" height="30" src="https://farm1.staticflickr.com/63/217827346_0eb7b4b7aa_b.jpg">
+<img id="img7" width="30" height="30" src="https://www.thecathedralparish.org/media/1/History/St%20Pat.jpg">
+<img id="img8" width="30" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnwmABgVF_103O13CiGzX0Zi1svoHO5YMlGLO4xS9G7uRr3vrX">
+<img id="img9" width="30" height="30" src="https://www.stamfordpublicschools.org/sites/stamfordps/files/bulletins/hart-bulletin-new_0_0.jpg">
+<img id="img10" width="30" height="30" src="https://www.udr.com/globalassets/communities/capitol-view-on-14th/images/capitolview_500x292_capitolview_2018_bdg4_rv.jpg">
+
+<div id="canvas-container">
+<canvas id="canvas" />
+</div>
+
+
+<script type="text/javascript">
+const canvas = document.getElementById('canvas');
+
+canvas.width = window.innerWidth - 420;
+canvas.height = window.innerHeight;
+
+const ctx = canvas.getContext('2d');
+
+const street_space = 30;
+
+const horizontal_streets = [
+  {
+    x: 0,
+    y: 0,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.25 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.5 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.75 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+];
+
+const vertical_streets = [
+  {
+    y: 0,
+    x: 0,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.25 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.5 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.75 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+];
+
+let streets = horizontal_streets;
+streets = streets.concat(vertical_streets);
+
+street_x  = vertical_streets.map(street => street.x);
+street_y = horizontal_streets.map(street => street.y);
+
+
+var width_space = (canvas.width - 3 * street_space)/4;
+var height_space = (canvas.height - 3 * street_space)/4;
+
+var num_horizontal = 3;
+var num_vertical = 2;
+var padding = 20;
+
+var build_width = (width_space - (num_horizontal + 1)*padding)/num_horizontal;
+var build_height = (height_space - (num_vertical + 1)*padding)/num_vertical;
+let buildings = [];
+
+let building_descriptors = ["big; brick; beige;", "green; bakery;", "grocery; chinese;", "glass; black; starbucks;", "blue; walmart; glass;", "grey; red; mcdonalds;", "tall; brick; church;", "tall; glass; skyscraper;", "red; brick; school;", "brick; glass; apartment;"]
+
+
+for(let i = 0; i < street_x.length; i++) {
+  for(let j = 0; j < street_y.length; j++) {
+    var x = street_x[i] + street_space + padding;
+    var y = street_y[j] + street_space + padding;
+    for(let k = 0; k < num_horizontal; k++) {
+      for(let l = 0; l < num_vertical; l++) {
+        var random = Math.floor(Math.random() * (10 - 1)) + 1;
+        buildings.push({
+          x: x + k*(padding + build_width),
+          y: y + l*(padding + build_height),
+          width: build_width-6,
+          height: build_height-6,
+          i: random,
+        });
+      }
+    }
+  }
+}
+
+
+
+function drawBorder(xPos, yPos, width, height, thickness = 2)
+{
+  ctx.fillStyle='rgb(219,219,219)';
+  ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
+}
+
+let start = {x:0, y:0};
+if(Math.random() < 0.5) {
+  // horizontal street 
+  start.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
+  start.x = Math.random() * canvas.width;
+  start.on = 'h';
+} else {
+  // vertical street
+  start.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
+  start.y = Math.random() * canvas.height;
+  start.on = 'v';
+}
+
+let end = {x:0, y:0};
+if(Math.random() < 0.5) {
+  // horizontal street 
+  end.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
+  end.x = Math.random() * canvas.width;
+  end.on = 'h';
+} else {
+  // vertical street
+  end.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
+  end.y = Math.random() * canvas.height;
+  end.on = 'v';
+}
+while(Math.abs(end.x-start.x) < 0.2*canvas.width && Math.abs(end.y-start.y) < 0.2*canvas.height) {
+  if(Math.random() < 0.5) {
+    // horizontal street 
+    end.y = street_y[Math.floor(Math.random() * street_y.length)] + 0.5*street_space;
+    end.x = Math.random() * canvas.width;
+    end.on = 'h';
+  } else {
+    // vertical street
+    end.x = street_x[Math.floor(Math.random() * street_x.length)] + 0.5*street_space;
+    end.y = Math.random() * canvas.height;
+    end.on = 'v';
+  }
+}
+
+function getNext(arr, num) {
+  let i = 0;
+  for(;i<arr.length;i++) {
+    if(arr[i] > num) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+function getPrev(arr, num) {
+  let i = arr.length-1;
+  for(;i>=0;i--) {
+    if(arr[i] < num) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// build path between start and end
+let cur_on = start.on;
+let cur_x = cur_on == 'v' ? start.x - 0.5*street_space : start.x;
+let cur_y = cur_on == 'h' ? start.y - 0.5*street_space : start.y;
+
+let end_x = end.on == 'v' ? end.x - 0.5*street_space : end.x;
+let end_y = end.on == 'h' ? end.y - 0.5*street_space : end.y;
+
+let path = [];
+let count = 0;
+while(cur_x != end_x || cur_y != end_y) {
+  console.log("CUR X: " + cur_x)
+  console.log("CUR Y: " + cur_x)
+  if(count++ > 10) {
+    console.log(path);
+    break;
+  }
+
+  // if one is the same, just end it
+  if(cur_on == 'v' && cur_x == end_x) { 
+    path.push({
+      x: cur_x,
+      y: Math.min(cur_y, end_y),
+      width: street_space,
+      height: Math.abs(cur_y - end_y),
+    });
+    cur_y = end_y;
+  } else if (cur_on == 'h' && cur_y == end_y) {
+    path.push({
+      x: Math.min(cur_x, end_x),
+      y: cur_y,
+      width: Math.abs(cur_x - end_x), 
+      height: street_space,
+    });
+    cur_x = end_x;
+  } else if(cur_on == 'h') {
+    let i = -1;
+    if(cur_x < end_x) {
+      i = getNext(street_x, cur_x);
+      if(i<0) {
+        i = getPrev(street_x, cur_x);
+      }
+    } else {
+      i = getPrev(street_x, cur_x);
+      if(i<0) {
+        i = getNext(street_x, cur_x);
+      }
+    }
+
+    path.push({
+      x: Math.min(cur_x, street_x[i]),
+      y: cur_y,
+      width: Math.abs(street_x[i] - cur_x) + (cur_x < street_x[i] ? street_space : 0),
+      height: street_space,
+    });
+    cur_x = street_x[i];
+    cur_on = 'v';
+  } else {
+    let i = -1;
+    if(cur_y < end_y) {
+      i = getNext(street_y, cur_y);
+      if(i<0) {
+        i = getPrev(street_y, cur_y);
+      } 
+    } else {
+      i = getPrev(street_y, cur_y);
+      if(i<0) {
+        i = getNext(street_y, cur_y);
+      } 
+    }
+    path.push({
+      x: cur_x,
+      y: Math.min(street_y[i], cur_y),
+      width: street_space,
+      height: Math.abs(street_y[i] - cur_y) + (cur_y < street_y[i] ? street_space : 0),
+    });
+    cur_y = street_y[i];
+    cur_on = 'h';
+  }
+}
+
+let matched = -1;
+let mouseX = -1;
+let mouseY = -1;
+renderAll();
+canvas.onmousemove = function(e) { 
+  var rect = this.getBoundingClientRect(),
+  x = e.clientX - rect.left;
+  y = e.clientY - rect.top;
+
+  mouseX = x;
+  mouseY = y;
+  
+  matched = -1;
+  for(let i = 0; i < buildings.length; i++) {
+    if(x > buildings[i].x && x < buildings[i].x + buildings[i].width && 
+       y > buildings[i].y && y < buildings[i].y + buildings[i].height) {
+      matched = i;
+    }
+  }
+
+  renderAll();
+}
+
+
+function valid() {
+  // must be within some street
+  let matched = false;
+  for(let i = 0; i < street_x.length; i++) {
+    if(Math.abs(circle.x - street_x[i] - street_space * 0.5) < 0.5*street_space) {
+      matched = true;
+    }
+  }
+  for(let i = 0; i < street_y.length; i++) {
+    if(Math.abs(circle.y - street_y[i] - street_space * 0.5) < 0.5*street_space) {
+      matched = true;
+    }
+  }
+  return matched && circle.x > 0 && circle.x < canvas.width && circle.y > 0 && circle.y < canvas.height;
+}
+
+//window.addEventListener("keydown", move, false);
+function move(e) {
+  let old_x = circle.x;
+  let old_y = circle.y;
+  switch(e.keyCode) {
+    case 37:
+      // left key pressed
+      circle.x -= 10;
+      break;
+    case 38:
+      // up key pressed
+      circle.y -= 10;
+      break;
+    case 39:
+      // right key pressed
+      circle.x += 10;
+      break;
+    case 40:
+      // down key pressed
+      circle.y += 10;
+      break;  
+  }   
+
+  if(!valid()) {
+    circle.x = old_x;
+    circle.y = old_y;
+  }
+
+  renderAll();
+}       
+
+
+function renderAll() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgb(244,244,244)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+  streets.forEach(street => {
+    drawBorder(street.x, street.y, street.width, street.height);
+    ctx.fillStyle='#FFF';
+    ctx.fillRect(street.x, street.y, street.width, street.height);
+  });
+  
+  streets.forEach(street => {
+    ctx.fillStyle='#FFF';
+    ctx.fillRect(street.x, street.y, street.width, street.height);
+  });
+
+  path.forEach(street => {
+    ctx.fillStyle='blue';
+    ctx.fillRect(street.x, street.y, street.width, street.height);
+  });
+
+  buildings.forEach(build => {
+    drawBorder(build.x, build.y, build.width, build.height, 3);
+    ctx.fillStyle='#CEE1F2';
+    ctx.fillRect(build.x, build.y, build.width, build.height);
+  });
+
+  ctx.fillStyle = "green"; //red
+  ctx.beginPath();
+  ctx.arc(start.x,start.y,15,0,Math.PI*2,true);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = "red"; //red
+  ctx.beginPath();
+  ctx.arc(end.x,end.y,15,0,Math.PI*2,true);
+  ctx.closePath();
+  ctx.fill();
+
+  if(matched >= 0) {
+    x = mouseX;
+    y = mouseY;
+    ctx.fillStyle = "#85b3dd";
+    ctx.fillRect(buildings[matched].x, buildings[matched].y, buildings[matched].width, buildings[matched].height);
+
+
+    ctx.fillStyle = "#000";
+    ctx.fillRect(x, y, 200, 200);
+    ctx.font = "14pt sans-serif";
+    ctx.fillStyle = "#FFF";
+    ctx.fillText(building_descriptors[buildings[matched].i-1], x+5, y+21);
+
+    var img = document.getElementById("img" + buildings[matched].i);
+    ctx.drawImage(img, x+25, y+30, 150, 150*img.height/img.width);
+  }
+
+}
+
+</script>
+</body>
+</html>

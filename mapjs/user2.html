@@ -1,0 +1,328 @@
+<html>
+<head>
+<style>
+html, body {
+    overflow: hidden;
+}
+
+img {
+    display: none;
+}
+
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 350px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #fff; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+#canvas-container {
+ width: 100%;
+ text-align:right;
+}
+
+canvas {
+ display: inline;
+}
+
+#canvas 
+</style>
+</head>
+<body>
+<div class="sidenav" style = "font-family:georgia,garamond,serif;font-size:18px;">
+<h2>You are the TOURIST!</h2>
+
+<p>
+Your task is to interact with a <strong>GUIDE</strong> in order to travel from your current location to your final destination. You should interact with the guide in a conversational manner, and use their help to arrive at your location.
+</p>
+
+<p>
+On your right, you should see a 2-dimensional map. Your location is shown in <em style="color:blue;">BLUE</em>, and you may use the <strong>arrow keys</strong> to travel around the map. The guide knows your final destination, your initial position, and the desired path between the two locations. 
+</p>
+
+<p>The guide will give you directions in terms of the surrounding buildings. You can hover over buildings to see descriptive attributes and images. You do not have the same orientation as the guide, and you should avoid relying on directions such as <em>up</em>, <em>right</em>, <em>east</em>, etc. </p>
+
+</div>
+<img id="img1" width="30" height="30" src="https://www.itemlive.com/wp-content/uploads/2018/07/RS161356_Lynn073018-Owen-store_fronts02-lpr-1300x650.jpg">
+<img id="img2" width="30" height="30" src="https://assets.vogue.com/photos/5b91a21f4ff1b37e5e5ec3db/master/pass/03-james-and-karla-murray-new-york-city-vintage-storefronts.jpg">
+<img id="img3" width="30" height="30" src="http://www.nychinatown.org/storefronts/storefront01.jpg">
+<img id="img4" width="30" height="30" src="https://creativityclasses.com/wp-content/uploads/2017/06/starbucks.jpg">
+<img id="img5" width="30" height="30" src="http://lougheedtowncentre.com/wp-content/uploads/2016/06/Lougheed-Storefronts-107-768x512.jpg">
+<img id="img6" width="30" height="30" src="https://farm1.staticflickr.com/63/217827346_0eb7b4b7aa_b.jpg">
+<img id="img7" width="30" height="30" src="https://www.thecathedralparish.org/media/1/History/St%20Pat.jpg">
+<img id="img8" width="30" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnwmABgVF_103O13CiGzX0Zi1svoHO5YMlGLO4xS9G7uRr3vrX">
+<img id="img9" width="30" height="30" src="https://www.stamfordpublicschools.org/sites/stamfordps/files/bulletins/hart-bulletin-new_0_0.jpg">
+<img id="img10" width="30" height="30" src="https://www.udr.com/globalassets/communities/capitol-view-on-14th/images/capitolview_500x292_capitolview_2018_bdg4_rv.jpg">
+<div id="canvas-container">
+<canvas id="canvas" />
+</div>
+<script type="text/javascript">
+const canvas = document.getElementById('canvas');
+
+canvas.width = window.innerWidth - 420;
+canvas.height = window.innerHeight;
+
+const ctx = canvas.getContext('2d');
+
+const street_space = 30;
+
+const horizontal_streets = [
+  {
+    x: 0,
+    y: 0,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.25 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.5 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+  {
+    x: 0,
+    y: 0.75 * canvas.height,
+    height: street_space,
+    width: canvas.width,
+  },
+];
+
+const vertical_streets = [
+  {
+    y: 0,
+    x: 0,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.25 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.5 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+  {
+    y: 0,
+    x: 0.75 * canvas.width,
+    width: street_space,
+    height: canvas.height,
+  },
+];
+
+let streets = horizontal_streets;
+streets = streets.concat(vertical_streets);
+
+street_x  = vertical_streets.map(street => street.x);
+street_y = horizontal_streets.map(street => street.y);
+
+
+var width_space = (canvas.width - 3 * street_space)/4;
+var height_space = (canvas.height - 3 * street_space)/4;
+
+var num_horizontal = 3;
+var num_vertical = 2;
+var padding = 20;
+
+var build_width = (width_space - (num_horizontal + 1)*padding)/num_horizontal;
+var build_height = (height_space - (num_vertical + 1)*padding)/num_vertical;
+let buildings = [];
+
+let building_descriptors = ["big; brick; beige;", "green; bakery;", "grocery; chinese;", "glass; black; starbucks;", "blue; walmart; glass;", "grey; red; mcdonalds;", "tall; brick; church;", "tall; glass; skyscraper;", "red; brick; school;", "brick; glass; apartment;"]
+
+let randoms = [0.5747474720384063,0.6999532966645641,0.37792292268769834,0.8253475431233637,0.5868055996521164,0.45810904363974236,0.9347547349500585,0.121533694251726,0.4175893788771534,0.04346340841520746,0.47605897118132456,0.6991924941559386,0.6729319577068988,0.19744636686087613,0.09668189569304486,0.9959881104059309,0.26903982595569254,0.672171722264407,0.2517139505300636,0.21897337791953175,0.49441910112463994,0.735615608656282,0.47183474620628196,0.10985944816770665,0.5099414467661161,0.6865821114473465,0.0457527819057717,0.062021693020776425,0.7143621084810428,0.4907203636235882,0.8081669833552159,0.5772607478953964,0.5139256560721268,0.5924693979248372,0.6015341942013319,0.023258691490760208,0.7616279567304196,0.4957728059467883,0.9462844497449456,0.8720720203511909,0.9850902339992946,0.1455889968992814,0.9461236202019538,0.5717894160495356,0.9550350402296315,0.6075774420021773,0.4938614450413692,0.5679125136325769,0.46441502586198413,0.6706550476104567,0.9411155198458192,0.03786090897770533,0.8612989360187278,0.7313610832011852,0.3279767281821324,0.05895518132440025,0.7865557175728026,0.6331886520290284,0.5342641936270927,0.7377802832089728,0.6848918922763401,0.09535718517763225,0.5522893939028874,0.7476012904244596,0.6986502225314193,0.7053139615566335,0.33774629986738147,0.191252090990778,0.11049800868707904,0.0524895348710237,0.46460013456530835,0.26505878207744016,0.8496769576715613,0.38945555404210985,0.9782799781676605,0.321878051219757,0.4528574775762644,0.3880688263170986,0.31883469278025656,0.13712466595074568,0.03443246815928869,0.6238639003123889,0.6431790831305932,0.706147499304064,0.6570238733325486,0.2970292945368598,0.2596524535916598,0.6657992173047627,0.2130672775722613,0.36133787058258093,0.4006856738566511,0.2050683565552487,0.12966447503563638,0.2371007399565599,0.5882530860051063,0.4159171284932053,0.08098005146381948,0.7198192805603634,0.9706008827853525,0.6985698877434094,0.13227694269328705,0.33193716776443116];
+let ri = 0;
+function random() {
+  if(ri < randoms.length) {
+    return randoms[ri++];
+  } else {
+    num = Math.random();
+    randoms.push(num);
+    ri++;
+    return num;
+  }
+}
+
+
+for(let i = 0; i < street_x.length; i++) {
+  for(let j = 0; j < street_y.length; j++) {
+    var x = street_x[i] + street_space + padding;
+    var y = street_y[j] + street_space + padding;
+    for(let k = 0; k < num_horizontal; k++) {
+      for(let l = 0; l < num_vertical; l++) {
+        var randnum = Math.floor(random() * (10 - 1)) + 1;
+        buildings.push({
+          x: x + k*(padding + build_width),
+          y: y + l*(padding + build_height),
+          width: build_width-6,
+          height: build_height-6,
+          i: randnum,
+        });
+      }
+    }
+  }
+}
+
+
+
+function drawBorder(xPos, yPos, width, height, thickness = 2)
+{
+  ctx.fillStyle='rgb(219,219,219)';
+  ctx.fillRect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
+}
+
+let circle = {x:0, y:0};
+if(random() < 0.5) {
+  // horizontal street 
+  circle.y = street_y[Math.floor(random() * street_y.length)] + 0.5*street_space;
+  circle.x = random() * canvas.width;
+} else {
+  // vertical street
+  circle.x = street_x[Math.floor(random() * street_x.length)] + 0.5*street_space;
+  circle.y = random() * canvas.height;
+}
+
+let matched = -1;
+let mouseX = -1;
+let mouseY = -1;
+renderAll();
+canvas.onmousemove = function(e) { 
+  var rect = this.getBoundingClientRect(),
+  x = e.clientX - rect.left;
+  y = e.clientY - rect.top;
+
+  mouseX = x;
+  mouseY = y;
+  
+  console.log(x);
+  console.log(y);
+
+  matched = -1;
+  for(let i = 0; i < buildings.length; i++) {
+    if(x > buildings[i].x && x < buildings[i].x + buildings[i].width && 
+       y > buildings[i].y && y < buildings[i].y + buildings[i].height) {
+      matched = i;
+    }
+  }
+
+  renderAll();
+}
+
+
+function valid() {
+  // must be within some street
+  let matched = false;
+  for(let i = 0; i < street_x.length; i++) {
+    if(Math.abs(circle.x - street_x[i] - street_space * 0.5) < 0.5*street_space) {
+      matched = true;
+    }
+  }
+  for(let i = 0; i < street_y.length; i++) {
+    if(Math.abs(circle.y - street_y[i] - street_space * 0.5) < 0.5*street_space) {
+      matched = true;
+    }
+  }
+  return matched && circle.x > 0 && circle.x < canvas.width && circle.y > 0 && circle.y < canvas.height;
+}
+
+window.addEventListener("keydown", move, false);
+function move(e) {
+  let old_x = circle.x;
+  let old_y = circle.y;
+  switch(e.keyCode) {
+    case 37:
+      // left key pressed
+      circle.x -= 10;
+      break;
+    case 38:
+      // up key pressed
+      circle.y -= 10;
+      break;
+    case 39:
+      // right key pressed
+      circle.x += 10;
+      break;
+    case 40:
+      // down key pressed
+      circle.y += 10;
+      break;  
+  }   
+
+  if(!valid()) {
+    circle.x = old_x;
+    circle.y = old_y;
+  }
+
+  renderAll();
+}       
+
+
+function renderAll() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgb(244,244,244)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+  streets.forEach(street => {
+    drawBorder(street.x, street.y, street.width, street.height);
+    ctx.fillStyle='#FFF';
+    ctx.fillRect(street.x, street.y, street.width, street.height);
+  });
+  
+  streets.forEach(street => {
+    ctx.fillStyle='#FFF';
+    ctx.fillRect(street.x, street.y, street.width, street.height);
+  });
+
+  buildings.forEach(build => {
+    drawBorder(build.x, build.y, build.width, build.height, 3);
+    ctx.fillStyle='#CEE1F2';
+    ctx.fillRect(build.x, build.y, build.width, build.height);
+  });
+
+  ctx.fillStyle = "blue"; //red
+  ctx.beginPath();
+  ctx.arc(circle.x,circle.y,12,0,Math.PI*2,true);
+  ctx.closePath();
+  ctx.fill();
+
+  if(matched >= 0) {
+    x = mouseX;
+    y = mouseY;
+    ctx.fillStyle = "#85b3dd";
+    ctx.fillRect(buildings[matched].x, buildings[matched].y, buildings[matched].width, buildings[matched].height);
+
+
+    ctx.fillStyle = "#000";
+    ctx.fillRect(x, y, 200, 200);
+    ctx.font = "14pt sans-serif";
+    ctx.fillStyle = "#FFF";
+    ctx.fillText(building_descriptors[buildings[matched].i-1], x+5, y+21);
+
+    var img = document.getElementById("img" + buildings[matched].i);
+    ctx.drawImage(img, x+25, y+30, 150, 150*img.height/img.width);
+  }
+
+}
+
+</script>
+</body>
+</html>

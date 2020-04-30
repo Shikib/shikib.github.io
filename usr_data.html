@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Reply Annotations</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="mt-5">Reply Annotations</h1>
+          <p class="lead"><i>Chat Disentanglement: A Reply Oriented Approach (Mehri and Carenini 2017)</i></p>
+        </div>
+          <br><br>
+          <p class="lead"><strong><a href="http://shikib.com/reply_annotations.tar.gz">This dataset</a></strong> was created with the goal of identifying <strong>direct reply relationships</strong>, and it therefore labels direct reply relationships between pairs of messages in a transcript.</p>
+
+          <p class="lead">The points below explain the format of the data.</p>
+
+          <ul>
+            <li class="lead"><a href="http://shikib.com/reply_annotations/messages.json">message.json</a> is a JSON representation of chat transcript available to the annotators. </li>
+
+            <li class="lead">The remaining three files (e.g., <a href="http://shikib.com/reply_annotations/annot1.json">annot1.json</a>) contain the annotations made by each user. </li>
+            <li class="lead">Each line in the file is a particular save state, and the final line contains the final state of the annotation. </li>
+            <li class="lead">The state of the annotation is a list, with the i-th index correponding to a list of parents for the i-th message.</li>
+          </ul>
+
+          <p class="lead">To better understand the annotation procedure for this dataset, the annotation software has been <a href="https://github.com/Shikib/react-chat-reply-annotation">open-sourced.</a></p>
+
+          <p class="lead"><strong><a href="mehrishikib@gmail.com">Contact me</a></strong> if you have any questions about the creation or usage of this dataset.</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>

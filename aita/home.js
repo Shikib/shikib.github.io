@@ -42,7 +42,7 @@ function redirectToPost(post_id) {
 
 
 function share(post_id) {
-    const urlToShare = `/post.html?post_id=${post_id}`;
+    const urlToShare = `http://shikib.com/aita/post.html?post_id=${post_id}`;
     const modalHTML = `
         <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;">
             <div style="background-color: #2c2c2c; padding: 20px; border-radius: 10px; text-align: center; max-width: 400px; color: #fff;">

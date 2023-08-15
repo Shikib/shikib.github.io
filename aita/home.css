@@ -1,0 +1,153 @@
+body {
+    background-color: #181a1b;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 50px 20%;
+}
+
+.header {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    background-color: #1a1a1a;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #555;
+}
+
+.post:hover {
+    background-color: #272a2c;
+}
+
+.post-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.post {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    padding-right: 45px;
+    border-bottom: 1px solid #333;
+    background-color: #1f2122;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    overflow: hidden; /* Add this to hide any overflow */
+}
+
+.post-content {
+    flex-grow: 1;
+    overflow: hidden; /* Add this to contain its children */
+    display: flex;
+    flex-direction: column;
+}
+
+.post-title {
+    font-weight: 700;
+    font-size: 20px;
+    margin: 0;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-summary {
+    margin: 10px 0;
+    color: #c0c0c0; /* Lighter color for better readability */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: 16px; /* Larger font size */
+    line-height: 1.5em; /* Increased line height */
+    height: 3.0em; /* Adjust height accordingly */
+}
+
+.post-subinfo {
+    color: #bbbbbb;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+
+.action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 20px;
+    color: #999;
+    text-align: center;
+}
+
+.action-button:focus {
+    outline: none;
+}
+
+.share-button,
+.chat-button {
+    font-weight: bold;
+    color: #2196f3; /* Make buttons pop more */
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.share-button::before {
+    content: '\f064'; /* Font Awesome share icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+.chat-button::before {
+    content: '\f4ad'; /* Font Awesome chat icon */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 5px;
+}
+
+body {
+    overflow-y: auto; /* Makes the entire page scrollable */
+}
+
+.action-button.like:hover {
+    color: #28a745; /* Color when hovering over the like button */
+}
+
+.action-button.dislike:hover {
+    color: #dc3545; /* Color when hovering over the dislike button */
+}
+
+.share-button:hover,
+.chat-button:hover {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adds shadow to make them pop on hover */
+}
+
+/* Modal styling */
+.share-modal input {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+}
+.share-modal button {
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+

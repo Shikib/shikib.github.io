@@ -1,0 +1,230 @@
+body {
+    background-color: #181a1b;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+#post-content {
+    width: 60%;
+    padding: 50px;
+    overflow-y: scroll;
+}
+
+.post-header {
+    margin-bottom: 20px;
+}
+
+.post-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.post-author-date {
+
+    margin-top: 5px;
+    color: #bbbbbb;
+    font-size: 12px;
+}
+
+.post-contents {
+    background-color: #202223;
+    border-radius: 5px;
+    padding: 15px;
+    color: #d0d0d0; /* Softer color for better readability */
+    font-size: 16px; /* Larger font size */
+    line-height: 1.5em; /* Increased line height */
+}
+
+
+.post-summary {
+    margin: 10px 0;
+}
+
+#middle-bar {
+    width: 2px;
+    background-color: #555;
+    cursor: ew-resize;
+}
+
+#chatbox {
+    width: 40%;
+    padding: 20px;
+    background-color: #1a1a1a;
+}
+
+
+#messages {
+    height: calc(100vh - 100px);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align all messages to start initially */
+}
+
+.chat-message {
+    display: inline-block; /* Make the bubble size according to content */
+    max-width: 60%; /* Maximum width of the bubble */
+    min-width: 5%; /* Minimum width of the bubble */
+    margin: 8px 5px; 
+    padding: 12px 15px; /* Increased padding for better spacing */
+    line-height: 1.5; /* Increased line height for better readability */
+    border-radius: 15px;
+}
+
+.chat-message.you {
+    background-color: #4a4f54; /* A slightly lighter shade for "you" to contrast more with the dark theme and improve readability */
+    color: #ffffff;
+    align-self: flex-end; /* Align "you" messages to the right */
+}
+
+.chat-message.other {
+    background-color: #3a3e42; /* A slightly lighter shade for "other" to improve readability */
+    color: #f0f0f0;
+    align-self: flex-start; /* Align "other" messages to the left */
+}
+
+
+.message-input-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #272a2c;
+    border-top: 1px solid #333;
+}
+
+#message-input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    color: #e0e0e0;
+    background-color: #3a3f44;
+}
+
+.send-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+    margin-left: 10px;
+}
+
+.send-button:focus {
+    outline: none;
+}
+
+.send-button:hover {
+    color: #2196f3;
+}
+
+/* Style for Font Awesome icons */
+.fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.speech-controls {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center; /* Center the buttons */
+}
+
+.speech-controls button {
+    padding: 5px;
+    cursor: pointer;
+    background-color: transparent; /* Remove background */
+    color: #ffffff;
+    border: none;
+    font-size: 18px; /* Adjust the icon size */
+    margin: 0 3px; /* Add a small margin between buttons */
+}
+
+.speech-controls button:hover {
+    color: #2196f3;
+}
+
+
+.comment {
+    margin: 8px 0;
+    padding: 15px 25px;
+    border: 1px solid #333; /* Darker border for dark theme */
+    border-radius: 5px;
+    background-color: #2C2C2C; /* Darker background color to match the rest */
+    color: #d0d0d0; /* Light text color for better visibility on dark background */
+}
+
+.comment:not(:first-child) {
+    margin-top: 20px;  /* Adjust this value as needed */
+}
+
+.comment .comment { /* Nested comments */
+    margin-left: 30px; /* More pronounced indent for nested comments */
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: #252525; /* Slightly different shade for nested comments */
+}
+
+.collapse-button {
+    margin-left: 10px;
+    color: #007BFF;
+    cursor: pointer;
+}
+
+.collapsed .comment-text {
+    display: none;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-author.karmaking {
+    background-color: #3a3f44;
+    padding: 2px 5px;
+    border-radius: 5px;
+    color: #f0f0f0;  /* Light text color for better visibility on dark background */
+}
+
+
+.comment-text {
+    margin-top: 10px;
+    font-size: 17px;  /* Increase font size */
+    line-height: 1.6;  /* Increase line height for better readability */
+    color: #E0E0E0; /* or #F0F0F0 depending on the background choice */
+
+}
+
+
+.collapsed .comment-children {
+    display: none;
+}
+
+.comment.collapsed .collapse-button,
+.comment.collapsed .comment-author {
+    display: none;
+}
+
+.collapsed {
+    display: none;
+}
+
+.comment.collapsed {
+    display: none;
+}
+

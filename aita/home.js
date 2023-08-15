@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function redirectToPost(post_id) {
     var currentLocation = window.location.href;
-    var newLocation = currentLocation.replace(/home\.html$/, `post.html?post_id=${post_id}`);
+    var newLocation = `http://shikib.com/aita/post.html?post_id=${post_id}`;
     window.location.href = newLocation;
 }
 

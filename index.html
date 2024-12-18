@@ -1,450 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Shikib Mehri</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/agency.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
-
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: rgb(45, 45, 45);
+        }
+        .header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        .header-content {
+            flex-grow: 1;
+        }
+        .contact-links {
+            margin-top: 0.5rem;
+        }
+        .contact-links a {
+            color: rgb(120, 120, 120);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-right: 1.5rem;
+            font-variant: small-caps;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem 0;
+        }
+        p {
+            margin-bottom: 1.5rem;
+        }
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.75rem;
+        }
+        .paper-link {
+            color: rgb(100, 100, 100);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-variant: small-caps;
+        }
+        .note {
+            color: rgb(100, 100, 100);
+            font-size: 0.85rem;
+        }
+        .paper-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-
-<body id="page-top" class="index">
-
-    <!-- About Section -->
-    <section id="about" style="padding-top: 30px; padding-bottom: 60px;">
-        <div class="container">
-          <div class="row">
-            <div class="hidden-xs col-sm-3 col-md-2" id="sidebar" role="navigation" style="margin-top:180px">
-            </div>
-            <div class="col-xs-12 col-sm-9 col-md-9">
-                <div class="row">
-                    <img class="img-circle pull-left" style="margin-left: 20px; margin-right: 30px; margin-top: 15px; padding: 0; display: inline-block; height: 180px; width: 180px;" src="img/about/face.png" /> 
-                    <h1 class="display-3">Shikib Mehri</h1>
-                    <p class="lead" style="margin: 0;">PhD @ <strong>CMU</strong></p>
-		    <p class="lead">Graduate Research Assistant @ <strong><a href="http://dialrc.org/">DialRC</a></strong></p>
-                    <ul class="list-inline social-buttons" style="margin-left: 0px;">
-                        <li><a href="https://github.com/shikib"><i class="fa fa-github"></i></a>
-                        </li>
-                        <li><a href="https://twitter.com/shikibmehri"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ&hl=en"><i class="ai ai-google-scholar-square"></i></a>
-                        </li>
-                        <li><a href="cv.pdf"><i class="fa fa-file-text"></i></a>
-                        </li>
-                        <li><a href="mailto:mehrishikib@gmail.com"><i class="fa fa-envelope"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <hr>
-
-		<p class="large">Currently, I'm a <strong>PhD</strong> student at <strong>CMU's Language Technologies Institute</strong>. I'm working on dialog systems, advised by <strong>Maxine Eskenazi</strong> as part of the <strong><a href="http://dialrc.org/index.html">DialRC</a></strong> group.</p>
-
-		<p class="large">Some recent news:</p>
-
-		<ul>
-			<li><p class="large">Doing an internship at Amazon this summer! Excited to be working with Dilek Hakkani-Tur and Mihail Eric.</p></li>
-
-			<li><p class="large">One paper accepted to <strong>SIGdial 2020</strong>. Details to follow soon.</p></li>
-
-			<li><p class="large">Two papers accepted to <strong>ACL 2020</strong>. One paper introduces <strong><a href="https://arxiv.org/abs/2005.00456">the USR metric</a></strong> and another examines <strong><a href="https://arxiv.org/abs/2004.01926">none-of-the-above prediction in dialog retrieval</a></strong></p></li>
-
-			<li><p class="large">I was accepted to continue my PhD at CMU! Estimated graduation is 2022.</p></li>
-			<li><p class="large">Won <strong><a href="https://www.sigdial.org/files/workshops/conference20/proceedings.html">best paper</a></strong> at <strong>SIGdial 2019</strong> for our work on <strong><a href="https://arxiv.org/pdf/1907.10016.pdf">Structured Fusion Networks!</a></strong></p></li>
-			<li><p class="large">A paper accepted to <strong>EMNLP 2019</strong> titled <strong><a href="https://arxiv.org/pdf/1908.09890.pdf">Multi-Granularity Representations of Dialog</a></strong>. We show that you can learn <strong>multipe granularities</strong> of representation by controlling the negative candidates during the task of dialog retrieval.</p></li>
-			<li><p class="large">Two papers accepted at <strong>SIGdial 2019!</strong>. I'll be giving a talk on <strong><a href="https://arxiv.org/pdf/1907.10016.pdf">Structured Fusion Networks</a></strong> and will have a poster on our <strong><a href="https://arxiv.org/pdf/1907.10568.pdf">multi-reference dataset</a></strong>. I'll also be giving a talk at the Dialog for Good workshop about our dialog system for seniors, <strong><a href="https://arxiv.org/pdf/1909.01322.pdf">CMU GetGoing.</a></strong></p></li>
-			<li><p class="large">I had a <strong><a href="https://arxiv.org/pdf/1906.00414.pdf">paper</a></strong> accepted to <strong>ACL 2019</strong> on dialog-specific pretraining objectives. We introduce several <strong>novel pretraining objectives</strong> that obtain good performance results and show pretraining to result in better generalizability, less data-hungry models and faster convergence.</p></li>
-			<li><p class="large">I had a publication accepted to <strong>NeurIPS 2018!</strong> My paper introduces the <strong><a href="http://papers.nips.cc/paper/7796-middle-out-decoding.pdf">Middle-Out Decoder</a></strong> which uses self-attention to generate sequences from the middle-out rather than left-to-right.</p> </li>
-
-		</ul>
-                  <p class="large">Feel free to <a href="mailto:mehrishikib@gmail.com">contact me</a> if you're interested in my work, have an interested opportunity, or you just want to chat about <strong>NLP</strong> or <strong>deep learning!</strong></p>
-            </div>
-          </div>
-        </div>
-    </section>
-
-
-    <section class="1bg-light-gray"  id="about" style="padding-top: 60px; padding-bottom: 60px;">
-        <div class="container">
-          <div class="row">
-            <div class="hidden-xs col-sm-3 col-md-2" id="sidebar" role="navigation" style="margin-top:180px">
-            </div>
-            <div class="col-xs-12 col-sm-9 col-md-9">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Publications</h2>
-                    </div>
-                </div>
-                <hr>
-		<ul>
-			<li><p class="large"><u>Shikib Mehri</u>, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/1908.09890.pdf">"Unsupervised Evaluation of Interactive Dialog with DialoGPT,"</a></strong> In <i> Special Interest Group on Discourse and Dialogue (SIGdial),</i> 2020 </p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/2005.00456.pdf">"USR: An Unsupervised and Reference Free Evaluation Metric for Dialog Generation,"</a></strong> In <i> Association for Computational Linguistics (ACL),</i> 2020 </p></li><br>
-			<li><p class="large">Yulan Feng, <u>Shikib Mehri</u>, Maxine Eskenazi, Tiancheng Zhao. <strong><a href="https://arxiv.org/pdf/2004.01926.pdf">"'None of the Above': Measure Uncertainty in Dialog Response Retrieval,"</a></strong> In <i> Association for Computational Linguistics (ACL),</i> 2020 </p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/1908.09890.pdf">"Multi-Granularity Representations of Dialog,"</a></strong> In <i> Empirical Methods in Natural Language Processing (EMNLP-IJCNLP),</i> 2019 </p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Alan W Black, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/1909.01322.pdf">"CMU GetGoing: An Understandable and Memorable Dialog System for Seniors,"</a></strong> In <i> Workshop on Dialog for Good (DiGo) in SIGdial,</i> 2019 <strong>[ORAL]</strong></p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Tejas Srinivasan, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/1907.10016.pdf">"Structured Fusion Networks for Dialog,"</a></strong> In <i> Special Interest Group on Discourse and Dialogue (SIGdial),</i> 2019 <strong><a href="https://github.com/Shikib/structured_fusion_networks" style="color:blue">[CODE]</a></strong> <strong>[ORAL]</strong> <strong style="color:red">[BEST PAPER]</strong></p></li><br>
-			<li><p class="large">Prakhar Gupta, <u>Shikib Mehri</u>, Tiancheng Zhao, Amy Pavel, Maxine Eskenazi, Jeffrey P Bigham. <strong><a href="https://arxiv.org/pdf/1907.10568.pdf">"Investigating Evaluation of Open-Domain Dialogue Systems With Human Generated Multiple References,"</a></strong> In <i> Special Interest Group on Discourse and Dialogue (SIGdial),</i> 2019 <strong><a href="https://github.com/prakharguptaz/multirefeval" style="color:blue">[CODE]</a></strong></p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Evgeniia Razumovskaia, Tiancheng Zhao, Maxine Eskenazi. <strong><a href="https://arxiv.org/pdf/1906.00414.pdf">"Pretraining Methods for Dialog Context Representation Learning,"</a></strong> In <i> Association for Computational Linguistics (ACL),</i> 2019</p></li><br>
-			<li><p class="large">Maxine Eskenazi, <u>Shikib Mehri</u>, Evgeniia Razumovskaia, Tiancheng Zhao. <strong><a href="https://arxiv.org/pdf/1901.06613.pdf">"Beyond Turing: Intelligent Agents Centered on the User."</a></strong><i> Preprint,</i> 2019</p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Leonid Sigal. <strong><a href="http://papers.nips.cc/paper/7796-middle-out-decoding.pdf">"Middle-Out Decoding,"</a></strong> In <i> Neural Information Processing Systems (NeurIPS),</i> 2018</p></li><br>
-			<li><p class="large"><u>Shikib Mehri</u>, Giuseppe Carenini. <strong><a href="https://www.aclweb.org/anthology/I17-1062">"Chat Disentanglement: Identifying Semantic Reply Relationships with Random Forests and Recurrent Neural Networks,"</a></strong> In <i> International Joint Conference on Natural Language Processing (IJCNLP),</i> 2017 <strong>[ORAL]</strong></p></li>
-		</ul>
-
-            </div>
-          </div>
-        </div>
-    </section>
-
-
-    <!-- Experience Section -->
-    <section id="experience"  style="padding-top: 80px; padding-bottom: 80px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Experience</h2>
-                    <h3 class="section-subheading text-muted"></h3>
-                </div>
-	    <hr>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="timeline">
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/amzlogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>May 2020 - Aug 2020</h4>
-				    <h4 class="subheading">Scientist Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-				<p class="text-muted">As a scientist intern on the <strong>Alexa Conversational AI</strong> team, I was mentored by Dilek Hakkani-Tur and Mihail Eric. Two papers on the way with SOTA results 5 dialog tasks (including big gains on MultiWOZ + intent prediction).</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/cmulogo.jpg" alt="">
-                            </div>
-				
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Aug 2018 - Aug 2022 (Expected)</h4>
-				    <h4 class="subheading">MS + PhD</h4>
-                                </div>
-                                <div class="timeline-body">
-					<p class="text-muted">A student in the <strong>Language Technologies Institute</strong> at <strong>Carnegie Mellon University</strong>. I am supervised by <strong>Profs. Maxine Eskenazi</strong></p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/amzlogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>May 2018 - Aug 2018</h4>
-				    <h4 class="subheading">Scientist Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-				<p class="text-muted">As a scientist intern on the <strong>Alexa AI</strong> team, I developed novel approaches for <strong>conversational speech recognition</strong>, yielding significant improvements in both quantitative and qualitative evaluation. A publication is in the works.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/ubclogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Sept 2017 - July 2018</h4>
-                                    <h4 class="subheading">Research Assistant</h4>
-                                </div>
-                                <div class="timeline-body">
-				<p class="text-muted">Worked with <strong>Prof. Leonid Sigal</strong> on <strong>video captioning</strong>. I developed a novel middle-out sequence decoder, attaining state of the art results. A publication has been accepted to <strong>NeurIPS 2018</strong>.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/ubclogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Jan 2018 - Apr 2018</h4>
-                                    <h4 class="subheading">Graduate Teaching Assistant</h4>
-                                </div>
-                                <div class="timeline-body">
-				<p class="text-muted">Teaching assistant for <strong><a href="https://www.cs.ubc.ca/~lsigal/teaching17.html">Multi-Modal Deep Learning</a></strong>. Assisted with the design/development of assignments, as well as general TA duties. One of few undergraduates to ever TA a graduate class.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/microsoftlogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>June 2017 - Sept 2017</h4>
-                                    <h4 class="subheading">Data Scientist Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">As part of the <strong>Windows Feedback Analysis</strong> team, I constructed a number of deep learning based classification and semantic similarity models for the purposes of <strong>natural language understanding</strong>.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/facebooklogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Jan 2017 - Mar 2017</h4>
-                                    <h4 class="subheading">Software Engineering Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">On the <strong>Machine Translation</strong> team, I worked on the implementation of a number of <strong>subword Neural Machine Translation</strong> models to ultimately improve post and comment translation on Facebook. </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/cmmtlogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Aug 2016 - Aug 2018</h4>
-                                    <h4 class="subheading">Bioinformatics Research Assistant</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">As a member of the <strong>Wasserman lab</strong> at CMMT, I designed and implemented algorithms for read alignment on a <strong>graph based representation</strong> of the reference genome.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/ubclogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Aug 2016 - May 2017</h4>
-                                    <h4 class="subheading">Research Assistant</h4>
-                                </div>
-                                <div class="timeline-body">
-					<p class="text-muted">Worked with <strong>Prof. Giuseppe Carenini</strong> on the problem of <strong>thread disentanglement</strong> in <strong>multiparticipant chats</strong>. My approach employed novel strategies (including leveraging a weakly-supervised LSTM classifier) to attain state of the art results. I presented a publication at <strong>IJCNLP 2017</strong>.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/ubclogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Sept 2014 - Aug 2015 <br>Jan 2016 - Aug 2016<br>Sept 2016 - Dec 2016</h4>
-                                    <h4 class="subheading">Computer Science Teaching Assistant</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Taught CPSC 110, CPSC 213 (Computer Systems), CPSC 313 (Operating Systems), CPSC 304 (Databases). I ran labs containing 30+ students, lectured in tutorials, invigilated exams, held office hours and graded assignments and exams. </p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/facebooklogo.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>May 2016 - July 2017</h4>
-                                    <h4 class="subheading">Software Engineering Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">On the <strong>Ads Targeting Modeling</strong> team, I worked on generating/evaluating <strong>user-interest mappings</strong>. I also constructed an incredibly accurate <strong>classification model</strong> to predict the correct categorization of a given interest.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/intellimedlogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Oct 2015 - June 2017</h4>
-                                    <h4 class="subheading">Co-founder & CTO</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">As the <strong>Chief Technology Officer</strong> of IntelliMed, a funded startup, I led developers in building an application which <strong>automates</strong> the process of writing <strong>pharmacy medication reviews</strong> for patients.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/aristalogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Sept 2015 - Dec 2015</h4>
-                                    <h4 class="subheading">Software Engineering Intern</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Implemented functionality to detect <strong>incorrectly configured network switches</strong> and to change the assignment strategies for linerate capable ports in order to <strong>decrease downtime</strong>.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-responsive" src="img/about/ubclogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>September 2013 - May 2018</h4>
-                                    <h4 class="subheading">Honours Computer Science</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">I recently graduated with a major in <strong>Honours Computer Science (with co-op)</strong>. I graduated with a <strong>4.20 cumulative GPA</strong> as well as a <strong>4.33 in-major GPA</strong>.</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="img/about/utplogo.png" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>Sept 2011 - May 2013</h4>
-                                    <h4 class="subheading">University Transition Program</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">One of 20 students to attend this <strong>rigorous, highly-accelerated </strong>program that condenses five years of highschool into two. I completed the program at the age of 14, leading to an <strong>early entrance to university.</strong></p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+<body>
+    <div class="header">
+        <img class="profile-img" src="https://shikib.com/img/about/face.png" alt="Shikib Mehri">
+        <div class="header-content">
+            <h1>Shikib Mehri</h1>
+            <div class="contact-links">
+                <a href="https://github.com/shikib">github</a>
+                <a href="https://x.com/shikibmehri">twitter</a>
+                <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ">google scholar</a>
+                <a href="mailto:mehrishikib@gmail.com">email</a>
             </div>
         </div>
-    </section>
+    </div>
 
+    <main>
+        <p>
+            <strong>Tech Lead Manager</strong> at <a href="https://contextual.ai"><strong>Contextual AI</strong></a>, leading research in LMs, agentic RAG, synthetic data, evaluation, and alignment. Previously founding member of the Alexa LLM post-training team, which became <strong>Amazon AGI</strong> (led early work on SFT, data collection, and owned RM/eval initiatives). PhD from <strong>CMU LTI</strong> (advised by Dr. Maxine Eskenazi) working on dialog systems research [<a class="paper-link" href="https://shikib.com/thesis.pdf">thesis</a>] (2022) and BSc from <strong>UBC</strong> (2018).
+        </p>
 
-    <!-- Awards Section -->
-    <section class="1bg-light-gray"  id="about" style="padding-top: 60px; padding-bottom: 60px;">
-        <div class="container">
-          <div class="row">
-            <div class="hidden-xs col-sm-3 col-md-2" id="sidebar" role="navigation" style="margin-top:180px">
-            </div>
-            <div class="col-xs-12 col-sm-9 col-md-9">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Select Accomplishments</h2>
-                    </div>
-                </div>
-                <hr>
-                <dl class="dl-horizontal">
-                  <dt><p class="large">Finalist</p></dt>
-		  <dd><p class="large">CRA Outstanding Undergraduate Researcher <a href="https://cra.org/about/awards/outstanding-undergraduate-researcher-award/">Award</a>.</p></dd>
-                  <dt><p class="large">2nd Place</p></dt>
-		  <dd><p class="large">Won 2nd place and <strong>crowd favourite</strong> at StartUp-Weekend Vancouver, for <strong>AlbertAI</strong>, a personal assistant that revolutionizes education.</p></dd>
-                  <dt><p class="large">3rd Place</p></dt>
-		  <dd><p class="large">Third place at <strong>LumoHacks</strong> for our application which utilized NLP to identify reddit/twitter users at risk of depression, and alert their friends.</p></dd>
-                  <dt><p class="large">Trek Scholar</p></dt>
-		  <dd><p class="large">Excellence scholarship for continuing students.</p></dd>
-                  <dt><p class="large">Winner</p></dt>
-		  <dd><p class="large">Charles and Jane Banks Scholarship.</p></dd>
-                  <dt><p class="large">Science Scholar</p></dt>
-                  <dd><p class="large">Received the <strong>science scholar distinction</strong> due to stellar academic performance.</p></dd>
-                  <dt><p class="large">1st Place</p></dt>
-                  <dd><p class="large">Won the <strong>Telus/IEEE Datathon</strong>. Our application, <a href="http://safersurrey.com">SaferSurrey</a> used <strong>machine learning</strong> in combination with <strong>crime data</strong> from the Surrey RCMP to identify the safest route home through dangerous parts of the city. We won $3000 from the competition, as well as the opportunity to pitch our idea to the <strong>Surrey RCMP</strong>.</dd>
-                  <dt><p class="large">3rd Place</p></dt>
-                  <dd><p class="large">Placed 3rd at the 2017 Division 2 <a href="https://icpc.baylor.edu/">ACM-ICPC</a> competition in the Pacific Northwest Region.</dd>
-                  <dt><p class="large">Prize Winner</p></dt>
-                  <dd><p class="large">Won the <a href="https://rapidapi.com/">RapidAPI</a> sponsor prize at <a href="https://dubhacks.co/">DubHacks</a> for our application <a href="https://github.com/awoopa/cmpr">CMPR.</a></dd>
-                  <dt><p class="large">4th Place</p></dt>
-                  <dd><p class="large">Obtained fourth place (first amongst undergraduate submissions) <strong>DataSense VanData</strong> competition. My submission can be found <a href="http://shikib.com/transit-vandata">here</a>.</p></dd>
-                  <dt><p class="large">Dean's List</p></dt>
-                  <dd><p class="large">Have received the Dean's List distinction <strong>every term</strong> I've been at the University of British Columbia.</p></dd>
-                </dl> 
+        <p>
+            As a researcher, I most enjoy doing product-driven research -- I strive to do work that enables next-generation user experiences through strong problem formulation (e.g., schemas in my <a class="paper-link" href="https://shikib.com/thesis.pdf">thesis</a>). Key areas include:
+        </p>
+        
+        <ul>
+            <li><strong>Systems over Models:</strong> Multi-step pipelines [<a class="paper-link" href="https://arxiv.org/abs/1907.10016">structured fusion '19</a>], agentic workflows, end-to-end optimization</li>
+            
+            <li><strong>Evaluation:</strong> Natural language testing [<a class="paper-link" href="https://arxiv.org/abs/2412.13091">lmunit '23</a>], automatic metrics [<a class="paper-link" href="https://arxiv.org/abs/2005.00456">usr '20</a>, <a class="paper-link" href="https://arxiv.org/abs/2006.12719">fed '20</a>], realistic user experience evaluation [<a class="paper-link" href="https://arxiv.org/abs/2203.10012">nsf report '22</a>, <a class="paper-link" href="https://arxiv.org/abs/2207.14403">interactive eval track '22</a>, <a class="paper-link" href="https://github.com/DialRC/DialPort">dialport</a>]</li>
+            
+            <li><strong>Human Control & Specification:</strong> Structured representations [<a class="paper-link" href="https://arxiv.org/abs/2106.07056">schema-guided '21</a>], example-driven approaches [<a class="paper-link" href="https://arxiv.org/abs/2010.08684">example-driven '21</a>]</li>
+            
+            <li><strong>Post-training & Alignment:</strong> LLM specialization [<a class="paper-link" href="https://arxiv.org/abs/2408.06266">apo '23</a>]</li>
+            
+            <li><strong>Synthetic Data Generation:</strong> Language models as data [<a class="paper-link" href="https://arxiv.org/abs/2207.14393">lad '22</a>]</li>
+        </ul>
 
-            </div>
-          </div>
-        </div>
-    </section>
+        <p>
+            Previously held internships at <strong>Amazon</strong> <span class="note">(2018, 2020; improved intent prediction [<a class="paper-link" href="https://arxiv.org/abs/2010.08684">example-driven '21</a>] and introduced <a class="paper-link" href="https://arxiv.org/abs/2009.13570">dialoglue</a>)</span>, <strong>Meta</strong> <span class="note">(2016, 2017; shipped first subword neural MT)</span>, and <strong>Microsoft</strong> <span class="note">(2017)</span>. Also spent 2 years as a part-time research assistant in bioinformatics at BC Children's Hospital <span class="note">(graph-based genome representation)</span>.
+        </p>
 
-
-    <hr>
-    <footer >
-        <div class="container">
-            <div class="row">
-            <div class="hidden-xs col-sm-3 col-md-2" id="sidebar" role="navigation">
-            </div>
-            <div class="col-xs-12 col-sm-9 col-md-9">
-                    <ul class="list-inline social-buttons">
-                        <li><a href="https://github.com/shikib"><i class="fa fa-github"></i></a>
-                        </li>
-                        <li><a href="https://www.linkedin.com/in/shikib/"><i class="fa fa-linkedin"></i></a>
-                        </li>
-                        <li><a href="mailto:mehrishikib@gmail.com"><i class="fa fa-envelope"></i></a>
-                        </li>
-                        <li><a href="cv.pdf"><i class="fa fa-file-text"></i></a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="js/classie.js"></script>
-    <script src="js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="js/agency.js"></script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-102950155-1', 'auto');
-      ga('send', 'pageview');
-    </script>
+        <p>
+            At Contextual, we're building the next generation of LM-powered systems. <strong>Always looking to meet exceptional researchers and interns</strong> interested in doing ambitious research and making product impact - check out our <a href="https://contextual.ai/careers/">open roles</a>.
+        </p>
+    </main>
 </body>
-
 </html>
+

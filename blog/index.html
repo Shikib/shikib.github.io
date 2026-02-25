@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog - Shikib Mehri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #222222;
+            --text-muted: #666666;
+            --text-light: #999999;
+            --border: #eee;
+            --card-hover: #fafafa;
+            --link: #222222;
+        }
+        [data-theme="dark"] {
+            --bg: #111111;
+            --text: #e0e0e0;
+            --text-muted: #999999;
+            --text-light: #666666;
+            --border: #222;
+            --card-hover: #1a1a1a;
+            --link: #e0e0e0;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.8;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: 1px solid var(--text-light);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+        .theme-toggle:hover { opacity: 1; }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        .blog-header {
+            margin-bottom: 3rem;
+        }
+        .blog-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .blog-header a {
+            color: var(--text);
+            text-decoration: none;
+        }
+        .blog-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .blog-header p a {
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+        .post-list {
+            list-style: none;
+        }
+        .post-card {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .post-card:first-child {
+            border-top: 1px solid var(--border);
+        }
+        .post-card a {
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+        .post-card a:hover h2 {
+            text-decoration: underline;
+        }
+        .post-card h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .post-card .date {
+            font-size: 0.82rem;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+        .post-card .description {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-light);
+        }
+        .empty-state p {
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+
+    <div class="container">
+        <div class="blog-header">
+            <h1><a href="../">Shikib Mehri</a></h1>
+            <p><a href="../">home</a> / blog</p>
+        </div>
+
+        <ul class="post-list" id="postList"></ul>
+        <div class="empty-state" id="emptyState" style="display:none">
+            <p>No posts yet. Check back soon.</p>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var toggle = document.getElementById('themeToggle');
+            var html = document.documentElement;
+            function getPreferred() {
+                var stored = localStorage.getItem('theme');
+                if (stored) return stored;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function apply(theme) {
+                html.setAttribute('data-theme', theme);
+                toggle.textContent = theme === 'dark' ? '\u2600' : '\u263E';
+            }
+            apply(getPreferred());
+            toggle.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                apply(next);
+            });
+        })();
+
+        fetch('posts.json')
+            .then(function(r) { return r.json(); })
+            .then(function(posts) {
+                var list = document.getElementById('postList');
+                var empty = document.getElementById('emptyState');
+                if (!posts.length) {
+                    empty.style.display = 'block';
+                    return;
+                }
+                posts.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+                posts.forEach(function(post) {
+                    var li = document.createElement('li');
+                    li.className = 'post-card';
+                    li.innerHTML = '<a href="post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+                        '<h2>' + post.title + '</h2>' +
+                        '<div class="date">' + post.date + '</div>' +
+                        '<div class="description">' + post.description + '</div>' +
+                        '</a>';
+                    list.appendChild(li);
+                });
+            })
+            .catch(function() {
+                document.getElementById('emptyState').style.display = 'block';
+            });
+    </script>
+</body>
+</html>

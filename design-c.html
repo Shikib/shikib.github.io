@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shikib Mehri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf9f6;
+            --bg-sidebar: #fff;
+            --bg-highlight: #fff;
+            --text: #2d2d2d;
+            --text-muted: #444;
+            --text-muted2: #666;
+            --text-light: #888;
+            --text-lighter: #999;
+            --text-lightest: #aaa;
+            --border: #e8e4de;
+            --border-light: #f0ece4;
+            --link: #2d2d2d;
+            --link-muted: #666;
+            --link-sidebar: #666;
+            --paper-link: #999;
+            --interests-bg: #f5f3ef;
+        }
+        [data-theme="dark"] {
+            --bg: #0a0a0a;
+            --bg-sidebar: #111;
+            --bg-highlight: #151515;
+            --text: #e0e0e0;
+            --text-muted: #bbb;
+            --text-muted2: #999;
+            --text-light: #888;
+            --text-lighter: #777;
+            --text-lightest: #666;
+            --border: #222;
+            --border-light: #1a1a1a;
+            --link: #e0e0e0;
+            --link-muted: #999;
+            --link-sidebar: #999;
+            --paper-link: #777;
+            --interests-bg: #151515;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: 1px solid var(--text-lightest);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        .theme-toggle:hover { opacity: 1; }
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--border-light);
+        }
+        .sidebar h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            letter-spacing: -0.01em;
+        }
+        .sidebar .role {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .sidebar .role a {
+            color: var(--text-light);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-lightest);
+        }
+        .sidebar nav {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .sidebar nav a {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--link-sidebar);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border-light);
+            transition: color 0.2s;
+        }
+        .sidebar nav a:first-child { border-top: 1px solid var(--border-light); }
+        .sidebar nav a:hover { color: var(--text); }
+        .social-links {
+            display: flex;
+            gap: 1.25rem;
+            margin-top: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .social-links a {
+            color: var(--text-lightest);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+        .social-links a:hover { color: var(--text); }
+        .main {
+            margin-left: 300px;
+            padding: 3rem 4rem;
+            max-width: 900px;
+        }
+        .main section { margin-bottom: 3rem; }
+        .main h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text);
+            display: inline-block;
+        }
+        .main p {
+            font-size: 0.95rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-muted);
+        }
+        .main p a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+        }
+        .main p a:hover { border-color: var(--text); }
+        .main strong { color: var(--text); }
+        .research-list {
+            list-style: none;
+            padding: 0;
+        }
+        .research-list li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .research-list li:last-child { border-bottom: none; }
+        .research-list h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .research-list p {
+            font-size: 0.88rem;
+            color: var(--text-muted2);
+            margin-bottom: 0.5rem;
+        }
+        .paper-link {
+            font-size: 0.78rem;
+            color: var(--paper-link);
+            text-decoration: none;
+            margin-right: 0.75rem;
+            font-variant: small-caps;
+        }
+        .paper-link:hover { color: var(--text); }
+        .current-interests {
+            margin-top: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--interests-bg);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--text-muted2);
+        }
+        .highlight-box {
+            background: var(--bg-highlight);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+        .highlight-box p { margin-bottom: 0; }
+        .note {
+            font-size: 0.82rem;
+            color: var(--text-lighter);
+            font-style: italic;
+        }
+        .career-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .career-item:last-child { border-bottom: none; }
+        .career-year {
+            font-size: 0.8rem;
+            color: var(--text-lightest);
+            min-width: 80px;
+            padding-top: 0.1rem;
+        }
+        .career-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted2);
+        }
+        .career-desc strong { color: var(--text); }
+        .career-desc a { color: var(--link-muted); text-decoration: none; }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 2rem;
+            }
+            .main { margin-left: 0; padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+
+    <div class="sidebar">
+        <img class="profile-img" src="img/about/face.png" alt="Shikib Mehri">
+        <h1>Shikib Mehri</h1>
+        <div class="role">Director of Research<br><a href="https://contextual.ai">Contextual AI</a></div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#research">Research</a>
+            <a href="#highlights">Highlights</a>
+            <a href="#career">Career</a>
+        </nav>
+        <div class="social-links">
+            <a href="https://github.com/shikib">github</a>
+            <a href="https://x.com/shikibmehri">twitter</a>
+            <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ">scholar</a>
+            <a href="https://linkedin.com/in/shikib">linkedin</a>
+            <a href="mailto:mehrishikib@gmail.com">email</a>
+            <!-- To show the blog link, remove the style="display:none" below -->
+            <a href="blog/" style="display:none">blog</a>
+        </div>
+    </div>
+
+    <div class="main">
+        <section id="about">
+            <h2>About</h2>
+            <p>
+                <strong>Director of Research</strong> at <a href="https://contextual.ai"><strong>Contextual AI</strong></a>, managing a team of 5 researchers working on LLMs and agents. Previously founding member of the Alexa LLM post-training team, which became <strong>Amazon AGI</strong> (led early work on SFT, data collection, and owned RM/eval initiatives). PhD from <strong>CMU LTI</strong> (advised by Dr. Maxine Eskenazi) working on dialog systems research [<a class="paper-link" href="thesis.pdf">thesis</a>] and BSc from <strong>UBC</strong>.
+            </p>
+            <p>
+                I most enjoy doing product-driven research &mdash; work that enables next-generation user experiences through strong problem formulation.
+            </p>
+        </section>
+
+        <section id="research">
+            <h2>Research</h2>
+            <ul class="research-list">
+                <li>
+                    <h3>Compound AI Systems</h3>
+                    <p>Agentic workflows, multi-agent evaluation, multi-step pipelines, grounded language models, end-to-end optimization</p>
+                    <a class="paper-link" href="https://contextual.ai/blog/agentlens/">agentlens '25</a>
+                    <a class="paper-link" href="https://arxiv.org/abs/1907.10016">structured fusion '19</a>
+                    <a class="paper-link" href="https://contextual.ai/blog/introducing-grounded-language-model/">glm '24</a>
+                    <a class="paper-link" href="https://arxiv.org/abs/2106.07056">schema-guided '21</a>
+                </li>
+                <li>
+                    <h3>Evaluation</h3>
+                    <p>Natural language unit tests, automatic metrics, realistic user experience evaluation</p>
+                    <a class="paper-link" href="https://arxiv.org/abs/2412.13091">lmunit '24</a>
+                    <a class="paper-link" href="https://arxiv.org/abs/2005.00456">usr '20</a>
+                    <a class="paper-link" href="https://arxiv.org/abs/2006.12719">fed '20</a>
+                    <a class="paper-link" href="https://arxiv.org/abs/2203.10012">nsf report '22</a>
+                </li>
+                <li>
+                    <h3>Retrieval & Ranking</h3>
+                    <p>Tournament-based LLM reranking, open-weight rerankers</p>
+                    <a class="paper-link" href="https://blitzrank.ai">blitzrank '25</a>
+                    <a class="paper-link" href="https://contextual.ai/blog/reranker-v2/">reranker v2</a>
+                </li>
+                <li>
+                    <h3>Post-training & Alignment</h3>
+                    <p>LLM specialization, underspecification in alignment</p>
+                    <a class="paper-link" href="https://arxiv.org/abs/2408.06266">apo '23</a>
+                    <a class="paper-link" href="https://contextual.ai/addressing-underspecification-in-language-model-alignment/">underspec '24</a>
+                </li>
+                <li>
+                    <h3>Synthetic Data</h3>
+                    <p>Data generation for dialog and LLM training</p>
+                    <a class="paper-link" href="https://arxiv.org/abs/2207.14393">lad '22</a>
+                </li>
+            </ul>
+            <div class="current-interests">
+                Currently focused on multi-agent systems, continuous learning, memory, agentic evaluation, and context representations.
+            </div>
+        </section>
+
+        <section id="highlights">
+            <h2>Highlights</h2>
+            <div class="highlight-box">
+                <p>Our team achieved <strong>#1 on the FACTS Grounding leaderboard</strong> for factuality, surpassing Gemini 2.5 Pro and GPT-5. We also released <a class="paper-link" href="https://contextual.ai/blog/reranker-v2/">open-weight rerankers</a> at the cost/performance frontier and <a class="paper-link" href="https://contextual.ai/blog/agentlens/">AgentLens</a>, a multi-agent evaluation system.</p>
+            </div>
+        </section>
+
+        <section id="career">
+            <h2>Career</h2>
+            <div class="career-item">
+                <div class="career-year">2024 &ndash;</div>
+                <div class="career-desc"><strong>Contextual AI</strong> &mdash; Director of Research (prev. TLM, MTS)</div>
+            </div>
+            <div class="career-item">
+                <div class="career-year">2022 &ndash; 24</div>
+                <div class="career-desc"><strong>Amazon AGI</strong> &mdash; Applied Scientist. Founding member of Alexa LLM post-training.</div>
+            </div>
+            <div class="career-item">
+                <div class="career-year">2018 &ndash; 22</div>
+                <div class="career-desc"><strong>CMU LTI</strong> &mdash; PhD, Computer Science. Advised by Maxine Eskenazi. <a href="thesis.pdf">[thesis]</a></div>
+            </div>
+            <div class="career-item">
+                <div class="career-year">2013 &ndash; 18</div>
+                <div class="career-desc"><strong>UBC</strong> &mdash; BSc Honours, Computer Science (GPA: 4.33/4.33 in CS)</div>
+            </div>
+            <div class="career-item">
+                <div class="career-year">Internships</div>
+                <div class="career-desc"><strong>Amazon</strong> (2018, 2020), <strong>Meta</strong> (2016, 2017), <strong>Microsoft</strong> (2017)</div>
+            </div>
+        </section>
+
+        <section>
+            <p>
+                At Contextual, we're building the next generation of LM-powered systems. <strong>Always looking to meet exceptional researchers and interns</strong> &mdash; check out our <a href="https://contextual.ai/careers/">open roles</a>.
+            </p>
+        </section>
+    </div>
+
+    <script>
+        (function() {
+            var toggle = document.getElementById('themeToggle');
+            var html = document.documentElement;
+            function getPreferred() {
+                var stored = localStorage.getItem('theme');
+                if (stored) return stored;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function apply(theme) {
+                html.setAttribute('data-theme', theme);
+                toggle.textContent = theme === 'dark' ? '\u2600' : '\u263E';
+            }
+            apply(getPreferred());
+            toggle.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                apply(next);
+            });
+        })();
+    </script>
+</body>
+</html>

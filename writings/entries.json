@@ -1,0 +1,388 @@
+[
+  {
+    "type": "tweet",
+    "title": "Workflows \u2192 agents \u2192 beyond (ft. Ralph Wiggum)",
+    "date": "2026-01-23",
+    "url": "https://x.com/shikibmehri/status/2014791623507583487",
+    "description": "On the distinction between static workflows and agents \u2014 and what comes after."
+  },
+  {
+    "type": "tweet",
+    "title": "Building AgentLens",
+    "date": "2025-11-26",
+    "url": "https://x.com/shikibmehri/status/1993726558352359687",
+    "description": "An agentic evaluation system that surfaces failure modes, provides actionable insights, and continuously improves based on user feedback."
+  },
+  {
+    "type": "tweet",
+    "title": "League of Legends as AI's ideal testbed",
+    "date": "2025-11-01",
+    "url": "https://x.com/shikibmehri/status/1984637319631290768",
+    "description": "League of Legends is the best real-world multi-agent environment \u2014 testing strategic planning, theory-of-mind, and constrained-bandwidth communication."
+  },
+  {
+    "type": "paper",
+    "title": "LMUnit: Fine-grained Evaluation with Natural Language Unit Tests",
+    "date": "2025-06-01",
+    "authors": "Jon Saad-Falcon, Rajan Vivek, William Berrios, Nandita Shankar Naik, Matija Franklin, Bertie Vidgen, Amanpreet Singh, Douwe Kiela, Shikib Mehri",
+    "venue": "Findings of EMNLP 2025",
+    "url": "https://arxiv.org/abs/2412.13091",
+    "description": "Decomposing response quality into explicit, testable natural language unit tests with a unified scoring model."
+  },
+  {
+    "type": "paper",
+    "title": "Anchored Preference Optimization and Contrastive Revisions: Addressing Underspecification in Alignment",
+    "date": "2025-04-01",
+    "authors": "Karel D'Oosterlinck, Winnie Xu, Chris Develder, Thomas Demeester, Amanpreet Singh, Christopher Potts, Douwe Kiela, Shikib Mehri",
+    "venue": "TACL 2025",
+    "url": "https://arxiv.org/abs/2408.06266",
+    "description": "CLAIR and APO: contrastive data creation and a controllable alignment objective addressing underspecification in preference optimization."
+  },
+  {
+    "type": "tweet",
+    "title": "The next challenge: life-long learning",
+    "date": "2025-03-21",
+    "url": "https://x.com/shikibmehri/status/1903120955184124078",
+    "description": "If starting a PhD today, I'd work on learning from implicit signals after deployment \u2014 one of the most crucial topics in AI."
+  },
+  {
+    "type": "tweet",
+    "title": "Defining groundedness",
+    "date": "2025-03-04",
+    "url": "https://x.com/shikibmehri/status/1897018987139228085",
+    "description": "LLMs must be factually accurate, especially to power autonomous agents for complex, long-horizon tasks."
+  },
+  {
+    "type": "tweet",
+    "title": "Verification vs. generation",
+    "date": "2025-03-03",
+    "url": "https://x.com/shikibmehri/status/1896669430886896060",
+    "description": "The challenge is not HOW to evaluate, but WHAT to evaluate. LMUnit shows how a strong verifier enables decomposed evaluation."
+  },
+  {
+    "type": "blog",
+    "title": "AgentLens: The Future of Evaluation is Agentic",
+    "date": "2025-11-15",
+    "source": "Contextual AI",
+    "url": "https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic",
+    "description": "Introducing AgentLens, a multi-agent evaluation system for compound AI pipelines."
+  },
+  {
+    "type": "tweet",
+    "title": "Launching the Contextual AI platform",
+    "date": "2025-01-15",
+    "url": "https://x.com/shikibmehri/status/1879605942725321142",
+    "description": "SoTA on RAG-QA Arena, OmniDocBench, BEIR, BiRD-SQL \u2014 and the vision behind the platform."
+  },
+  {
+    "type": "tweet",
+    "title": "Model collapse from synthetic data is a myth",
+    "date": "2024-12-31",
+    "url": "https://x.com/shikibmehri/status/1874013273575596145",
+    "description": "'Recursively generated' doesn't mean 'indiscriminately generated.'"
+  },
+  {
+    "type": "blog",
+    "title": "Introducing LMUnit: Natural Language Unit Testing for LLM Evaluation",
+    "date": "2024-12-17",
+    "source": "Contextual AI",
+    "url": "https://contextual.ai/research/lmunit",
+    "description": "LMUnit evaluates LLM outputs using natural language unit tests, achieving SoTA on fine-grained evaluation benchmarks."
+  },
+  {
+    "type": "paper",
+    "title": "Overview of the Ninth Dialog System Technology Challenge: DSTC9",
+    "date": "2024-01-01",
+    "authors": "Chulaka Gunasekara, Seokhwan Kim, Luis Fernando D'Haro, Abhinav Rastogi, Yun-Nung Chen, Mihail Eric, Behnam Hedayatnia, Karthik Gopalakrishnan, Yang Liu, Chao-Wei Huang, Dilek Hakkani-Tur, Jinchao Li, Qi Zhu, Lingxiao Luo, Lars Liden, Kaili Huang, Shahin Shayandeh, Runze Liang, Baolin Peng, Zheng Zhang, Swadheen Shukla, Minlie Huang, Jianfeng Gao, Shikib Mehri, Yulan Feng, Carla Gordon, Seyed Hossein Alavi, David Traum, Maxine Eskenazi, Ahmad Beirami, Eunjoon Cho, Paul A. Crook, Ankita De, Alborz Geramifard, Satwik Kottur, Seungwhan Moon, Shivani Poddar, Rajen Subba",
+    "venue": "IEEE/ACM Transactions on Audio, Speech, and Language Processing 2024",
+    "url": "https://arxiv.org/abs/2011.06486",
+    "description": "Overview of the 9th Dialog System Technology Challenge including knowledge-grounded, document-grounded, and interactive evaluation tracks."
+  },
+  {
+    "type": "blog",
+    "title": "Addressing Underspecification in Language Model Alignment",
+    "date": "2024-08-12",
+    "source": "Contextual AI",
+    "url": "https://contextual.ai/research/addressing-underspecification-in-language-model-alignment",
+    "description": "CLAIR and APO: how contrastive preference data and anchored objectives improve LLM alignment."
+  },
+  {
+    "type": "tweet",
+    "title": "Alignment is underspecified",
+    "date": "2024-08-13",
+    "url": "https://x.com/shikibmehri/status/1823392327752446226",
+    "description": "Introducing APO and CLAIR \u2014 addressing underspecification in both preference data and learning objectives."
+  },
+  {
+    "type": "blog",
+    "title": "Introducing the Grounded Language Model",
+    "date": "2024-06-01",
+    "source": "Contextual AI",
+    "url": "https://contextual.ai/blog/introducing-grounded-language-model/",
+    "description": "GLM, a language model that grounds generation in retrieved context for improved factuality."
+  },
+  {
+    "type": "external",
+    "title": "Contextual AI's new AI model crushes GPT-4o in accuracy \u2014 here's why it matters",
+    "date": "2025-02-01",
+    "source": "VentureBeat",
+    "url": "https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/",
+    "description": "Coverage of Contextual AI's Grounded Language Model and its performance versus GPT-4o."
+  },
+  {
+    "type": "external",
+    "title": "Contextual AI on Google Cloud",
+    "date": "2025-08-01",
+    "source": "Google Cloud",
+    "url": "https://cloud.google.com/customers/contextualai?hl=en",
+    "description": "Google Cloud case study on Contextual AI's language model platform."
+  },
+  {
+    "type": "tweet",
+    "title": "RAG 2.0",
+    "date": "2024-03-19",
+    "url": "https://x.com/shikibmehri/status/1770112067191881982",
+    "description": "Most people are doing RAG wrong. At Contextual AI we jointly optimize retriever + LM, achieving SoTA on several benchmarks."
+  },
+  {
+    "type": "paper",
+    "title": "CESAR: Automatic Induction of Compositional Instructions for Multi-turn Dialogs",
+    "date": "2023-12-06",
+    "authors": "Taha Aksu, Devamanyu Hazarika, Shikib Mehri, Seokhwan Kim, Dilek Hakkani-Tur, Yang Liu, Mahdi Namazifar",
+    "venue": "EMNLP 2023",
+    "url": "https://arxiv.org/abs/2311.17376",
+    "description": "Automatic induction of compositional instructions for building complex multi-turn dialog datasets."
+  },
+  {
+    "type": "paper",
+    "title": "Data-Efficient Alignment of Large Language Models with Human Feedback Through Natural Language",
+    "date": "2023-11-24",
+    "authors": "Di Jin, Shikib Mehri, Devamanyu Hazarika, Aishwarya Padmakumar, Sungjin Lee, Yang Liu, Mahdi Namazifar",
+    "venue": "arXiv 2023",
+    "url": "https://arxiv.org/abs/2311.14543",
+    "description": "Aligning LLMs with human feedback through natural language rather than numerical rewards."
+  },
+  {
+    "type": "paper",
+    "title": "Understanding the Effectiveness of Very Large Language Models on Dialog Evaluation",
+    "date": "2023-01-30",
+    "authors": "Jessica Huynh, Cathy Jiao, Prakhar Gupta, Shikib Mehri, Payal Bajaj, Vishrav Chaudhary, Maxine Eskenazi",
+    "venue": "IWSDS 2023",
+    "url": "https://arxiv.org/abs/2301.12004",
+    "description": "Investigating how very large language models perform on dialog evaluation tasks."
+  },
+  {
+    "type": "paper",
+    "title": "InstructDial: Improving Zero and Few-shot Generalization in Dialogue through Instruction Tuning",
+    "date": "2022-12-07",
+    "authors": "Prakhar Gupta, Cathy Jiao, Yi-Ting Yeh, Shikib Mehri, Maxine Eskenazi, Jeffrey P. Bigham",
+    "venue": "EMNLP 2022",
+    "url": "https://arxiv.org/abs/2205.12673",
+    "description": "Using instruction tuning to improve zero and few-shot generalization across dialogue tasks."
+  },
+  {
+    "type": "paper",
+    "title": "The DialPort Tools",
+    "date": "2022-09-07",
+    "authors": "Shikib Mehri, Jessica Huynh, Cathy Jiao, Maxine Eskenazi",
+    "venue": "SIGDIAL 2022",
+    "url": "https://arxiv.org/abs/2208.10918",
+    "description": "Tools for the DialPort platform enabling dialog system assessment and data collection."
+  },
+  {
+    "type": "paper",
+    "title": "LAD: Language Models as Data for Zero-Shot Dialog",
+    "date": "2022-07-29",
+    "authors": "Shikib Mehri, Yasemin Altun, Maxine Eskenazi",
+    "venue": "SIGDial 2022",
+    "url": "https://arxiv.org/abs/2207.14393",
+    "description": "Using language models for model-in-the-loop synthetic data collection to enable zero-shot task-oriented dialog."
+  },
+  {
+    "type": "paper",
+    "title": "Interactive Evaluation of Dialog Track at DSTC9",
+    "date": "2022-07-28",
+    "authors": "Shikib Mehri, Yulan Feng, Carla Gordon, Seyed Hossein Alavi, David Traum, Maxine Eskenazi",
+    "venue": "LREC 2022",
+    "url": "https://arxiv.org/abs/2207.14403",
+    "description": "Overview of the interactive evaluation track at the 9th Dialog System Technology Challenge."
+  },
+  {
+    "type": "paper",
+    "title": "Report from the NSF Future Directions Workshop on Automatic Evaluation of Dialog",
+    "date": "2022-03-18",
+    "authors": "Shikib Mehri, Jinho Choi, Luis Fernando D'Haro, Jan Deriu, Maxine Eskenazi, Milica Gasic, Kallirroi Georgila, Dilek Hakkani-Tur, Zekang Li, Verena Rieser, Samira Shaikh, David Traum, Yi-Ting Yeh, Zhou Yu, Yizhe Zhang, Chen Zhang",
+    "venue": "arXiv 2022",
+    "url": "https://arxiv.org/abs/2203.10012",
+    "description": "Community report on future directions for automatic evaluation of dialog systems."
+  },
+  {
+    "type": "tweet",
+    "title": "Solving Wordle",
+    "date": "2022-01-15",
+    "url": "https://x.com/shikibmehri/status/1482480018995531788",
+    "description": "A near-optimal algorithm averaging 3.5 guesses. The best first word is ROATE."
+  },
+  {
+    "type": "paper",
+    "title": "Schema-Guided Paradigm for Zero-Shot Dialog",
+    "date": "2021-07-29",
+    "authors": "Shikib Mehri, Maxine Eskenazi",
+    "venue": "SIGDial 2021",
+    "url": "https://arxiv.org/abs/2106.07056",
+    "description": "A schema-guided approach using structured representations for zero-shot generalization in task-oriented dialog."
+  },
+  {
+    "type": "paper",
+    "title": "GenSF: Simultaneous Adaptation of Generative Pre-trained Models and Slot Filling",
+    "date": "2021-07-29",
+    "authors": "Shikib Mehri, Maxine Eskenazi",
+    "venue": "SIGDial 2021",
+    "url": "https://arxiv.org/abs/2106.07055",
+    "description": "Jointly adapting generative pre-trained models for both response generation and slot filling."
+  },
+  {
+    "type": "paper",
+    "title": "A Comprehensive Assessment of Dialog Evaluation Metrics",
+    "date": "2021-06-07",
+    "authors": "Yi-Ting Yeh, Maxine Eskenazi, Shikib Mehri",
+    "venue": "EANCS Workshop 2021",
+    "url": "https://arxiv.org/abs/2106.03706",
+    "description": "Systematic evaluation and comparison of automatic dialog evaluation metrics."
+  },
+  {
+    "type": "paper",
+    "title": "Example-Driven Intent Prediction with Observers",
+    "date": "2021-06-06",
+    "authors": "Shikib Mehri, Mihail Eric",
+    "venue": "NAACL 2021",
+    "url": "https://arxiv.org/abs/2010.08684",
+    "description": "Improving intent prediction by leveraging example-driven approaches with observer modules."
+  },
+  {
+    "type": "paper",
+    "title": "Reasoning Over History: Context Aware Visual Dialog",
+    "date": "2020-11-01",
+    "authors": "Muhammad A. Shah, Shikib Mehri, Tejas Srinivasan",
+    "venue": "NLP Beyond Text Workshop 2020",
+    "url": "https://arxiv.org/abs/2011.00669",
+    "description": "Incorporating dialog history reasoning for improved visual dialog understanding."
+  },
+  {
+    "type": "paper",
+    "title": "STAR: A Schema-Guided Dialog Dataset for Transfer Learning",
+    "date": "2020-10-22",
+    "authors": "Shikib Mehri, Johannes E. M. Mosig, Thomas Kober",
+    "venue": "arXiv 2020",
+    "url": "https://arxiv.org/abs/2010.11853",
+    "description": "A schema-guided dialog dataset designed for evaluating transfer learning in task-oriented dialog."
+  },
+  {
+    "type": "paper",
+    "title": "DialoGLUE: A Natural Language Understanding Benchmark for Task-Oriented Dialogue",
+    "date": "2020-09-28",
+    "authors": "Shikib Mehri, Mihail Eric, Dilek Hakkani-Tur",
+    "venue": "arXiv 2020",
+    "url": "https://arxiv.org/abs/2009.13570",
+    "description": "A benchmark consisting of 7 task-oriented dialogue datasets covering 4 distinct NLU tasks."
+  },
+  {
+    "type": "paper",
+    "title": "USR: An Unsupervised and Reference Free Evaluation Metric for Dialog Generation",
+    "date": "2020-07-05",
+    "authors": "Shikib Mehri, Maxine Eskenazi",
+    "venue": "ACL 2020",
+    "url": "https://arxiv.org/abs/2005.00456",
+    "description": "An unsupervised, reference-free evaluation metric for dialog that measures multiple qualities of generated responses."
+  },
+  {
+    "type": "paper",
+    "title": "\"None of the Above\": Measure Uncertainty in Dialog Response Retrieval",
+    "date": "2020-07-05",
+    "authors": "Yulan Feng, Shikib Mehri, Maxine Eskenazi, Tiancheng Zhao",
+    "venue": "ACL 2020",
+    "url": "https://arxiv.org/abs/2004.01926",
+    "description": "Measuring model uncertainty in dialog response retrieval with a 'none of the above' option."
+  },
+  {
+    "type": "paper",
+    "title": "Unsupervised Evaluation of Interactive Dialog with DialoGPT",
+    "date": "2020-07-01",
+    "authors": "Shikib Mehri, Maxine Eskenazi",
+    "venue": "SIGDial 2020",
+    "url": "https://arxiv.org/abs/2006.12719",
+    "description": "FED: an automatic, unsupervised dialog evaluation metric using DialoGPT that correlates with human judgments."
+  },
+  {
+    "type": "paper",
+    "title": "Multi-Granularity Representations of Dialog",
+    "date": "2019-11-03",
+    "authors": "Shikib Mehri, Maxine Eskenazi",
+    "venue": "EMNLP-IJCNLP 2019",
+    "url": "https://arxiv.org/abs/1908.09890",
+    "description": "Learning dialog representations at multiple levels of granularity for improved understanding."
+  },
+  {
+    "type": "paper",
+    "title": "Investigating Evaluation of Open-Domain Dialogue Systems With Human Generated Multiple References",
+    "date": "2019-09-15",
+    "authors": "Prakhar Gupta, Shikib Mehri, Tiancheng Zhao, Amy Pavel, Maxine Eskenazi, Jeffrey P. Bigham",
+    "venue": "SIGDial 2019",
+    "url": "https://arxiv.org/abs/1907.10568",
+    "description": "Evaluating open-domain dialog systems using multiple human-generated reference responses."
+  },
+  {
+    "type": "paper",
+    "title": "CMU GetGoing: An Understandable and Memorable Dialog System for Seniors",
+    "date": "2019-09-15",
+    "authors": "Shikib Mehri, Alan W Black, Maxine Eskenazi",
+    "venue": "Dialog for Good Workshop, SIGDial 2019",
+    "url": "https://arxiv.org/abs/1909.01322",
+    "description": "A dialog system designed to be understandable and memorable for senior users."
+  },
+  {
+    "type": "paper",
+    "title": "Structured Fusion Networks for Dialog",
+    "date": "2019-09-15",
+    "authors": "Shikib Mehri, Tejas Srinivasan, Maxine Eskenazi",
+    "venue": "SIGDial 2019",
+    "url": "https://arxiv.org/abs/1907.10016",
+    "description": "Multi-step fusion networks for dialog through structured composition of multiple model components. Best Paper Award."
+  },
+  {
+    "type": "paper",
+    "title": "Pretraining Methods for Dialog Context Representation Learning",
+    "date": "2019-07-28",
+    "authors": "Shikib Mehri, Evgeniia Razumovskaia, Tiancheng Zhao, Maxine Eskenazi",
+    "venue": "ACL 2019",
+    "url": "https://arxiv.org/abs/1906.00414",
+    "description": "Pre-training methods for learning effective dialog context representations."
+  },
+  {
+    "type": "paper",
+    "title": "Beyond Turing: Intelligent Agents Centered on the User",
+    "date": "2019-01-20",
+    "authors": "Shikib Mehri, Maxine Eskenazi, Evgeniia Razumovskaia, Tiancheng Zhao",
+    "venue": "arXiv 2019",
+    "url": "https://arxiv.org/abs/1901.06613",
+    "description": "A vision for intelligent dialog agents that go beyond the Turing test by centering on user needs."
+  },
+  {
+    "type": "paper",
+    "title": "Middle-Out Decoding",
+    "date": "2018-12-03",
+    "authors": "Shikib Mehri, Leonid Sigal",
+    "venue": "NeurIPS 2018",
+    "url": "https://arxiv.org/abs/1810.11735",
+    "description": "A decoding strategy that generates sequences from the middle outward for improved text generation."
+  },
+  {
+    "type": "paper",
+    "title": "Chat Disentanglement: Identifying Semantic Reply Relationships with Random Forests and Recurrent Neural Networks",
+    "date": "2017-11-27",
+    "authors": "Shikib Mehri, Giuseppe Carenini",
+    "venue": "IJCNLP 2017",
+    "url": "https://aclanthology.org/I17-1062/",
+    "description": "Identifying reply relationships in multi-party chat using random forests and RNNs."
+  }
+]

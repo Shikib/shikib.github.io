@@ -147,6 +147,15 @@
             border: 1px solid var(--hero-link-border);
             border-radius: 20px;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .hero-links svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+            flex-shrink: 0;
         }
         .hero-links a:hover {
             color: var(--hero-text);
@@ -218,12 +227,10 @@
         }
         .area-links a:hover { opacity: 1; }
         .current-interests {
-            margin-top: 0;
-            padding: 0.75rem 1rem;
-            background: var(--interests-bg);
-            border-radius: 0 0 6px 6px;
+            margin-top: 0.5rem;
             font-size: 0.82rem;
             color: var(--text-light);
+            font-style: italic;
         }
         .timeline {
             position: relative;
@@ -308,13 +315,13 @@
                 <h1>Shikib Mehri</h1>
                 <div class="tagline">Director of Research at <a href="https://contextual.ai">Contextual AI</a></div>
                 <div class="hero-links">
-                    <a href="https://github.com/shikib">GitHub</a>
-                    <a href="https://x.com/shikibmehri">Twitter</a>
-                    <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ">Scholar</a>
-                    <a href="https://linkedin.com/in/shikib">LinkedIn</a>
-                    <a href="mailto:mehrishikib@gmail.com">Email</a>
+                    <a href="https://github.com/shikib"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</a>
+                    <a href="https://x.com/shikibmehri"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> Twitter</a>
+                    <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ"><svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.978 0-5.548 1.749-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg> Scholar</a>
+                    <a href="https://linkedin.com/in/shikib"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
+                    <a href="mailto:mehrishikib@gmail.com"><svg viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67zM22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg> Email</a>
                     <!-- To show the blog link, remove the style="display:none" below -->
-                    <a href="blog/" style="display:none">Blog</a>
+                    <a href="writings/" style="display:none">Writings</a>
                 </div>
             </div>
         </div>
@@ -324,13 +331,12 @@
         <section>
             <h2>About</h2>
             <p>
-                Managing a team of 5 researchers at <strong>Contextual AI</strong> working on LLMs and agents. Previously founding member of the Alexa LLM post-training team, which became <strong>Amazon AGI</strong> (led early work on SFT, data collection, and owned RM/eval initiatives). PhD from <strong>CMU LTI</strong> (advised by Dr. Maxine Eskenazi) on dialog systems [<a class="paper-link" href="thesis.pdf">thesis</a>] and BSc from <strong>UBC</strong>.
+                <strong>Director of Research</strong> at <strong>Contextual AI</strong> (joined as MTS, then TLM, now Director), managing a team of 5 researchers working on LLMs and agents. Previously founding member of the Alexa LLM post-training team, which became <strong>Amazon AGI</strong> (led early work on SFT, data collection, and owned RM/eval initiatives). PhD from <strong>CMU LTI</strong> (advised by Dr. Maxine Eskenazi) on dialog systems [<a class="paper-link" href="thesis.pdf">thesis</a>] and BSc from <strong>UBC</strong>.
             </p>
             <div class="topics">
                 <span class="topic">Compound AI Systems</span>
                 <span class="topic">Evaluation</span>
-                <span class="topic">Retrieval & Ranking</span>
-                <span class="topic">Post-training</span>
+                <span class="topic">Post-training/Learning</span>
                 <span class="topic">Synthetic Data</span>
             </div>
         </section>
@@ -338,7 +344,7 @@
         <section>
             <h2>Highlights</h2>
             <div class="highlight-banner">
-                <p>Our team achieved <strong>#1 on the FACTS Grounding leaderboard</strong> for factuality, surpassing Gemini 2.5 Pro and GPT-5. We also released <a href="https://contextual.ai/blog/reranker-v2/">open-weight rerankers</a> at the cost/performance frontier and <a href="https://contextual.ai/blog/agentlens/">AgentLens</a>, a multi-agent evaluation system.</p>
+                <p>Our team achieved <strong>#1 on the FACTS Grounding leaderboard</strong> for factuality, surpassing Gemini 2.5 Pro and GPT-5. We also released <a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">AgentLens</a>, a multi-agent evaluation system.</p>
             </div>
         </section>
 
@@ -347,42 +353,34 @@
             <div class="research-areas">
                 <div class="area">
                     <h3>Compound AI Systems</h3>
-                    <p>Agentic workflows, multi-agent evaluation, multi-step pipelines, grounded language models</p>
+                    <p>Multi-agent systems, agentic workflows, multi-step pipelines, grounded language models, end-to-end optimization</p>
                     <div class="area-links">
-                        <a href="https://contextual.ai/blog/agentlens/">agentlens</a>
                         <a href="https://arxiv.org/abs/1907.10016">structured fusion</a>
-                        <a href="https://contextual.ai/blog/introducing-grounded-language-model/">glm</a>
+                        <a href="https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/">glm</a>
                         <a href="https://arxiv.org/abs/2106.07056">schema-guided</a>
                     </div>
                 </div>
                 <div class="area">
                     <h3>Evaluation</h3>
-                    <p>Natural language unit tests, automatic metrics</p>
+                    <p>Multi-agent evaluation, natural language unit tests, automatic metrics</p>
                     <div class="area-links">
+                        <a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">agentlens</a>
                         <a href="https://arxiv.org/abs/2412.13091">lmunit</a>
                         <a href="https://arxiv.org/abs/2005.00456">usr</a>
                         <a href="https://arxiv.org/abs/2006.12719">fed</a>
                     </div>
                 </div>
                 <div class="area">
-                    <h3>Retrieval & Ranking</h3>
-                    <p>Tournament-based LLM reranking, open-weight rerankers</p>
-                    <div class="area-links">
-                        <a href="https://blitzrank.ai">blitzrank</a>
-                        <a href="https://contextual.ai/blog/reranker-v2/">reranker v2</a>
-                    </div>
-                </div>
-                <div class="area">
-                    <h3>Post-training & Alignment</h3>
-                    <p>LLM specialization, underspecification in alignment</p>
+                    <h3>Post-training/Learning</h3>
+                    <p>LLM alignment, continuous learning/prompt optimization, RL for agentic search, factual grounding (#1 on FACTS leaderboard)</p>
                     <div class="area-links">
                         <a href="https://arxiv.org/abs/2408.06266">apo</a>
-                        <a href="https://contextual.ai/addressing-underspecification-in-language-model-alignment/">underspec</a>
+                        <a href="https://www.kaggle.com/benchmarks/google/facts-grounding">facts</a>
                     </div>
                 </div>
                 <div class="area">
                     <h3>Synthetic Data</h3>
-                    <p>Data generation for dialog and LLM training</p>
+                    <p>Model-in-the-loop data collection at Amazon, and used throughout work at Contextual AI including GLM, factual grounding, LMUnit, and reward language models</p>
                     <div class="area-links">
                         <a href="https://arxiv.org/abs/2207.14393">lad</a>
                     </div>

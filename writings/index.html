@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Writings - Shikib Mehri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #555;
+            --text-strong: #1a1a1a;
+            --text-muted: #888;
+            --text-light: #aaa;
+            --border: #eee;
+            --border-hover: #ddd;
+            --filter-bg: #f5f5f5;
+            --filter-active-bg: #1a1a1a;
+            --filter-active-text: #fff;
+            --card-bg: #fff;
+            --card-hover: #fafafa;
+            --paper-color: #3b82f6;
+            --paper-bg: #eff6ff;
+            --blog-color: #8b5cf6;
+            --blog-bg: #f5f3ff;
+            --tweet-color: #64748b;
+            --tweet-bg: #f1f5f9;
+            --external-color: #10b981;
+            --external-bg: #ecfdf5;
+            --post-color: #f59e0b;
+            --post-bg: #fffbeb;
+            --year-color: #ccc;
+            --year-line: #eee;
+        }
+        [data-theme="dark"] {
+            --bg: #111111;
+            --text: #aaa;
+            --text-strong: #f0f0f0;
+            --text-muted: #777;
+            --text-light: #555;
+            --border: #222;
+            --border-hover: #333;
+            --filter-bg: #1a1a1a;
+            --filter-active-bg: #f0f0f0;
+            --filter-active-text: #111;
+            --card-bg: #151515;
+            --card-hover: #1a1a1a;
+            --paper-color: #60a5fa;
+            --paper-bg: #1e293b;
+            --blog-color: #a78bfa;
+            --blog-bg: #1e1b2e;
+            --tweet-color: #94a3b8;
+            --tweet-bg: #1e2533;
+            --external-color: #34d399;
+            --external-bg: #132a1f;
+            --post-color: #fbbf24;
+            --post-bg: #2a2008;
+            --year-color: #444;
+            --year-line: #222;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            background: var(--bg);
+            color: var(--text);
+        }
+        strong { color: var(--text-strong); font-weight: 600; }
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: 1px solid var(--text-light);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+            z-index: 10;
+        }
+        .theme-toggle:hover { opacity: 1; }
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+        .page-header {
+            margin-bottom: 2rem;
+        }
+        .page-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-strong);
+            margin-bottom: 0.25rem;
+        }
+        .page-header h1 a {
+            color: var(--text-strong);
+            text-decoration: none;
+        }
+        .page-header .breadcrumb {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .page-header .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+
+        /* Filters */
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .filter-btn {
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--filter-bg);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .filter-btn:hover {
+            border-color: var(--border-hover);
+        }
+        .filter-btn.active {
+            background: var(--filter-active-bg);
+            color: var(--filter-active-text);
+            border-color: var(--filter-active-bg);
+        }
+        .filter-btn .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.35rem;
+            vertical-align: middle;
+        }
+        .filter-btn .count {
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-left: 0.25rem;
+        }
+
+        /* Timeline */
+        .year-group {
+            margin-bottom: 2.5rem;
+        }
+        .year-label {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--year-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--year-line);
+            display: inline-block;
+        }
+        .entry {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: opacity 0.2s;
+        }
+        .entry:last-child { border-bottom: none; }
+        .entry.hidden { display: none; }
+
+        .entry-header {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            margin-bottom: 0.3rem;
+        }
+        .type-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+        .type-label.paper { color: var(--paper-color); background: var(--paper-bg); }
+        .type-label.blog { color: var(--blog-color); background: var(--blog-bg); }
+        .type-label.tweet { color: var(--tweet-color); background: var(--tweet-bg); }
+        .type-label.external { color: var(--external-color); background: var(--external-bg); }
+        .type-label.post { color: var(--post-color); background: var(--post-bg); }
+
+        .entry-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-strong);
+            line-height: 1.4;
+        }
+        .entry-title a {
+            color: var(--text-strong);
+            text-decoration: none;
+        }
+        .entry-title a:hover { text-decoration: underline; }
+
+        .entry-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+            line-height: 1.5;
+        }
+        .entry-meta .venue {
+            font-weight: 500;
+        }
+        .entry-meta .authors {
+            color: var(--text-light);
+        }
+        .entry-description {
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-top: 0.4rem;
+            line-height: 1.5;
+        }
+        .entry-source {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 2rem 1rem; }
+            .entry-header { flex-direction: column; gap: 0.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></button>
+
+    <div class="container">
+        <div class="page-header">
+            <h1><a href="../">Shikib Mehri</a></h1>
+            <div class="breadcrumb"><a href="../">home</a> / writings</div>
+        </div>
+
+        <div class="filters" id="filters"></div>
+
+        <div id="timeline"></div>
+        <div class="empty-state" id="emptyState" style="display:none">
+            No entries match the current filter.
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle
+        (function() {
+            var toggle = document.getElementById('themeToggle');
+            var html = document.documentElement;
+            function getPreferred() {
+                var stored = localStorage.getItem('theme');
+                if (stored) return stored;
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function apply(theme) {
+                html.setAttribute('data-theme', theme);
+                toggle.textContent = theme === 'dark' ? '\u2600' : '\u263E';
+            }
+            apply(getPreferred());
+            toggle.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                apply(next);
+            });
+        })();
+
+        // Main logic
+        var TYPE_LABELS = {
+            paper: 'Paper',
+            blog: 'Blog',
+            tweet: 'Tweet',
+            external: 'Press',
+            post: 'Post'
+        };
+
+        var activeFilters = new Set(['paper', 'blog', 'tweet', 'external', 'post']);
+        var allEntries = [];
+
+        function formatDate(dateStr) {
+            var d = new Date(dateStr + 'T00:00:00');
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return months[d.getMonth()] + ' ' + d.getFullYear();
+        }
+
+        function renderFilters(entries) {
+            var counts = {};
+            entries.forEach(function(e) { counts[e.type] = (counts[e.type] || 0) + 1; });
+
+            var container = document.getElementById('filters');
+            var allBtn = document.createElement('button');
+            allBtn.className = 'filter-btn active';
+            allBtn.setAttribute('data-type', 'all');
+            allBtn.textContent = 'All';
+            allBtn.addEventListener('click', function() {
+                activeFilters = new Set(['paper', 'blog', 'tweet', 'external', 'post']);
+                updateFilters();
+                renderTimeline();
+            });
+            container.appendChild(allBtn);
+
+            var types = ['paper', 'blog', 'external', 'tweet', 'post'];
+            var dotColors = { paper: 'var(--paper-color)', blog: 'var(--blog-color)', tweet: 'var(--tweet-color)', external: 'var(--external-color)', post: 'var(--post-color)' };
+
+            types.forEach(function(type) {
+                if (!counts[type]) return;
+                var btn = document.createElement('button');
+                btn.className = 'filter-btn';
+                btn.setAttribute('data-type', type);
+                btn.innerHTML = '<span class="dot" style="background:' + dotColors[type] + '"></span>' + TYPE_LABELS[type] + '<span class="count">' + counts[type] + '</span>';
+                btn.addEventListener('click', function() {
+                    if (activeFilters.size === 1 && activeFilters.has(type)) {
+                        activeFilters = new Set(['paper', 'blog', 'tweet', 'external', 'post']);
+                    } else {
+                        activeFilters = new Set([type]);
+                    }
+                    updateFilters();
+                    renderTimeline();
+                });
+                container.appendChild(btn);
+            });
+        }
+
+        function updateFilters() {
+            var isAll = activeFilters.size >= 5;
+            document.querySelectorAll('.filter-btn').forEach(function(btn) {
+                var type = btn.getAttribute('data-type');
+                if (type === 'all') {
+                    btn.classList.toggle('active', isAll);
+                } else {
+                    btn.classList.toggle('active', !isAll && activeFilters.has(type));
+                }
+            });
+        }
+
+        function renderEntry(entry) {
+            var html = '<div class="entry" data-type="' + entry.type + '">';
+            html += '<div class="entry-header">';
+            html += '<span class="type-label ' + entry.type + '">' + TYPE_LABELS[entry.type] + '</span>';
+            if (entry.type === 'tweet') {
+                html += '<span class="entry-title"><a href="' + entry.url + '" target="_blank">' + entry.title + '</a></span>';
+            } else {
+                var url = entry.type === 'post' ? 'post.html?slug=' + encodeURIComponent(entry.slug) : entry.url;
+                html += '<span class="entry-title"><a href="' + url + '" target="_blank">' + entry.title + '</a></span>';
+            }
+            html += '</div>';
+
+            if (entry.type === 'paper') {
+                html += '<div class="entry-meta">';
+                if (entry.venue) html += '<span class="venue">' + entry.venue + '</span> &middot; ';
+                html += formatDate(entry.date);
+                if (entry.authors) html += '<br><span class="authors">' + entry.authors + '</span>';
+                html += '</div>';
+                if (entry.description) html += '<div class="entry-description">' + entry.description + '</div>';
+            } else if (entry.type === 'blog' || entry.type === 'external' || entry.type === 'post') {
+                html += '<div class="entry-source">' + (entry.source || '') + (entry.source ? ' &middot; ' : '') + formatDate(entry.date) + '</div>';
+                if (entry.description) html += '<div class="entry-description">' + entry.description + '</div>';
+            } else if (entry.type === 'tweet') {
+                html += '<div class="entry-source">' + formatDate(entry.date) + '</div>';
+                if (entry.description) html += '<div class="entry-description">' + entry.description + '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function renderTimeline() {
+            var filtered = allEntries.filter(function(e) { return activeFilters.has(e.type); });
+            var timeline = document.getElementById('timeline');
+            var empty = document.getElementById('emptyState');
+
+            if (filtered.length === 0) {
+                timeline.innerHTML = '';
+                empty.style.display = 'block';
+                return;
+            }
+            empty.style.display = 'none';
+
+            // Group by year
+            var groups = {};
+            filtered.forEach(function(entry) {
+                var year = new Date(entry.date + 'T00:00:00').getFullYear();
+                if (!groups[year]) groups[year] = [];
+                groups[year].push(entry);
+            });
+
+            var years = Object.keys(groups).sort(function(a, b) { return b - a; });
+            var html = '';
+            years.forEach(function(year) {
+                html += '<div class="year-group">';
+                html += '<div class="year-label">' + year + '</div>';
+                groups[year].forEach(function(entry) {
+                    html += renderEntry(entry);
+                });
+                html += '</div>';
+            });
+
+            timeline.innerHTML = html;
+        }
+
+        // Load entries
+        fetch('entries.json')
+            .then(function(r) { return r.json(); })
+            .then(function(entries) {
+                allEntries = entries.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+                renderFilters(allEntries);
+                renderTimeline();
+            })
+            .catch(function() {
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('emptyState').textContent = 'Failed to load entries.';
+            });
+    </script>
+</body>
+</html>

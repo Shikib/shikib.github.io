@@ -84,10 +84,38 @@
         }
         .contact-links a:hover { color: var(--text-strong); }
         .contact-links svg {
-            width: 15px;
-            height: 15px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
             flex-shrink: 0;
+        }
+        .contact-links .writings-link {
+            font-weight: 600;
+            color: var(--text-muted);
+            border: 1px solid var(--text-light);
+            border-radius: 4px;
+            padding: 0.15rem 0.5rem 0.15rem 0.35rem;
+        }
+        .contact-links .writings-link:hover {
+            color: var(--text-strong);
+            border-color: var(--text-muted);
+        }
+        .news-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        .news-list li {
+            margin-bottom: 0.3rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .news-list li::before {
+            content: "\2022";
+            color: var(--text-light);
+            position: absolute;
+            left: 0;
         }
         h1 {
             font-size: 2.5rem;
@@ -140,12 +168,12 @@
         <div class="header-content">
             <h1>Shikib Mehri</h1>
             <div class="contact-links">
-                <a href="https://github.com/shikib"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> github</a>
-                <a href="https://x.com/shikibmehri"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> twitter</a>
-                <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ"><svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.978 0-5.548 1.749-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg> scholar</a>
-                <a href="https://linkedin.com/in/shikib"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> linkedin</a>
-                <a href="mailto:mehrishikib@gmail.com"><svg viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67zM22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg> email</a>
-                <a href="writings/"><svg viewBox="0 0 24 24"><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.414.586L7 10.019V13h2.981l9.064-9.064zM5 19h14v2H5z"/></svg> writings</a>
+                <a href="https://github.com/shikib" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                <a href="https://x.com/shikibmehri" title="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                <a href="https://scholar.google.com/citations?user=H_OmqikAAAAJ" title="Google Scholar"><svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.978 0-5.548 1.749-6.758 4.269zM12 10a7 7 0 100 14 7 7 0 000-14z"/></svg></a>
+                <a href="https://linkedin.com/in/shikib" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                <a href="mailto:mehrishikib@gmail.com" title="Email"><svg viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67zM22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></a>
+                <a href="writings/" class="writings-link"><svg viewBox="0 0 24 24"><path d="M19.045 7.401c.378-.378.586-.88.586-1.414s-.208-1.036-.586-1.414l-1.586-1.586c-.378-.378-.88-.586-1.414-.586s-1.036.208-1.414.586L7 10.019V13h2.981l9.064-9.064zM5 19h14v2H5z"/></svg> writings</a>
             </div>
         </div>
     </div>
@@ -155,9 +183,14 @@
             <strong>Director of Research</strong> at <a href="https://contextual.ai"><strong>Contextual AI</strong></a>, managing a team of 5 researchers working on LLMs and agents. Previously an Applied Scientist at <strong>Amazon</strong>, where I helped found the Alexa LLM post-training team (which became <strong>Amazon AGI</strong>). PhD from <strong>CMU LTI</strong> [<a class="paper-link" href="thesis.pdf">thesis</a>] (2022) and BSc from <strong>UBC</strong> (2018). Always looking to meet exceptional researchers and interns &mdash; check out our <a href="https://contextual.ai/careers/">open roles</a>.
         </p>
 
-        <p>
-            Recent: (1) <a href="https://x.com/w33lliam/status/1944776594767372636">GLMv2</a> reached #1 on the <a href="https://www.kaggle.com/benchmarks/google/facts-grounding">FACTS leaderboard</a>. (2) <a href="https://x.com/w33lliam/status/1947687115405594933">LMUnit</a> was open-sourced and achieved <a href="https://x.com/w33lliam/status/1937165574230204428">#1 on RewardBench2</a>. (3) <a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">AgentLens</a> launched as a multi-agent evaluation system. (4) GLM covered in <a href="https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/">VentureBeat</a>. (5) Contextual AI's post-training recipe featured as a <a href="https://cloud.google.com/customers/contextualai?hl=en">Google Cloud case study</a>.
-        </p>
+        <p style="margin-bottom: 0.5rem;">Recent:</p>
+        <ul class="news-list">
+            <li><a href="https://x.com/w33lliam/status/1944776594767372636">GLMv2</a> reached #1 on the <a href="https://www.kaggle.com/benchmarks/google/facts-grounding">FACTS leaderboard</a></li>
+            <li><a href="https://x.com/w33lliam/status/1947687115405594933">LMUnit</a> open-sourced and achieved <a href="https://x.com/w33lliam/status/1937165574230204428">#1 on RewardBench2</a></li>
+            <li><a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">AgentLens</a> launched as a multi-agent evaluation system</li>
+            <li>GLM covered in <a href="https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/">VentureBeat</a></li>
+            <li>Contextual AI's post-training recipe featured as a <a href="https://cloud.google.com/customers/contextualai?hl=en">Google Cloud case study</a></li>
+        </ul>
 
         <p>
             I most enjoy product-driven research &mdash; work that enables next-generation user experiences through strong problem formulation. Currently focused on multi-agent systems, continuous learning, memory, agentic evaluation, and context representations. Key areas include:
@@ -174,7 +207,7 @@
         </ul>
 
         <p>
-            BSc from <strong>UBC</strong> (2018) with internships at <strong>Meta</strong> <span class="note">(shipped first subword neural MT)</span>, <strong>Microsoft</strong>, and <strong>Amazon</strong>, and 2 years in bioinformatics at BC Children's Hospital <span class="note">(graph-based genome representation)</span>. PhD at <strong>CMU LTI</strong> (2018&ndash;2022) on dialog systems [<a class="paper-link" href="thesis.pdf">thesis</a>], advised by Dr. Maxine Eskenazi; was also a TA and research mentor throughout both degrees. After my PhD I was an Applied Scientist at <strong>Amazon</strong>, where I helped found the Alexa LLM post-training team <span class="note">(led early SFT, data collection, and owned RM/eval)</span> which became <strong>Amazon AGI</strong>. I then joined <strong>Contextual AI</strong> as a Member of Technical Staff (Jan 2024), was promoted to Technical Lead Manager (May 2024), and then Director of Research (Aug 2025).
+            BSc from <strong>UBC</strong> (2018) with internships at <strong>Meta</strong> <span class="note">(shipped first subword neural MT)</span>, <strong>Microsoft</strong>, and <strong>Amazon</strong> <span class="note">(patent)</span>, and 2 years in bioinformatics at BC Children's Hospital <span class="note">(graph-based genome representation)</span>. PhD at <strong>CMU LTI</strong> (2018&ndash;2022) on dialog systems [<a class="paper-link" href="thesis.pdf">thesis</a>], advised by Dr. Maxine Eskenazi; was also a TA and research mentor throughout both degrees. During my PhD I also interned at <strong>Amazon</strong> <span class="note">(<a class="paper-link" href="https://arxiv.org/abs/2009.13570">dialoglue</a>, <a class="paper-link" href="https://arxiv.org/abs/2010.08684">example-driven '21</a>)</span>. After my PhD I was an Applied Scientist at <strong>Amazon</strong>, where I helped found the Alexa LLM post-training team <span class="note">(led early SFT, data collection, and owned RM/eval)</span> which became <strong>Amazon AGI</strong>. I then joined <strong>Contextual AI</strong> as a Member of Technical Staff (Jan 2024), was promoted to Technical Lead Manager (May 2024), and then Director of Research (Aug 2025).
         </p>
     </main>
 

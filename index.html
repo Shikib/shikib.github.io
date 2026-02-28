@@ -100,22 +100,13 @@
             color: var(--text-strong);
             border-color: var(--text-muted);
         }
-        .news-list {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 1.5rem;
+        .news-inline {
             font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
-        .news-list li {
-            margin-bottom: 0.3rem;
-            padding-left: 1rem;
-            position: relative;
-        }
-        .news-list li::before {
-            content: "\2022";
+        .news-inline .sep {
             color: var(--text-light);
-            position: absolute;
-            left: 0;
+            margin: 0 0.4rem;
         }
         h1 {
             font-size: 2.5rem;
@@ -183,13 +174,7 @@
             <strong>Director of Research</strong> at <a href="https://contextual.ai"><strong>Contextual AI</strong></a>, managing a team of 5 researchers working on LLMs and agents. Previously an Applied Scientist at <strong>Amazon</strong>, where I helped found the Alexa LLM post-training team (which became <strong>Amazon AGI</strong>). PhD from <strong>CMU LTI</strong> [<a class="paper-link" href="thesis.pdf">thesis</a>] (2022) and BSc from <strong>UBC</strong> (2018). Always looking to meet exceptional researchers and interns &mdash; check out our <a href="https://contextual.ai/careers/">open roles</a>.
         </p>
 
-        <p style="margin-bottom: 0.5rem;">Recent:</p>
-        <ul class="news-list">
-            <li><a href="https://x.com/w33lliam/status/1944776594767372636">GLMv2</a> reached #1 on the <a href="https://www.kaggle.com/benchmarks/google/facts-grounding">FACTS leaderboard</a> (<a href="https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/">VentureBeat</a>)</li>
-            <li><a href="https://x.com/w33lliam/status/1947687115405594933">LMUnit</a> open-sourced and achieved <a href="https://x.com/w33lliam/status/1937165574230204428">#1 on RewardBench2</a></li>
-            <li><a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">AgentLens</a> launched as a multi-agent evaluation system</li>
-            <li>Contextual AI's post-training recipe featured as a <a href="https://cloud.google.com/customers/contextualai?hl=en">Google Cloud case study</a></li>
-        </ul>
+        <p class="news-inline">Recent: <a href="https://x.com/w33lliam/status/1944776594767372636">Grounded Language Model</a> reached #1 on the <a href="https://www.kaggle.com/benchmarks/google/facts-grounding">FACTS leaderboard</a> (<a href="https://venturebeat.com/ai/contextual-ais-new-ai-model-crushes-gpt-4o-in-accuracy-heres-why-it-matters/">VentureBeat</a>)<span class="sep">&middot;</span><a href="https://x.com/w33lliam/status/1947687115405594933">LMUnit</a> open-sourced and achieved <a href="https://x.com/w33lliam/status/1937165574230204428">#1 on RewardBench2</a><span class="sep">&middot;</span><a href="https://contextual.ai/blog/agentlens-the-future-of-evaluation-is-agentic">AgentLens</a> launched as a multi-agent evaluation system<span class="sep">&middot;</span>Post-training recipe featured as a <a href="https://cloud.google.com/customers/contextualai?hl=en">Google Cloud case study</a></p>
 
         <p>
             I most enjoy product-driven research &mdash; work that enables next-generation user experiences through strong problem formulation. Currently focused on multi-agent systems, continuous learning, memory, agentic evaluation, and context representations. Key areas include:

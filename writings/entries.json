@@ -184,7 +184,7 @@
     "type": "paper",
     "title": "The DialPort Tools",
     "date": "2022-09-07",
-    "authors": "Shikib Mehri, Jessica Huynh, Cathy Jiao, Maxine Eskenazi",
+    "authors": "Jessica Huynh, Shikib Mehri, Cathy Jiao, Maxine Eskenazi",
     "venue": "SIGDIAL 2022",
     "url": "https://arxiv.org/abs/2208.10918",
     "description": "Tools for the DialPort platform enabling dialog system assessment and data collection."
@@ -272,7 +272,7 @@
     "type": "paper",
     "title": "STAR: A Schema-Guided Dialog Dataset for Transfer Learning",
     "date": "2020-10-22",
-    "authors": "Shikib Mehri, Johannes E. M. Mosig, Thomas Kober",
+    "authors": "Johannes E. M. Mosig, Shikib Mehri, Thomas Kober",
     "venue": "arXiv 2020",
     "url": "https://arxiv.org/abs/2010.11853",
     "description": "A schema-guided dialog dataset designed for evaluating transfer learning in task-oriented dialog."
@@ -362,7 +362,7 @@
     "type": "paper",
     "title": "Beyond Turing: Intelligent Agents Centered on the User",
     "date": "2019-01-20",
-    "authors": "Shikib Mehri, Maxine Eskenazi, Evgeniia Razumovskaia, Tiancheng Zhao",
+    "authors": "Maxine Eskenazi, Shikib Mehri, Evgeniia Razumovskaia, Tiancheng Zhao",
     "venue": "arXiv 2019",
     "url": "https://arxiv.org/abs/1901.06613",
     "description": "A vision for intelligent dialog agents that go beyond the Turing test by centering on user needs."

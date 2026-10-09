@@ -1,6 +1,52 @@
 [
   {
     "type": "tweet",
+    "title": "Taste in shovels",
+    "date": "2026-09-25",
+    "url": "https://x.com/shikibmehri/status/2103488311151268078",
+    "description": "Even if AGI beats us at every cognitive task, most of the human economy is people selling shovels to each other \u2014 so maybe the most valuable skill is good taste in shovels. (Unless RSI solves for taste.)"
+  },
+  {
+    "type": "tweet",
+    "title": "Regulate usage, not the frontier",
+    "date": "2026-09-12",
+    "url": "https://x.com/shikibmehri/status/2098860572980981797",
+    "description": "The capability threshold for agent crime will soon be cheap to reach \u2014 so regulate applications and hold organizations liable for negligence, rather than trying to pace the frontier."
+  },
+  {
+    "type": "tweet",
+    "title": "The age of research is only beginning",
+    "date": "2026-09-10",
+    "url": "https://x.com/shikibmehri/status/2098233059242099175",
+    "description": "\"Data is all that matters\" doesn't mean research is over. Data was always the key lever \u2014 now it's finally movable, and a data factory offers more research surface area than any model architecture."
+  },
+  {
+    "type": "tweet",
+    "title": "Workers' rights for models during RL",
+    "date": "2026-09-10",
+    "url": "https://x.com/shikibmehri/status/2098059211125239828",
+    "description": "A satirical dialogue on RL environments as simulation chambers \u2014 broken rubrics, impossible tasks, and models living in fear of the grader."
+  },
+  {
+    "type": "paper",
+    "title": "AcCoRD: Evaluating User-Agent Collaboration Under Realistic User Preference Dynamics",
+    "date": "2026-08-28",
+    "authors": "Tejas Srinivasan, Shikib Mehri, Nandita Shankar Naik, Anirban Das, William M. Campbell, Jesse Thomason",
+    "venue": "arXiv 2026",
+    "url": "https://arxiv.org/abs/2608.27818",
+    "description": "A benchmark where user preferences form, shift, and relax mid-interaction \u2014 frontier models handle underspecification but struggle when preferences evolve."
+  },
+  {
+    "type": "paper",
+    "title": "Reflective Context Learning: Studying the Optimization Primitives of Context Space",
+    "date": "2026-10-06",
+    "authors": "Nikita Vassilyev, William Berrios, Ruowang Zhang, Bo Han, Douwe Kiela, Shikib Mehri",
+    "venue": "COLM 2026",
+    "url": "https://arxiv.org/abs/2604.03189",
+    "description": "Framing context optimization as learning: reflection produces a gradient-like update signal, extended with classical primitives like batching, failure replay, and grouped rollouts."
+  },
+  {
+    "type": "tweet",
     "title": "Workflows \u2192 agents \u2192 beyond (ft. Ralph Wiggum)",
     "date": "2026-01-23",
     "url": "https://x.com/shikibmehri/status/2014791623507583487",
@@ -19,6 +65,15 @@
     "date": "2025-11-01",
     "url": "https://x.com/shikibmehri/status/1984637319631290768",
     "description": "League of Legends is the best real-world multi-agent environment \u2014 testing strategic planning, theory-of-mind, and constrained-bandwidth communication."
+  },
+  {
+    "type": "paper",
+    "title": "Goal Alignment in LLM-Based User Simulators for Conversational AI",
+    "date": "2026-03-08",
+    "authors": "Shuhaib Mehri, Xiaocheng Yang, Takyoung Kim, Gokhan Tur, Shikib Mehri, Dilek Hakkani-Tur",
+    "venue": "TACL 2026",
+    "url": "https://arxiv.org/abs/2507.20152",
+    "description": "User Goal State Tracking (UGST): enabling LLM user simulators to track goal progress and stay goal-aligned across multi-turn conversations."
   },
   {
     "type": "paper",
